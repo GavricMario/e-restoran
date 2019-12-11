@@ -1,6 +1,7 @@
 package hr.fer.grupa.erestoran
 
 import android.content.Intent
+
 import android.content.Intent.ACTION_VIEW
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        startActivity(Intent(this, MethodSelectActivity::class.java))
 
         startActivity(Intent(this, SignInActivity::class.java))
         finish()
