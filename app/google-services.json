@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "492705905810-c5vah0ejp4jhdlfrlujqnq166bgjrp8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hr.fer.grupa.erestoran",
+            "certificate_hash": "38aa65f7a76be1b43eccb63bd32630576af141d3"
+          }
+        },
+        {
           "client_id": "492705905810-k9gvd9un48rtilrsipv65np9am33cial.apps.googleusercontent.com",
           "client_type": 3
         }

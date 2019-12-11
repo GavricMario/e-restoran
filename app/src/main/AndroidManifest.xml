@@ -14,6 +14,12 @@
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".SignInActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".Jezik"></activity>
+        <activity android:name=".Tutorial5" />
+        <activity android:name=".Tutorial4" />
+        <activity android:name=".Tutorial3" />
+        <activity android:name=".Tutorial1" />
+        <activity android:name=".Tutorial2" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
