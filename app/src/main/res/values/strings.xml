@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">e-restoran</string>
+    <string name="app_name">ScootIt</string>
+    <string name="register">REGISTER</string>
 </resources>
