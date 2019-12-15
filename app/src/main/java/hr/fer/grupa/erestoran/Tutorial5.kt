@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hr.fer.grupa.erestoran.R.layout.activity_tutorial_5
+import kotlinx.android.synthetic.main.activity_tutorial_1.*
 import kotlinx.android.synthetic.main.activity_tutorial_5.*
 
 class Tutorial5 : AppCompatActivity() {
@@ -18,6 +19,12 @@ class Tutorial5 : AppCompatActivity() {
             prefs.edit().putBoolean("firstUse", true).apply()
 
             val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+
+
+        }
+        skip_tutorial5.setOnClickListener{
+            val intent= Intent(this,MainActivity::class.java)
             startActivity(intent)
 
 
