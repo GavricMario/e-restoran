@@ -19,5 +19,11 @@ class Tutorial1 : AppCompatActivity() {
 
 
         }
+        skip_tutorial1.setOnClickListener{
+            val intent= Intent(this,MainActivity::class.java)
+            startActivity(intent)
+
+
+        }
     }
 }
