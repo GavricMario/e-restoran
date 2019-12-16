@@ -15,7 +15,6 @@ fun checkCreditCard(creditCard:String?):Boolean{
     }
 }
 
-
 fun prefixMatched(number: Long, d: Int): Boolean {
     return getPrefix(number, getSize(d.toLong())).toInt() == d
 }

@@ -9,18 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MethodSelectActivity"></activity>
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".Rating"></activity>
+        <activity android:name=".CardPaymentUnregistered" />
+        <activity android:name=".Zahvala" />
+        <activity android:name=".Dostava" />
+        <activity android:name=".MethodSelectActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".Jezik"></activity>
+        <activity android:name=".Jezik" />
         <activity android:name=".Tutorial5" />
         <activity android:name=".Tutorial4" />
         <activity android:name=".Tutorial3" />
         <activity android:name=".Tutorial1" />
         <activity android:name=".Tutorial2" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

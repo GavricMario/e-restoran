@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         gost.setOnClickListener{
-            val intent = Intent(this, MethodSelectActivity::class.java)
+            val intent = Intent(this, Zahvala::class.java)
             intent.putExtra("isGuest", true)
             startActivity(intent)
 
