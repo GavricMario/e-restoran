@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">ScootIt</string>
+    <string name="app_name">e-restoran</string>
     <string name="register">REGISTER</string>
+    <string name="title_activity_login">Login</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

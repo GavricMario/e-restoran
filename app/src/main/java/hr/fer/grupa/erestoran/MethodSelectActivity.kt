@@ -20,6 +20,17 @@ class MethodSelectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_method_select)
 
+        val isGuest: Boolean = intent.extras?.getBoolean("isGuest") ?: false
+
+        if (isGuest) {
+            order_view.visibility = GONE
+            val params = restaurant_view.layoutParams as ConstraintLayout.LayoutParams
+            params.height = MATCH_PARENT
+            restaurant_view.layoutParams = params
+            menuButton.visibility = GONE
+            divider.visibility = GONE
+        }
+
         menuDialog = MenuDialog(this)
         menuDialog.setCancelable(true)
         menuDialog.window?.setLayout(

@@ -1,18 +1,10 @@
 package hr.fer.grupa.erestoran
 
 import android.content.Intent
-
-import android.content.Intent.ACTION_VIEW
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,9 +12,41 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        startActivity(Intent(this, MethodSelectActivity::class.java))
+        val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+        val firstUse = prefs.getBoolean("firstUse", false)
+        if (!firstUse) {
+            startActivity(Intent(this,Tutorial1::class.java))
+            finish()
+        }
 
-        startActivity(Intent(this, SignInActivity::class.java))
-        finish()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        tutorijal.setOnClickListener{
+            val intent = Intent(this,Tutorial1::class.java)
+            startActivity(intent)
+
+
+        }
+        jezici.setOnClickListener{
+            val intent = Intent(this, Jezik::class.java)
+            startActivity(intent)
+        }
+
+        prijava.setOnClickListener{
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+
+            finish()
+        }
+
+        gost.setOnClickListener{
+            val intent = Intent(this, MethodSelectActivity::class.java)
+            intent.putExtra("isGuest", true)
+            startActivity(intent)
+
+            finish()
+        }
     }
 }
