@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import java.lang.Exception
+import java.util.*
 
 class SignInActivity : AppCompatActivity() {
 
@@ -29,6 +30,24 @@ class SignInActivity : AppCompatActivity() {
     private fun initFirebase() {
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
+//        addRestaurants()
+    }
+
+    // Function for adding restaurant data to firebase
+    private fun addRestaurants() {
+        val restaurant = Restaurant()
+        restaurant.title = "La Bodega"
+        restaurant.lat = 45.812133
+        restaurant.long = 15.975118
+        restaurant.description = "La Bodega je finger food restoran s velikim izborom pršuta, sireva, kobasica, kulena, maslina i maslinovog ulja."
+        restaurant.address = "Bogovićeva ul. 5, Zagreb"
+        database.reference.child("Restaurants").child(UUID.randomUUID().toString()).setValue(restaurant)
+        restaurant.title = "Hanami"
+        restaurant.lat = 45.819005
+        restaurant.long = 15.978193
+        restaurant.description = "Restoran Hanami gostima nudi specijalitete azijske kuhinje poput sake nigirija te tuna sashimijs, kao i ramen te slična jela."
+        restaurant.address = "Nova ves 4, Zagreb"
+        database.reference.child("Restaurants").child(UUID.randomUUID().toString()).setValue(restaurant)
     }
 
     private fun initListeners() {
