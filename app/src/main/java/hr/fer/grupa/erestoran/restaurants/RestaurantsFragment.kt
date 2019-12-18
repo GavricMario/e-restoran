@@ -399,5 +399,4 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
         binding.mapView.onDestroy()
         super.onDestroy()
     }
-
 }
