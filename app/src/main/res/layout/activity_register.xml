@@ -105,7 +105,6 @@
         style="@android:style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="#E4E0E0"
         android:text="@string/register"
         android:textSize="18sp"
         android:layout_alignParentBottom="true" />

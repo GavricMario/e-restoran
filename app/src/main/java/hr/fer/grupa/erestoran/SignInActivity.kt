@@ -85,7 +85,9 @@ class SignInActivity : AppCompatActivity() {
             loginUser()
         }
         guest_btn.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
+            val intent = Intent(this, MethodSelectActivity::class.java)
+            intent.putExtra("isGuest", true)
+            startActivity(intent)
         }
     }
 
@@ -132,7 +134,7 @@ class SignInActivity : AppCompatActivity() {
 
                                     })
 
-                            startActivity(Intent(this, HomeActivity::class.java))
+                            startActivity(Intent(this, MethodSelectActivity::class.java))
                             finish()
                         } else {
                             progressBar.visibility = View.GONE
