@@ -3,39 +3,50 @@ package hr.fer.grupa.erestoran
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import android.view.Window.FEATURE_NO_TITLE
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.custom_menu_dialog.*
 
 
-class MenuDialog(context: Context) : Dialog(context, android.R.style.Theme_Light), View.OnClickListener {
+class MenuDialog(context: Context) : Dialog(context, android.R.style.Theme_Light) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(FEATURE_NO_TITLE)
         setContentView(R.layout.custom_menu_dialog)
 
-        item1.setOnClickListener(this)
-        item2.setOnClickListener(this)
-        item3.setOnClickListener(this)
-        item4.setOnClickListener(this)
-        item5.setOnClickListener(this)
-        item6.setOnClickListener(this)
-        item7.setOnClickListener(this)
-        menuButton.setOnClickListener(this)
-    }
+        val listItem = context.resources.getStringArray(R.array.array_settings)
+        val adapter = CircularAdapter(context, listItem)
+        listView.layoutManager = LinearLayoutManager(context)
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.item1-> this.dismiss()
-            R.id.item2-> this.dismiss()
-            R.id.item3-> this.dismiss()
-            R.id.item4-> this.dismiss()
-            R.id.item5-> this.dismiss()
-            R.id.item6-> this.dismiss()
-            R.id.item7-> this.dismiss()
-            R.id.menuButton -> this.dismiss()
+        listView.adapter = adapter
+        listView.scrollToPosition(adapter.MIDDLE)
+
+
+        listView.setOnClickListener {
+
         }
-        this.dismiss()
+
+        listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val firstPosition = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                val lastPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+
+                (recyclerView.adapter as CircularAdapter).firstVisiblePosition = firstPosition
+                (recyclerView.adapter as CircularAdapter).lastVisiblePosition = lastPosition
+
+                (recyclerView.adapter as CircularAdapter).notifyDataSetChanged()
+            }
+        })
+
+        menuButton.setOnClickListener {
+            this.dismiss()
+        }
+
+        menuButton2.setOnClickListener {
+            this.dismiss()
+        }
     }
 }
