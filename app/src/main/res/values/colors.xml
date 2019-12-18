@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorText">#a000</color>
     <color name="buttonColor">#BFC6DEFF</color>
+    <color name="colorRestaurantSelected">#CCEBFF</color>
+    <color name="colorDefault">#FAFAFA</color>
 </resources>
