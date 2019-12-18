@@ -39,6 +39,7 @@ import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.Restaurant
 import hr.fer.grupa.erestoran.databinding.FragmentRestaurantsBinding
+import hr.fer.grupa.erestoran.food.FoodFragment
 
 
 class RestaurantsFragment : Fragment(), OnMapReadyCallback {
@@ -109,6 +110,7 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
             override fun onDataChange(p0: DataSnapshot) {
                 p0.children.forEach {
                     val restaurant = it.getValue(Restaurant::class.java)
+                    restaurant!!.id = it.key!!
                     val restarauntLocation = Location("Restaurants")
                     restarauntLocation.latitude = restaurant!!.lat
                     restarauntLocation.longitude = restaurant.long
@@ -354,7 +356,13 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun handleRestaurantSelection(restaurant: Restaurant) {
-
+        //save restaurant pick
+        val fragment = FoodFragment()
+        val bundle = Bundle()
+        bundle.putString("restaurant", restaurant.id)
+        fragment.arguments = bundle
+        //todo need activity with container
+//        fragmentManager!!.beginTransaction().add(R.id.container, fragment, "FOOD").commit()
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {

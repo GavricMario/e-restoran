@@ -1,6 +1,7 @@
 package hr.fer.grupa.erestoran
 
 class Restaurant(
+    var id: String = "",
     var title: String = "",
     var description: String = "",
     var lat: Double = 0.0,

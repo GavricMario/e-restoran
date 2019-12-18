@@ -31,6 +31,7 @@ class SignInActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
 //        addRestaurants()
+//        addFood()
     }
 
     // Function for adding restaurant data to firebase
@@ -48,6 +49,31 @@ class SignInActivity : AppCompatActivity() {
         restaurant.description = "Restoran Hanami gostima nudi specijalitete azijske kuhinje poput sake nigirija te tuna sashimijs, kao i ramen te slična jela."
         restaurant.address = "Nova ves 4, Zagreb"
         database.reference.child("Restaurants").child(UUID.randomUUID().toString()).setValue(restaurant)
+    }
+
+    // Function for adding food data to firebase
+    private fun addFood() {
+        val food = Food()
+        food.title = "Juha"
+        food.subtitle = "Juha od gljiva"
+        food.type = "predjelo"
+        food.price = 20.00f
+        database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Naresci"
+        food.subtitle = "Prsut, sir"
+        food.type = "predjelo"
+        food.price = 15.00f
+        database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Mesna plata"
+        food.subtitle = "Pljeskavice, cevapi"
+        food.type = "glavno"
+        food.price = 50.00f
+        database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Kolac"
+        food.subtitle = "Od oraha"
+        food.type = "desert"
+        food.price = 10.00f
+        database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
     }
 
     private fun initListeners() {
