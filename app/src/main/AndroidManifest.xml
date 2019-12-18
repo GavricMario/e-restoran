@@ -22,16 +22,20 @@
 
         <activity android:name=".MethodSelectActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".Rating"></activity>
+        <activity android:name=".CardPaymentUnregistered" />
+        <activity android:name=".Zahvala" />
+        <activity android:name=".Dostava" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".Jezik" android:noHistory="true"/>
-        <activity android:name=".Tutorial5" android:noHistory="true"/>
-        <activity android:name=".Tutorial4" android:noHistory="true"/>
-        <activity android:name=".Tutorial3" android:noHistory="true"/>
-        <activity android:name=".Tutorial1" android:noHistory="true"/>
-        <activity android:name=".Tutorial2" android:noHistory="true"/>
+        <activity android:name=".Jezik"></activity>
+        <activity android:name=".Tutorial5" />
+        <activity android:name=".Tutorial4" />
+        <activity android:name=".Tutorial3" />
+        <activity android:name=".Tutorial1" />
+        <activity android:name=".Tutorial2" />
 
-        <activity android:name=".MainActivity" android:noHistory="true">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
