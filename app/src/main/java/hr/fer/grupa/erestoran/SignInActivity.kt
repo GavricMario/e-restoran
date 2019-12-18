@@ -52,14 +52,12 @@ class SignInActivity : AppCompatActivity() {
         if(emailUsername.isEmpty()){
             email_username_text.error = "Enter Email or Username"
             email_username_text.requestFocus()
-            return
-        }
-        if(password.isEmpty()){
+            progressBar.visibility = View.GONE
+        } else if(password.isEmpty()){
             password_text.error = "Enter password"
             password_text.requestFocus()
-            return
-        }
-        if(emailUsername.contains('@')){
+            progressBar.visibility = View.GONE
+        }else if(emailUsername.contains('@')){
             emailLogin(emailUsername, password)
         }else{
             usernameLogin(emailUsername, password)
@@ -101,6 +99,13 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent= Intent(this,MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun usernameLogin(username: String,password: String) {

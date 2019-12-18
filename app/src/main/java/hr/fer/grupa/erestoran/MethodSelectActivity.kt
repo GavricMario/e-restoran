@@ -69,6 +69,10 @@ class MethodSelectActivity : AppCompatActivity() {
         menuButton.setOnClickListener {
             menuDialog.show()
         }
+
+        menuButton2.setOnClickListener {
+            menuDialog.show()
+        }
     }
 
     private fun navigate(action: String) {

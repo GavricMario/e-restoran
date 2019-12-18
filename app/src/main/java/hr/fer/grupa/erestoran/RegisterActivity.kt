@@ -74,61 +74,46 @@ class RegisterActivity : AppCompatActivity() {
                     if(name.isEmpty()){
                         nameText.error = "Enter First Name"
                         nameText.requestFocus()
-                        return
                     } else if(surname.isEmpty()){
                         surnameText.error = "Enter Last Name"
                         surnameText.requestFocus()
-                        return
                     } else if(username.isEmpty()){
                         usernameText.error = "Enter Username"
                         usernameText.requestFocus()
-                        return
                     } else if (usernameText.length() < 6 || usernameText.length() > 30 ) {
                         usernameText.error = "Usernam must be longer than 6 characters and and shorter than 30 characters"
                         usernameText.requestFocus()
-                        return
-                    }else if(!isValidUsername(username)){
+                    } else if(!isValidUsername(username)){
                         usernameText.error = "Special charaters are not allowed in username"
                         usernameText.requestFocus()
-                        return
                     } else if(p0.hasChild(usernameText.text.toString().trim())){
                         usernameText.error = "Username already taken"
                         usernameText.requestFocus()
                     } else if(email.isEmpty()){
                         emailText.error = "Enter Email"
                         emailText.requestFocus()
-                        return
-                    }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                         emailText.error = "Enter valid email address"
                         emailText.requestFocus()
-                        return
-                    }else if(password.isEmpty()){
+                    } else if(password.isEmpty()){
                         passwordText.error = "Enter Password"
                         passwordText.requestFocus()
-                        return
-                    }else if(password.length < 6){
+                    } else if(password.length < 6){
                         passwordText.error = "Password should be at least 6 characters"
                         passwordText.requestFocus()
-                        return
                     } else if (password != confirmPassword) {
                         passwordConfirmText.error = "Password doesn't match"
                         passwordConfirmText.requestFocus()
-                        return
-                    }
-                    if(creditCard.isEmpty()){
+                    } else if(creditCard.isEmpty()){
                         credit_card_text.error="Enter credit card number"
                         credit_card_text.requestFocus()
-                        return
-                    }
-                    if(!cardValidated){
+                    } else if(!cardValidated){
                         credit_card_text.error="Validate credit card first"
                         credit_card_text.requestFocus()
-                        return
+                    } else {
+                        val user = User(username, name, surname, email, creditCard, password)
+                        registerUser(user)
                     }
-
-                    val user = User(username, name, surname, email, creditCard, password)
-                    registerUser(user)
-
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
