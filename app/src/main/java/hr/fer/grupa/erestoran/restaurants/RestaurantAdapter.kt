@@ -15,7 +15,11 @@ import hr.fer.grupa.erestoran.Restaurant
 import kotlinx.android.synthetic.main.item_restaurant.view.*
 import kotlin.math.roundToInt
 
-class RestaurantAdapter(private val items: MutableList<Restaurant>, val context: Context) :
+class RestaurantAdapter(
+    private var items: MutableList<Restaurant>,
+    val context: Context,
+    private val clickListener: (Restaurant, Int) -> Unit
+) :
     RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
@@ -32,24 +36,38 @@ class RestaurantAdapter(private val items: MutableList<Restaurant>, val context:
         return items.size
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
-        holder.title.text = items[position].title
-        holder.subtitle.text = items[position].address
-        holder.distance.text = "${items[position].distance}km"
-        if (items[position].isSelected)
-            holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorRestaurantSelected))
-        else
-            holder.rootView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorDefault))
-//        Picasso.get().load(items[position].imageUrl).into(holder.image)
+        holder.bind(items[position], position, clickListener)
     }
 
     inner class RestaurantViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.restaurant_title
-        val subtitle: TextView = view.restaurant_subtitle
-        val image: ImageView = view.restaurant_image
-        val distance: TextView = view.distance
-        val rootView: LinearLayout = view.root_view
+        @SuppressLint("SetTextI18n")
+        fun bind(restaurant: Restaurant, position: Int, clickListener: (Restaurant, Int) -> Unit) {
+            view.restaurant_title.text = restaurant.title
+            view.restaurant_subtitle.text = restaurant.address
+            view.distance.text = "${restaurant.distance}km"
+            if (restaurant.isSelected)
+                view.rootView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorRestaurantSelected
+                    )
+                )
+            else
+                view.rootView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorDefault
+                    )
+                )
+            view.setOnClickListener { clickListener(restaurant, position) }
+            //        Picasso.get().load(items[position].imageUrl).into(holder.image)
+        }
+    }
+
+    fun setItems(newItems: MutableList<Restaurant>) {
+        this.items = newItems
+        this.notifyDataSetChanged()
     }
 
 }

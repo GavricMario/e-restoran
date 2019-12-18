@@ -1,6 +1,7 @@
 package hr.fer.grupa.erestoran.restaurants
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,14 +10,20 @@ import android.graphics.Canvas
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
-import android.view.MotionEvent
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
@@ -24,18 +31,19 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.Restaurant
-import hr.fer.grupa.erestoran.databinding.ActivityRestaurantsBinding
+import hr.fer.grupa.erestoran.databinding.FragmentRestaurantsBinding
 
 
-class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
+class RestaurantsFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var binding: ActivityRestaurantsBinding
+    private lateinit var binding: FragmentRestaurantsBinding
 
     private val database = FirebaseDatabase.getInstance().reference
 
@@ -48,22 +56,43 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var userLocation = Location("user")
 
     private val restaurants = mutableListOf<Restaurant>()
+    private val markers = mutableListOf<Marker>()
 
     private var lastSelectedIndex = -1
     private var lastSelectedMarker: Marker? = null
+    private val dialogHandler = Handler(Looper.getMainLooper())
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_restaurants
-        )
-        binding.activity = this
-        adapter = RestaurantAdapter(restaurants, this)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_restaurants, container, false)
+        binding.fragment = this
+        adapter =
+            RestaurantAdapter(
+                restaurants,
+                requireContext()
+            ) { restaurant, index -> restaurantClicked(restaurant, index) }
         binding.recyclerView.adapter = adapter
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
+        binding.search.addTextChangedListener(object : TextWatcher {
+            @SuppressLint("DefaultLocale")
+            override fun afterTextChanged(p0: Editable?) {
+                val searchedRestaurants = restaurants.filter {
+                    it.title.toLowerCase().contains(p0.toString().toLowerCase())
+                } as MutableList
+                adapter.setItems(searchedRestaurants)
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+        })
         getUserLocation()
+        return binding.root
     }
 
     private fun getRestaurants() {
@@ -71,7 +100,7 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
         restaurantsQuery.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Toast.makeText(
-                    applicationContext,
+                    requireContext(),
                     "An unexpected error occured.",
                     Toast.LENGTH_SHORT
                 ).show()
@@ -83,7 +112,8 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
                     val restarauntLocation = Location("Restaurants")
                     restarauntLocation.latitude = restaurant!!.lat
                     restarauntLocation.longitude = restaurant.long
-                    restaurant.distance = (restarauntLocation.distanceTo(userLocation)/1000).round(2)
+                    restaurant.distance =
+                        (restarauntLocation.distanceTo(userLocation) / 1000).round(2)
                     restaurants.add(restaurant)
                 }
                 initRecyclerView()
@@ -95,15 +125,17 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
     fun Float.round(decimals: Int = 2): Float = "%.${decimals}f".format(this).toFloat()
 
     private fun initRecyclerView() {
-        val dividerItemDecoration = DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL)
+        val dividerItemDecoration =
+            DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL)
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
         restaurants.sortBy { it.distance }
+        if (restaurants[0].distance < 0.05) restarauntNearMe()
         adapter.notifyDataSetChanged()
         showMapMarkers()
     }
 
     private fun getUserLocation() {
-        locationClient = LocationServices.getFusedLocationProviderClient(this)
+        locationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 locationClient.lastLocation.addOnCompleteListener {
@@ -116,7 +148,7 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
                     }
                 }
             } else {
-                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Turn on location", Toast.LENGTH_LONG).show()
                 val intent = Intent(ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
             }
@@ -132,7 +164,7 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
         mLocationRequest.fastestInterval = 0
         mLocationRequest.numUpdates = 1
 
-        locationClient = LocationServices.getFusedLocationProviderClient(this)
+        locationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         locationClient.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
@@ -148,11 +180,11 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun checkPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(
-                this,
+                requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(
-                this,
+                requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
@@ -162,7 +194,7 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun isLocationEnabled(): Boolean {
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -170,7 +202,7 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
-            this,
+            requireActivity(),
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -203,22 +235,20 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val latLng = LatLng(it.lat, it.long)
                 val markerOption = MarkerOptions()
                 markerOption.position(latLng)
-                markerOption.icon(bitmapDescriptorFromVector(this, R.drawable.round_marker))
+                markerOption.icon(bitmapDescriptorFromVector(requireContext(), R.drawable.round_marker))
                 markerOption.title(it.title)
                 markerOption.snippet(it.address)
-                googleMap!!.addMarker(markerOption)
+                markers.add(googleMap!!.addMarker(markerOption))
             }
             val userMarker = MarkerOptions()
             userMarker.position(LatLng(userLocation.latitude, userLocation.longitude))
-            userMarker.icon(bitmapDescriptorFromVector(this, R.drawable.ic_my_location_24dp))
+            userMarker.icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_my_location_24dp))
             userMarker.title("Your location")
             googleMap!!.addMarker(userMarker)
             googleMap!!.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
-                    LatLng(
-                        userLocation.latitude,
-                        userLocation.longitude
-                    ), 14f
+                    userMarker.position
+                    , 14f
                 )
             )
             googleMap!!.setOnMarkerClickListener {
@@ -229,12 +259,22 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
                             restaurants[lastSelectedIndex].isSelected = false
                             binding.recyclerView.adapter!!.notifyItemChanged(lastSelectedIndex)
                         }
-                        lastSelectedMarker?.setIcon(bitmapDescriptorFromVector(this, R.drawable.round_marker))
+                        lastSelectedMarker?.setIcon(
+                            bitmapDescriptorFromVector(
+                                requireContext(),
+                                R.drawable.round_marker
+                            )
+                        )
                         binding.recyclerView.adapter!!.notifyItemChanged(index)
                         binding.recyclerView.scrollToPosition(index)
                         lastSelectedIndex = index
                         lastSelectedMarker = it
-                        it.setIcon(bitmapDescriptorFromVector(this, R.drawable.round_marker_selected))
+                        it.setIcon(
+                            bitmapDescriptorFromVector(
+                                requireContext(),
+                                R.drawable.round_marker_selected
+                            )
+                        )
                     }
                 }
                 googleMap!!.animateCamera(CameraUpdateFactory.newLatLng(it.position))
@@ -243,7 +283,79 @@ class RestaurantsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    //TODO search, item click scroll on map, closest restaurant handling
+    private fun restarauntNearMe() {
+        val restaurant = restaurants[0]
+        markerUpdate(restaurant, 0)
+        val dialogRunnable = Runnable {
+            val dialog = BottomSheetDialog(requireContext())
+            val dialogView = this.layoutInflater.inflate(R.layout.dialog_select_restaurant, null)
+            dialog.setContentView(dialogView)
+            dialog.findViewById<TextView>(R.id.bottom_sheet_prompt)!!.text =
+                this.getString(R.string.are_you_here)
+            dialog.findViewById<TextView>(R.id.yes_button)!!.setOnClickListener {
+                handleRestaurantSelection(
+                    restaurant
+                )
+            }
+            dialog.findViewById<TextView>(R.id.no_button)!!.setOnClickListener {
+                restaurants[0].isSelected = false
+                adapter.notifyItemChanged(0)
+                dialog.hide()
+            }
+            dialog.show()
+        }
+        dialogHandler.postDelayed(dialogRunnable, 1000)
+    }
+
+    private fun markerUpdate(restaurant: Restaurant, index: Int) {
+        markers.forEach { marker ->
+            if (marker.title == restaurant.title) {
+                restaurants[index].isSelected = true
+                if (lastSelectedIndex != -1) {
+                    restaurants[lastSelectedIndex].isSelected = false
+                    binding.recyclerView.adapter!!.notifyItemChanged(lastSelectedIndex)
+                }
+                lastSelectedMarker?.setIcon(
+                    bitmapDescriptorFromVector(
+                        requireContext(),
+                        R.drawable.round_marker
+                    )
+                )
+                binding.recyclerView.adapter!!.notifyItemChanged(index)
+                binding.recyclerView.scrollToPosition(index)
+                lastSelectedIndex = index
+                lastSelectedMarker = marker
+                marker.setIcon(
+                    bitmapDescriptorFromVector(
+                        requireContext(),
+                        R.drawable.round_marker_selected
+                    )
+                )
+                googleMap!!.animateCamera(CameraUpdateFactory.newLatLng(marker.position))
+            }
+        }
+    }
+
+    private fun restaurantClicked(restaurant: Restaurant, index: Int) {
+        markerUpdate(restaurant, index)
+        val showDialogRunnable = Runnable {
+            val dialog = BottomSheetDialog(requireContext())
+            val dialogView = this.layoutInflater.inflate(R.layout.dialog_select_restaurant, null)
+            dialog.setContentView(dialogView)
+            dialog.findViewById<TextView>(R.id.yes_button)!!.setOnClickListener {
+                handleRestaurantSelection(
+                    restaurant
+                )
+            }
+            dialog.findViewById<TextView>(R.id.no_button)!!.setOnClickListener { dialog.hide() }
+            dialog.show()
+        }
+        dialogHandler.postDelayed(showDialogRunnable, 1000)
+    }
+
+    private fun handleRestaurantSelection(restaurant: Restaurant) {
+
+    }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         return ContextCompat.getDrawable(context, vectorResId)?.run {

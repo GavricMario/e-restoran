@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="hr.fer.grupa.erestoran.restaurants.RestaurantsActivity" />
+            name="fragment"
+            type="hr.fer.grupa.erestoran.restaurants.RestaurantsFragment" />
     </data>
 
 

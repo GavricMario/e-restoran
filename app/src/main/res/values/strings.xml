@@ -2,4 +2,8 @@
     <string name="app_name">ScootIt</string>
     <string name="register">REGISTER</string>
     <string name="search_hint">Search...</string>
+    <string name="restaurant_prompt">Select this restaurant?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="are_you_here">Are you here?</string>
 </resources>
