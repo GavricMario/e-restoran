@@ -16,7 +16,6 @@
 
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
-            <stroke android:color="#000000" android:width="2dp" />
             <solid android:color="#FFFFFF" />
             <corners android:bottomRightRadius="40dp" android:topRightRadius="40dp" />
         </shape>

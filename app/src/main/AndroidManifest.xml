@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="hr.fer.grupa.erestoran">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -8,10 +13,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".MethodSelectActivity"></activity>
-        <activity android:name=".HomeActivity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC1G1baglgRwsePY3agzsfUqvECYwkzUwk"/>
+
+        <activity android:name=".MethodSelectActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".Rating"></activity>
+        <activity android:name=".CardPaymentUnregistered" />
+        <activity android:name=".Zahvala" />
+        <activity android:name=".Dostava" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".Jezik"></activity>

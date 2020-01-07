@@ -28,6 +28,7 @@ class MethodSelectActivity : AppCompatActivity() {
             params.height = MATCH_PARENT
             restaurant_view.layoutParams = params
             menuButton.visibility = GONE
+            menuButton2.visibility = GONE
             divider.visibility = GONE
         }
 
@@ -49,6 +50,7 @@ class MethodSelectActivity : AppCompatActivity() {
                 params.height = MATCH_PARENT
                 order_view.layoutParams = params
                 menuButton.visibility = GONE
+                menuButton2.visibility = GONE
                 divider.visibility = GONE
                 navigate("order")
             }
@@ -61,6 +63,7 @@ class MethodSelectActivity : AppCompatActivity() {
                 params.height = MATCH_PARENT
                 restaurant_view.layoutParams = params
                 menuButton.visibility = GONE
+                menuButton2.visibility = GONE
                 divider.visibility = GONE
                 navigate("restaurant")
             }
@@ -69,13 +72,17 @@ class MethodSelectActivity : AppCompatActivity() {
         menuButton.setOnClickListener {
             menuDialog.show()
         }
+
+        menuButton2.setOnClickListener {
+            menuDialog.show()
+        }
     }
 
     private fun navigate(action: String) {
         Handler().postDelayed({
             when (action) {
-                "order" -> startActivity(Intent(this, MainActivity::class.java))
-                "restaurant" -> startActivity(Intent(this, MainActivity::class.java))
+                "order" -> startActivity(Intent(this, HomeActivity::class.java).putExtra("type", "order"))
+                "restaurant" -> startActivity(Intent(this, HomeActivity::class.java).putExtra("type", "order"))
             }
         }, 1000)
 

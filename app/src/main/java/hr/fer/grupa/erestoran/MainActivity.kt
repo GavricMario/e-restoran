@@ -1,10 +1,9 @@
 package hr.fer.grupa.erestoran
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         gost.setOnClickListener{
-            val intent = Intent(this, MethodSelectActivity::class.java)
+            val intent = Intent(this, Zahvala::class.java)
             intent.putExtra("isGuest", true)
             startActivity(intent)
 
