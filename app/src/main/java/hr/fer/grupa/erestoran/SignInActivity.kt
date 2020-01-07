@@ -1,17 +1,17 @@
 package hr.fer.grupa.erestoran
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import java.lang.Exception
 import java.util.*
 
 class SignInActivity : AppCompatActivity() {
@@ -25,6 +25,13 @@ class SignInActivity : AppCompatActivity() {
 
         initFirebase()
         initListeners()
+
+        val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+        val email = prefs.getString("email", "") ?: ""
+        val password = prefs.getString("password", "") ?: ""
+        if (email != "") {
+            emailLogin(email, password)
+        }
     }
 
     private fun initFirebase() {
@@ -117,7 +124,6 @@ class SignInActivity : AppCompatActivity() {
                         if (isVerified) {
                             progressBar.visibility = View.GONE
                             Toast.makeText(this, "Signed in successfully!", Toast.LENGTH_SHORT).show()
-                            // TODO save user data so he is logged in when app turns on again
 
                             database.reference.child("Users")
                                                 .orderByChild("email")
@@ -131,7 +137,7 @@ class SignInActivity : AppCompatActivity() {
                                         }
 
                                     })
-
+                            saveCredentials(email, password)
                             startActivity(Intent(this, MethodSelectActivity::class.java))
                             finish()
                         } else {
@@ -146,9 +152,17 @@ class SignInActivity : AppCompatActivity() {
 
     }
 
+    private fun saveCredentials(email: String, password: String) {
+        val prefs: SharedPreferences = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+        prefs.edit()
+            .putString("email", email)
+            .putString("password", password)
+            .apply()
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent= Intent(this,MainActivity::class.java)
+        val intent= Intent(this,UserTypeSelectActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hr.fer.grupa.erestoran.R.layout.activity_tutorial_2
-import kotlinx.android.synthetic.main.activity_tutorial_1.*
 import kotlinx.android.synthetic.main.activity_tutorial_2.*
 import kotlinx.android.synthetic.main.activity_tutorial_2.dalje
 
@@ -16,22 +15,12 @@ class Tutorial2 : AppCompatActivity() {
         dalje.setOnClickListener{
             val intent= Intent(this,Tutorial3::class.java)
             startActivity(intent)
-
+            finish()
 
         }
         skip_tutorial2.setOnClickListener{
-            val intent= Intent(this,MainActivity::class.java)
-            startActivity(intent)
-
-
+            onBackPressed()
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent= Intent(this,MainActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
 }
