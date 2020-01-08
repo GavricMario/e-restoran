@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class UserTypeSelectActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +25,8 @@ class MainActivity : AppCompatActivity() {
         tutorijal.setOnClickListener{
             val intent = Intent(this,Tutorial1::class.java)
             startActivity(intent)
-
-
         }
+
         jezici.setOnClickListener{
             val intent = Intent(this, Jezik::class.java)
             startActivity(intent)
@@ -36,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         prijava.setOnClickListener{
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
-
             finish()
         }
 
@@ -44,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Zahvala::class.java)
             intent.putExtra("isGuest", true)
             startActivity(intent)
-
             finish()
         }
     }

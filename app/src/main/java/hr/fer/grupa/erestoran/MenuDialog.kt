@@ -24,10 +24,6 @@ class MenuDialog(context: Context) : Dialog(context, android.R.style.Theme_Light
         listView.scrollToPosition(adapter.MIDDLE)
 
 
-        listView.setOnClickListener {
-
-        }
-
         listView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
