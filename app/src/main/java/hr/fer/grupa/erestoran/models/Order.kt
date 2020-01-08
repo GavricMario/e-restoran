@@ -7,5 +7,6 @@ class Order(
     var restaurant: Restaurant,
     var food: MutableSet<Food>,
     var drink: MutableSet<Drink>,
-    var allItems: MutableList<Section>
+    var allItems: MutableList<Section>,
+    var type: String
 ): Serializable

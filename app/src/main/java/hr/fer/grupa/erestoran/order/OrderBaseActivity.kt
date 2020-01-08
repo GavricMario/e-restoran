@@ -20,10 +20,13 @@ class OrderBaseActivity : AppCompatActivity() {
 
     private lateinit var order: Order
 
+    private var orderType = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.order_base_activity)
         binding.activity = this
+        orderType = intent.getStringExtra("type")!!
         val restaurantPickFragment = RestaurantsFragment()
         supportFragmentManager.beginTransaction()
             .add(R.id.container, restaurantPickFragment, "restaurant")
@@ -45,7 +48,7 @@ class OrderBaseActivity : AppCompatActivity() {
         when (event.fragment) {
             is RestaurantsFragment -> {
                 order =
-                    Order(event.data as Restaurant, mutableSetOf(), mutableSetOf(), mutableListOf())
+                    Order(event.data as Restaurant, mutableSetOf(), mutableSetOf(), mutableListOf(), orderType)
                 val fragment = FoodFragment()
                 val bundle = Bundle()
                 bundle.putString("restaurant", order.restaurant.id)
