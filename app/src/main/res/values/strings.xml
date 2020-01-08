@@ -9,4 +9,7 @@
     <string name="title_activity_login">Login</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="one">1</string>
 </resources>

@@ -82,8 +82,8 @@ class MethodSelectActivity : AppCompatActivity() {
     private fun navigate(action: String) {
         Handler().postDelayed({
             when (action) {
-                "order" -> startActivity(Intent(this, HomeActivity::class.java).putExtra("type", "order"))
-                "restaurant" -> startActivity(Intent(this, OrderBaseActivity::class.java))
+                "order" -> startActivity(Intent(this, OrderBaseActivity::class.java).putExtra("type", "delivery"))
+                "restaurant" -> startActivity(Intent(this, OrderBaseActivity::class.java).putExtra("type", "restaurant"))
             }
             finish()
         }, 500)
