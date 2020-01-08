@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran.food
+package hr.fer.grupa.erestoran.drink
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,12 +12,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.shuhart.stickyheader.StickyAdapter
-import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.food.Section
+import hr.fer.grupa.erestoran.models.Drink
 import kotlinx.android.synthetic.main.item_food.view.*
 import kotlinx.android.synthetic.main.item_food_header.view.*
 
-class FoodAdapter(var context: Context, var sections: MutableList<Section>) :
+class DrinkAdapter(var context: Context, var sections: MutableList<Section>) :
     StickyAdapter<RecyclerView.ViewHolder, RecyclerView.ViewHolder>() {
 
     private val LAYOUT_HEADER = 0
@@ -53,8 +54,8 @@ class FoodAdapter(var context: Context, var sections: MutableList<Section>) :
             (p0 as HeaderViewHolder).headerType.text = sections[p1].getName()
         } else {
             val holder = p0 as FoodViewHolder
-            val food = sections[p1].getItem()
-            holder.bind(food)
+            val drink = sections[p1].getDrinkItem()
+            holder.bind(drink)
         }
     }
 
@@ -72,7 +73,7 @@ class FoodAdapter(var context: Context, var sections: MutableList<Section>) :
 
 
     inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var foodImage = itemView.food_image
+        var drinkImage = itemView.food_image
         var name = itemView.name!!
         var description = itemView.description!!
         var price = itemView.price!!
@@ -89,11 +90,11 @@ class FoodAdapter(var context: Context, var sections: MutableList<Section>) :
             }
         }
 
-        fun bind(food: Food) {
-            name.text = food.title
-            description.text = food.subtitle
-            price.text = food.price.toString()
-            if (food.isInCart) {
+        fun bind(drink: Drink) {
+            name.text = drink.title
+            description.text = drink.subtitle
+            price.text = drink.price.toString()
+            if (drink.isInCart) {
                 isInCartView.visibility = View.VISIBLE
                 addToCartView.setBackgroundColor(Color.RED)
             } else {

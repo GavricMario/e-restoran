@@ -17,6 +17,8 @@ import com.shuhart.stickyheader.StickyHeaderItemDecorator
 import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.databinding.FragmentFoodBinding
+import hr.fer.grupa.erestoran.models.OrderFragmentEvent
+import org.greenrobot.eventbus.EventBus
 
 class FoodFragment : Fragment() {
 
@@ -30,6 +32,8 @@ class FoodFragment : Fragment() {
 
     private val foodList = mutableListOf<Section>()
 
+    private val selectedFood = mutableSetOf<Food>()
+
     private lateinit var adapter: FoodAdapter
 
     override fun onCreateView(
@@ -38,6 +42,7 @@ class FoodFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_food, container, false)
+        binding.fragment = this
         val bundle = this.arguments
         if (bundle != null) {
             getFood(bundle.getString("restaurant")!!)
@@ -78,12 +83,16 @@ class FoodFragment : Fragment() {
         adapter.onItemClick = {
             //todo open next step
         }
-        adapter.addToCartClick = {
-            //todo handle add to cart
+        adapter.addToCartClick = { section, position ->
+            if (selectedFood.add(section.getItem())) {
+                foodList[position].getItem().isInCart = true
+                adapter.notifyItemChanged(position)
+            } else {
+                selectedFood.remove(section.getItem())
+                foodList[position].getItem().isInCart = false
+                adapter.notifyItemChanged(position)
+            }
         }
-        val dividerItemDecoration =
-            DividerItemDecoration(binding.recyclerView.context, RecyclerView.VERTICAL)
-        binding.recyclerView.addItemDecoration(dividerItemDecoration)
         binding.recyclerView.adapter = adapter
         if (starters.isNotEmpty()) {
             val starterHeaderModel = HeaderModel(0)
@@ -116,6 +125,10 @@ class FoodFragment : Fragment() {
             }
         }
         adapter.notifyDataSetChanged()
+    }
+
+    fun finishFoodPicking() {
+        EventBus.getDefault().post(OrderFragmentEvent(this, selectedFood))
     }
 
 }

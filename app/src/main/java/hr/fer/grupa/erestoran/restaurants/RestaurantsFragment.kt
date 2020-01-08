@@ -40,6 +40,8 @@ import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.models.Restaurant
 import hr.fer.grupa.erestoran.databinding.FragmentRestaurantsBinding
 import hr.fer.grupa.erestoran.food.FoodFragment
+import hr.fer.grupa.erestoran.models.OrderFragmentEvent
+import org.greenrobot.eventbus.EventBus
 
 
 class RestaurantsFragment : Fragment(), OnMapReadyCallback {
@@ -295,9 +297,7 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
             dialog.findViewById<TextView>(R.id.bottom_sheet_prompt)!!.text =
                 this.getString(R.string.are_you_here)
             dialog.findViewById<TextView>(R.id.yes_button)!!.setOnClickListener {
-                handleRestaurantSelection(
-                    restaurant
-                )
+                handleRestaurantSelection(restaurant, dialog)
             }
             dialog.findViewById<TextView>(R.id.no_button)!!.setOnClickListener {
                 restaurants[0].isSelected = false
@@ -345,9 +345,7 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
             val dialogView = this.layoutInflater.inflate(R.layout.dialog_select_restaurant, null)
             dialog.setContentView(dialogView)
             dialog.findViewById<TextView>(R.id.yes_button)!!.setOnClickListener {
-                handleRestaurantSelection(
-                    restaurant
-                )
+                handleRestaurantSelection(restaurant, dialog)
             }
             dialog.findViewById<TextView>(R.id.no_button)!!.setOnClickListener { dialog.hide() }
             dialog.show()
@@ -355,14 +353,9 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
         dialogHandler.postDelayed(showDialogRunnable, 1000)
     }
 
-    private fun handleRestaurantSelection(restaurant: Restaurant) {
-        //save restaurant pick
-        val fragment = FoodFragment()
-        val bundle = Bundle()
-        bundle.putString("restaurant", restaurant.id)
-        fragment.arguments = bundle
-        //todo need activity with container
-//        fragmentManager!!.beginTransaction().add(R.id.container, fragment, "FOOD").commit()
+    private fun handleRestaurantSelection(restaurant: Restaurant, dialog: BottomSheetDialog) {
+        EventBus.getDefault().post(OrderFragmentEvent(this, restaurant))
+        dialog.dismiss()
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {

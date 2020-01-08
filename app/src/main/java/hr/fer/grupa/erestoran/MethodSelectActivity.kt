@@ -9,6 +9,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import hr.fer.grupa.erestoran.order.OrderBaseActivity
 import kotlinx.android.synthetic.main.activity_method_select.*
 
 
@@ -82,9 +83,9 @@ class MethodSelectActivity : AppCompatActivity() {
         Handler().postDelayed({
             when (action) {
                 "order" -> startActivity(Intent(this, HomeActivity::class.java).putExtra("type", "order"))
-                "restaurant" -> startActivity(Intent(this, HomeActivity::class.java).putExtra("type", "order"))
+                "restaurant" -> startActivity(Intent(this, OrderBaseActivity::class.java))
             }
-        }, 1000)
+        }, 500)
 
         //TODO change activities
     }
