@@ -1,4 +1,6 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.models
+
+import hr.fer.grupa.erestoran.SettingsItemUsageModel
 
 class User(
     var username: String = "",

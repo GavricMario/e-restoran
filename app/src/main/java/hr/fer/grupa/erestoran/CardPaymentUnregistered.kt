@@ -24,7 +24,7 @@ class CardPaymentUnregistered : AppCompatActivity() {
 
         }
         nazad.setOnClickListener{
-            val intent= Intent(this,Dostava::class.java)
+            val intent= Intent(this, Dostava::class.java)
             startActivity(intent)
 
         }

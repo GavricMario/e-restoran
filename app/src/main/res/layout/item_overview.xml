@@ -19,10 +19,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/root_item_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/root_item_view">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,19 +73,44 @@
 
             </LinearLayout>
 
-            <View
-                android:id="@+id/is_in_cart_view"
-                android:layout_width="20dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_green_dark"
-                android:visibility="invisible" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/minus"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/one"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/plus"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary" />
 
     </LinearLayout>
 

@@ -5,15 +5,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import hr.fer.grupa.erestoran.R
-import hr.fer.grupa.erestoran.Restaurant
+import hr.fer.grupa.erestoran.models.Restaurant
 import kotlinx.android.synthetic.main.item_restaurant.view.*
-import kotlin.math.roundToInt
 
 class RestaurantAdapter(
     private var items: MutableList<Restaurant>,
