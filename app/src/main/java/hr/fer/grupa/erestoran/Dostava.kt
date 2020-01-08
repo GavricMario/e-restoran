@@ -27,11 +27,12 @@ class Dostava : AppCompatActivity() {
 
         potvrdi_id.setOnClickListener(){
             if (kartica.isChecked){
-                val intent= Intent(this,CardPaymentUnregistered::class.java)
+                val intent= Intent(this,
+                    CardPaymentUnregistered::class.java)
                 startActivity(intent)
             }
             else{
-                val intent= Intent(this,Zahvala::class.java)
+                val intent= Intent(this, Zahvala::class.java)
                 startActivity(intent)
             }
         }

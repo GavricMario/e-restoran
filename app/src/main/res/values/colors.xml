@@ -7,5 +7,7 @@
     <color name="buttonColor">#BFC6DEFF</color>
     <color name="colorRestaurantSelected">#CCEBFF</color>
     <color name="colorDefault">#FAFAFA</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorGreen">#ff669900</color>
     <color name="colorGray">#99585858</color>
 </resources>

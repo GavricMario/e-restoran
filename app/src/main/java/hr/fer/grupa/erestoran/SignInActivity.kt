@@ -11,6 +11,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import hr.fer.grupa.erestoran.models.Drink
+import hr.fer.grupa.erestoran.models.Food
+import hr.fer.grupa.erestoran.models.Restaurant
+import hr.fer.grupa.erestoran.models.User
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import java.util.*
 
@@ -39,6 +43,7 @@ class SignInActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 //        addRestaurants()
 //        addFood()
+//        addDrinks()
     }
 
     // Function for adding restaurant data to firebase
@@ -81,6 +86,40 @@ class SignInActivity : AppCompatActivity() {
         food.type = "desert"
         food.price = 10.00f
         database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+    }
+    // Function for adding drink data to firebase
+    private fun addDrinks() {
+        val food = Drink()
+        food.title = "Coca cola"
+        food.subtitle = "Gazirano"
+        food.type = "bezalkoholno"
+        food.price = 20.00f
+        database.reference.child("Drink").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Voda"
+        food.subtitle = "Obicna voda"
+        food.type = "bezalkoholno"
+        food.price = 15.00f
+        database.reference.child("Drink").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Kozel"
+        food.subtitle = "Tamni"
+        food.type = "alkoholno"
+        food.price = 20.00f
+        database.reference.child("Drink").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Kozel"
+        food.subtitle = "Svijetli"
+        food.type = "alkoholno"
+        food.price = 20.00f
+        database.reference.child("Drink").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Kava"
+        food.subtitle = "Crna"
+        food.type = "toplo"
+        food.price = 10.00f
+        database.reference.child("Drink").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Čaj"
+        food.subtitle = "Voćni"
+        food.type = "toplo"
+        food.price = 10.00f
+        database.reference.child("Drink").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
     }
 
     private fun initListeners() {
@@ -129,7 +168,8 @@ class SignInActivity : AppCompatActivity() {
                                                 .orderByChild("email")
                                                 .equalTo(email).limitToFirst(1).addListenerForSingleValueEvent(object: ValueEventListener {
                                         override fun onDataChange(p0: DataSnapshot) {
-                                            sessionUser = p0.children.first().getValue(User::class.java) ?: User()
+                                            sessionUser = p0.children.first().getValue(
+                                                User::class.java) ?: User()
                                         }
 
                                         override fun onCancelled(p0: DatabaseError) {

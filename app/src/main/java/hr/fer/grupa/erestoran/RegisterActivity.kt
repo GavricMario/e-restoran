@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import hr.fer.grupa.erestoran.models.User
 import kotlinx.android.synthetic.main.activity_register.*
 
 
@@ -111,7 +112,14 @@ class RegisterActivity : AppCompatActivity() {
                         credit_card_text.error="Validate credit card first"
                         credit_card_text.requestFocus()
                     } else {
-                        val user = User(username, name, surname, email, creditCard, password)
+                        val user = User(
+                            username,
+                            name,
+                            surname,
+                            email,
+                            creditCard,
+                            password
+                        )
                         registerUser(user)
                     }
                 }
@@ -123,7 +131,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(user:User) {
+    private fun registerUser(user: User) {
         progressBar2.visibility = View.VISIBLE
         auth.createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener(this) {
             if (it.isSuccessful) {
