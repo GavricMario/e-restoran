@@ -8,6 +8,7 @@ import hr.fer.grupa.erestoran.databinding.OrderBaseActivityBinding
 import hr.fer.grupa.erestoran.drink.DrinkFragment
 import hr.fer.grupa.erestoran.food.FoodFragment
 import hr.fer.grupa.erestoran.models.*
+import hr.fer.grupa.erestoran.overview.OrderOverviewFragment
 import hr.fer.grupa.erestoran.restaurants.RestaurantsFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -43,7 +44,8 @@ class OrderBaseActivity : AppCompatActivity() {
     fun onFragmentEvent(event: OrderFragmentEvent) {
         when (event.fragment) {
             is RestaurantsFragment -> {
-                order = Order(event.data as Restaurant, mutableSetOf(), mutableSetOf())
+                order =
+                    Order(event.data as Restaurant, mutableSetOf(), mutableSetOf(), mutableListOf())
                 val fragment = FoodFragment()
                 val bundle = Bundle()
                 bundle.putString("restaurant", order.restaurant.id)
@@ -72,8 +74,23 @@ class OrderBaseActivity : AppCompatActivity() {
             }
             is DrinkFragment -> {
                 order.drink = event.data as MutableSet<Drink>
-                
+                val fragment = OrderOverviewFragment()
+                val bundle = Bundle()
+                bundle.putSerializable("order", order)
+                fragment.arguments = bundle
+                supportFragmentManager.beginTransaction().add(R.id.container, fragment, "overview")
+                    .addToBackStack("overview").setCustomAnimations(
+                        R.anim.fragment_enter_animation,
+                        R.anim.fragment_stay_animation,
+                        R.anim.fragment_stay_animation,
+                        R.anim.fragment_exit_animation
+                    ).commit()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.fragments.size > 1) supportFragmentManager.popBackStack()
+        else super.onBackPressed()
     }
 }

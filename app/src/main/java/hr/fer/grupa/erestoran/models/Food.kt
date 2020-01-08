@@ -1,5 +1,7 @@
 package hr.fer.grupa.erestoran.models
 
+import java.io.Serializable
+
 class Food(
     var id: String = "",
     var title: String = "",
@@ -8,5 +10,5 @@ class Food(
     var imageUrl: String = "",
     var type: String = "",
     var isInCart: Boolean = false,
-    var quantity: Int = 0
-)
+    var quantity: Int = 1
+): Serializable
