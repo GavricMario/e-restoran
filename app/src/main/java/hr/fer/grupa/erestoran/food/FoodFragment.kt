@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
-import hr.fer.grupa.erestoran.Food
+import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.databinding.FragmentFoodBinding
 

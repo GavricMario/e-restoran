@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.models
 
 class Food(
     var id: String = "",

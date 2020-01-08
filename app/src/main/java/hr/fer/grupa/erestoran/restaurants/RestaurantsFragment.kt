@@ -37,7 +37,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
-import hr.fer.grupa.erestoran.Restaurant
+import hr.fer.grupa.erestoran.models.Restaurant
 import hr.fer.grupa.erestoran.databinding.FragmentRestaurantsBinding
 import hr.fer.grupa.erestoran.food.FoodFragment
 

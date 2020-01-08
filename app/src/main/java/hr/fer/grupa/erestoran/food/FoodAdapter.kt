@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.daimajia.swipe.SwipeLayout
 import com.shuhart.stickyheader.StickyAdapter
-import hr.fer.grupa.erestoran.Food
+import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.R
 import kotlinx.android.synthetic.main.item_food.view.*
 import kotlinx.android.synthetic.main.item_food_header.view.*
