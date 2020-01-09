@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_settings">
+        <item>Change Language</item>
+        <item>Add Address</item>
+        <item>Tutorial</item>
+        <item>MoreSettings3</item>
+        <item>Profile</item>
+        <item>Order History</item>
+        <item>Log Out</item>
+    </string-array>
+</resources>
