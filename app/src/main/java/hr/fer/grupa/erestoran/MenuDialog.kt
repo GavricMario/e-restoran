@@ -17,7 +17,7 @@ class MenuDialog(context: Context) : Dialog(context, android.R.style.Theme_Light
         setContentView(R.layout.custom_menu_dialog)
 
         val listItem = context.resources.getStringArray(R.array.array_settings)
-        val adapter = CircularAdapter(context, listItem)
+        val adapter = InfiniteAdapter(context, listItem)
         listView.layoutManager = LinearLayoutManager(context)
 
         listView.adapter = adapter
@@ -30,10 +30,10 @@ class MenuDialog(context: Context) : Dialog(context, android.R.style.Theme_Light
                 val firstPosition = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 val lastPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
-                (recyclerView.adapter as CircularAdapter).firstVisiblePosition = firstPosition
-                (recyclerView.adapter as CircularAdapter).lastVisiblePosition = lastPosition
+                (recyclerView.adapter as InfiniteAdapter).firstVisiblePosition = firstPosition
+                (recyclerView.adapter as InfiniteAdapter).lastVisiblePosition = lastPosition
 
-                (recyclerView.adapter as CircularAdapter).notifyDataSetChanged()
+                (recyclerView.adapter as InfiniteAdapter).notifyDataSetChanged()
             }
         })
 
