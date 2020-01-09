@@ -85,8 +85,13 @@ class MethodSelectActivity : AppCompatActivity() {
                 "order" -> startActivity(Intent(this, OrderBaseActivity::class.java).putExtra("type", "delivery"))
                 "restaurant" -> startActivity(Intent(this, OrderBaseActivity::class.java).putExtra("type", "restaurant"))
             }
+            finish()
         }, 500)
 
         //TODO change activities
+    }
+
+    fun finishActivity() {
+        finish()
     }
 }

@@ -16,22 +16,12 @@ class Tutorial1 : AppCompatActivity() {
         dalje.setOnClickListener{
             val intent= Intent(this,Tutorial2::class.java)
             startActivity(intent)
-
+            finish()
 
         }
         skip_tutorial1.setOnClickListener{
-            val intent= Intent(this,MainActivity::class.java)
-            startActivity(intent)
-
-
+            onBackPressed()
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent= Intent(this,MainActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
 }

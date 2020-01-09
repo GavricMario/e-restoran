@@ -13,30 +13,16 @@ class Jezik : AppCompatActivity() {
 
         hrv.setOnClickListener{
             sessionUser.language = "hr"
-            val intent= Intent(this,MainActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
         eng.setOnClickListener{
             sessionUser.language = "eng"
-            val intent= Intent(this,MainActivity::class.java)
-            startActivity(intent)
-
-
+            onBackPressed()
         }
         de.setOnClickListener{
             sessionUser.language = "de"
-            val intent= Intent(this,MainActivity::class.java)
-            startActivity(intent)
-
-
+            onBackPressed()
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent= Intent(this,MainActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
 }
