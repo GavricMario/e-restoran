@@ -114,7 +114,7 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
                     val restaurant = it.getValue(Restaurant::class.java)
                     restaurant!!.id = it.key!!
                     val restarauntLocation = Location("Restaurants")
-                    restarauntLocation.latitude = restaurant!!.lat
+                    restarauntLocation.latitude = restaurant.lat
                     restarauntLocation.longitude = restaurant.long
                     restaurant.distance =
                         (restarauntLocation.distanceTo(userLocation) / 1000).round(2)
@@ -126,7 +126,7 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
-    fun Float.round(decimals: Int = 2): Float = "%.${decimals}f".format(this).toFloat()
+    fun Float.round(decimals: Int = 2) = "%.${decimals}f".format(this).replace(",", ".").toFloat()
 
     private fun initRecyclerView() {
         val dividerItemDecoration =

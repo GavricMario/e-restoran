@@ -1,8 +1,9 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.R.layout.activity_tutorial_5
 import kotlinx.android.synthetic.main.activity_tutorial_5.*
 

@@ -1,16 +1,22 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.provider.Settings
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_sign_in.*
+import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.models.User
+import hr.fer.grupa.erestoran.util.sessionUser
+import hr.fer.grupa.erestoran.util.userUid
 
 class SplashActivity : AppCompatActivity() {
 
@@ -31,6 +37,10 @@ class SplashActivity : AppCompatActivity() {
         } else {
             startActivity(Intent(this, UserTypeSelectActivity::class.java))
             finish()
+        }
+
+        if (!checkPermissions()) {
+            requestPermissions()
         }
     }
 
@@ -55,6 +65,7 @@ class SplashActivity : AppCompatActivity() {
                                 ValueEventListener {
                                 override fun onDataChange(p0: DataSnapshot) {
                                     sessionUser = p0.children.first().getValue(User::class.java) ?: User()
+                                    userUid = p0.children.first().key ?: ""
                                 }
 
                                 override fun onCancelled(p0: DatabaseError) {
@@ -74,5 +85,31 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
 
+    }
+
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            123
+        )
     }
 }

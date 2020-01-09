@@ -4,40 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.Tutorial4" >
+    tools:context=".activity.Payment">
 
-    <TextView
+    <Button
+        android:id="@+id/kartica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tutorial4"
-        android:textSize="24sp"
+        android:text="Kartica"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
-        android:id="@+id/dalje"
+        android:id="@+id/cash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="30dp"
-        android:text="Dalje"
+        android:layout_marginTop="100dp"
+        android:text="Cash"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/kartica"
+        app:layout_constraintStart_toStartOf="@+id/kartica"
+        app:layout_constraintTop_toBottomOf="@+id/kartica"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
-        android:id="@+id/skip_tutorial4"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginBottom="30dp"
-        android:text="Izbornik"
+        android:layout_marginTop="100dp"
+        android:text="nazad"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
+        app:layout_constraintEnd_toEndOf="@+id/cash"
+        app:layout_constraintStart_toStartOf="@+id/cash"
+        app:layout_constraintTop_toBottomOf="@+id/cash"
+        app:layout_constraintVertical_bias="0.0"
+        android:visibility="invisible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

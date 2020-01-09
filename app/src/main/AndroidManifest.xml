@@ -15,31 +15,35 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC1G1baglgRwsePY3agzsfUqvECYwkzUwk" />
 
-        <activity android:name=".SplashActivity" >
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MethodSelectActivity" />
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.Payment" />
+        <activity android:name=".activity.Zahvala" />
+        <activity android:name=".activity.Dostava" />
+        <activity android:name=".activity.SignInActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.Jezik" />
+        <activity android:name=".activity.Tutorial5" />
+        <activity android:name=".activity.Tutorial4" />
+        <activity android:name=".activity.Tutorial3" />
+        <activity android:name=".activity.Tutorial1" />
+        <activity android:name=".activity.Tutorial2" />
+        <activity android:name=".activity.UserTypeSelectActivity" />
+        <activity android:name=".order.OrderBaseActivity" />
+        <activity android:name=".activity.AddAddressActivity" />
 
-        <activity android:name=".MethodSelectActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".CardPaymentUnregistered" />
-        <activity android:name=".Zahvala" />
-        <activity android:name=".Dostava" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".Jezik" />
-        <activity android:name=".Tutorial5" />
-        <activity android:name=".Tutorial4" />
-        <activity android:name=".Tutorial3" />
-        <activity android:name=".Tutorial1" />
-        <activity android:name=".Tutorial2" />
-        <activity android:name=".UserTypeSelectActivity" />
     </application>
 
 </manifest>

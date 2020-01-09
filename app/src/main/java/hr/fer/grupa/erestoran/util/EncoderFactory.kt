@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.util
 
 import android.graphics.Bitmap
 import java.io.ByteArrayOutputStream

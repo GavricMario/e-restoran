@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,10 +11,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.models.Drink
 import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.models.Restaurant
 import hr.fer.grupa.erestoran.models.User
+import hr.fer.grupa.erestoran.util.sessionUser
+import hr.fer.grupa.erestoran.util.userUid
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import java.util.*
 
@@ -170,6 +173,7 @@ class SignInActivity : AppCompatActivity() {
                                         override fun onDataChange(p0: DataSnapshot) {
                                             sessionUser = p0.children.first().getValue(
                                                 User::class.java) ?: User()
+                                            userUid = p0.children.first().key ?: ""
                                         }
 
                                         override fun onCancelled(p0: DatabaseError) {
@@ -202,7 +206,7 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent= Intent(this,UserTypeSelectActivity::class.java)
+        val intent= Intent(this, UserTypeSelectActivity::class.java)
         startActivity(intent)
         finish()
     }

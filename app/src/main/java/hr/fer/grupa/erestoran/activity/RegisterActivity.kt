@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +16,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.util.checkCreditCard
+import hr.fer.grupa.erestoran.util.isValidUsername
 import hr.fer.grupa.erestoran.models.User
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -84,7 +87,10 @@ class RegisterActivity : AppCompatActivity() {
                     } else if (usernameText.length() < 6 || usernameText.length() > 30 ) {
                         usernameText.error = "Usernam must be longer than 6 characters and and shorter than 30 characters"
                         usernameText.requestFocus()
-                    } else if(!isValidUsername(username)){
+                    } else if(!isValidUsername(
+                            username
+                        )
+                    ){
                         usernameText.error = "Special charaters are not allowed in username"
                         usernameText.requestFocus()
                     } else if(p0.hasChild(usernameText.text.toString().trim())){

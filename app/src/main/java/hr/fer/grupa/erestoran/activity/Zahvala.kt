@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.activity
 
 import android.app.Dialog
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.RatingBar
+import hr.fer.grupa.erestoran.R
 
 
 class Zahvala : AppCompatActivity() {
@@ -16,11 +17,7 @@ class Zahvala : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_zahvala)
-        dostava_restoran.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                openDialog()
-            }
-        })
+        dostava_restoran.setOnClickListener { openDialog() }
 
     }
 
@@ -34,7 +31,7 @@ class Zahvala : AppCompatActivity() {
         val ratingBar = dialog.findViewById(R.id.ratingBar) as RatingBar
 
         c.setOnClickListener {
-            if (ratingBar.getRating()!= 0f) {
+            if (ratingBar.rating != 0f) {
                 val intent = Intent(this, MethodSelectActivity::class.java)
                 startActivity(intent)
             }

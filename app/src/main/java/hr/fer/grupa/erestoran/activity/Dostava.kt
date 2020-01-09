@@ -1,10 +1,11 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
+import hr.fer.grupa.erestoran.R
 import kotlinx.android.synthetic.main.activity_dostava.*
 
 
@@ -28,7 +29,7 @@ class Dostava : AppCompatActivity() {
         potvrdi_id.setOnClickListener(){
             if (kartica.isChecked){
                 val intent= Intent(this,
-                    CardPaymentUnregistered::class.java)
+                    Payment::class.java)
                 startActivity(intent)
             }
             else{

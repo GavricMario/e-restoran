@@ -1,7 +1,5 @@
 package hr.fer.grupa.erestoran.models
 
-import hr.fer.grupa.erestoran.SettingsItemUsageModel
-
 class User(
     var username: String = "",
     var firstName: String = "",
@@ -11,6 +9,6 @@ class User(
     var password: String = "",
     var language: String= "hr",
 //    var history:
-    var settingItemUsage: ArrayList<SettingsItemUsageModel> = ArrayList(),
+//    var settingItemUsage: ArrayList<SettingsItemUsageModel> = ArrayList(),
     var addresses: ArrayList<AddressModel> = ArrayList()
 )

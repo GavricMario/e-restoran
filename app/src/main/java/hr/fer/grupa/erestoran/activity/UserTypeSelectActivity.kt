@@ -1,8 +1,9 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import hr.fer.grupa.erestoran.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class UserTypeSelectActivity : AppCompatActivity() {
@@ -14,8 +15,8 @@ class UserTypeSelectActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
         val firstUse = prefs.getBoolean("firstUse", false)
         if (!firstUse) {
-            startActivity(Intent(this,Tutorial1::class.java))
-            finish()
+            startActivity(Intent(this,
+                Tutorial1::class.java))
         }
 
         setListeners()
@@ -23,7 +24,7 @@ class UserTypeSelectActivity : AppCompatActivity() {
 
     private fun setListeners() {
         tutorijal.setOnClickListener{
-            val intent = Intent(this,Tutorial1::class.java)
+            val intent = Intent(this, Tutorial1::class.java)
             startActivity(intent)
         }
 
@@ -39,7 +40,7 @@ class UserTypeSelectActivity : AppCompatActivity() {
         }
 
         gost.setOnClickListener{
-            val intent = Intent(this, Zahvala::class.java)
+            val intent = Intent(this, MethodSelectActivity::class.java)
             intent.putExtra("isGuest", true)
             startActivity(intent)
             finish()
