@@ -1,14 +1,16 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import hr.fer.grupa.erestoran.MenuDialog
+import hr.fer.grupa.erestoran.OnSwipeTouchListener
+import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.order.OrderBaseActivity
 import kotlinx.android.synthetic.main.activity_method_select.*
 

@@ -9,8 +9,10 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
-import hr.fer.grupa.erestoran.MethodSelectActivity
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.activity.Payment
+import hr.fer.grupa.erestoran.activity.MethodSelectActivity
+import hr.fer.grupa.erestoran.activity.Zahvala
 import hr.fer.grupa.erestoran.databinding.OrderOverviewFragmentBinding
 import hr.fer.grupa.erestoran.food.HeaderModel
 import hr.fer.grupa.erestoran.food.ItemModel
@@ -122,12 +124,15 @@ class OrderOverviewFragment : Fragment() {
                 "Your order has been placed. Thank You for using our application!",
                 Toast.LENGTH_SHORT
             ).show()
-            val intent = Intent(requireContext(), MethodSelectActivity::class.java)
+            val intent = Intent(requireContext(), Zahvala::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             requireActivity().finish()
         } else if (order.type == "delivery") {
-            //todo start payment activity
+            val intent = Intent(requireContext(), Payment::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
 }

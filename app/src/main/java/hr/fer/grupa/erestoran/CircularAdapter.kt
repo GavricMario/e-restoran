@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import hr.fer.grupa.erestoran.activity.*
+import hr.fer.grupa.erestoran.models.User
+import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.item_menu_list.view.*
 
 
@@ -39,7 +42,8 @@ class CircularAdapter(
                 context.startActivity(intent)
             }
             "Add Address" -> holder.container.setOnClickListener {
-                //TODO add address view
+                val intent = Intent(context, AddAddressActivity::class.java)
+                context.startActivity(intent)
             }
             "Tutorial" -> holder.container.setOnClickListener {
                 val intent = Intent(context, Tutorial1::class.java)
