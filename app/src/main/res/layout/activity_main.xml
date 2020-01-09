@@ -4,84 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserTypeSelectActivity">
-
-    <Button
-        android:id="@+id/tutorijal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp"
-        android:text="Tutorial"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="@color/buttonColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/jezici"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/rounded_button"
-        android:text="jezici"
-        android:backgroundTint="@color/buttonColor"
-        app:layout_constraintBottom_toTopOf="@+id/tutorijal"
-        app:layout_constraintEnd_toEndOf="@+id/tutorijal"
-        app:layout_constraintStart_toStartOf="@+id/tutorijal" />
-
-    <ImageButton
-        android:id="@+id/gost"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:background="#0000"
-        android:src="@drawable/user_anonim"
-        android:text="Gost"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
-
-    <ImageButton
-        android:id="@+id/prijava"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="50dp"
-        android:background="#0000"
-        android:src="@drawable/user_login"
-        android:text="Prijava"
-        app:layout_constraintBottom_toBottomOf="@+id/gost"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gost" />
+    tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="KORISNIK"
-        app:layout_constraintEnd_toEndOf="@+id/prijava"
-        app:layout_constraintStart_toStartOf="@+id/prijava"
-        app:layout_constraintTop_toBottomOf="@+id/prijava" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="GOST"
-        app:layout_constraintEnd_toEndOf="@+id/gost"
-        app:layout_constraintStart_toStartOf="@+id/gost"
-        app:layout_constraintTop_toBottomOf="@+id/gost" />
-
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
