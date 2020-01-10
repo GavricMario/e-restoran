@@ -6,9 +6,7 @@ class User(
     var lastName: String = "",
     var email: String = "",
     var creditCard: String = "",
-    var password: String = "",
     var language: String= "hr",
-//    var history:
-//    var settingItemUsage: ArrayList<SettingsItemUsageModel> = ArrayList(),
+    var orderHistory: ArrayList<Order> = ArrayList(),
     var addresses: ArrayList<AddressModel> = ArrayList()
 )

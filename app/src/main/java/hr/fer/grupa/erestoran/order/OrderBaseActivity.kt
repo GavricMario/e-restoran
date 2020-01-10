@@ -1,9 +1,9 @@
 package hr.fer.grupa.erestoran.order
 
+import android.hardware.Sensor
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.databinding.OrderBaseActivityBinding
 import hr.fer.grupa.erestoran.drink.DrinkFragment
 import hr.fer.grupa.erestoran.food.FoodFragment
@@ -13,6 +13,14 @@ import hr.fer.grupa.erestoran.restaurants.RestaurantsFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import android.widget.Toast
+import android.hardware.SensorManager
+import android.view.WindowManager
+import hr.fer.grupa.erestoran.MenuDialog
+import hr.fer.grupa.erestoran.PieDialog
+import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.util.ShakeListener
+
 
 class OrderBaseActivity : AppCompatActivity() {
 
@@ -21,6 +29,12 @@ class OrderBaseActivity : AppCompatActivity() {
     private lateinit var order: Order
 
     private var orderType = ""
+
+    private lateinit var sensorManager: SensorManager
+    private lateinit var accelerometer: Sensor
+    private val shakeDetector = ShakeListener()
+
+    private lateinit var pieMenu: PieDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +45,35 @@ class OrderBaseActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(R.id.container, restaurantPickFragment, "restaurant")
             .addToBackStack("restaurant").commit()
+
+
+        pieMenu = PieDialog(this)
+        pieMenu.setCancelable(true)
+        pieMenu.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
+        pieMenu.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        shakeDetector.setOnShakeListener(object : ShakeListener.OnShakeListener {
+
+            override fun onShake(count: Int) {
+                pieMenu.show()
+            }
+        })
     }
 
     override fun onStart() {
         super.onStart()
+        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI);
         EventBus.getDefault().register(this)
     }
 
     override fun onStop() {
         super.onStop()
+        sensorManager.unregisterListener(shakeDetector)
         EventBus.getDefault().unregister(this)
     }
 

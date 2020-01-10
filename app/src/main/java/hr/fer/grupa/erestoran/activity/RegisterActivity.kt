@@ -119,14 +119,13 @@ class RegisterActivity : AppCompatActivity() {
                         credit_card_text.requestFocus()
                     } else {
                         val user = User(
-                            username,
-                            name,
-                            surname,
-                            email,
-                            creditCard,
-                            password
+                            username = username,
+                            firstName = name,
+                            lastName = surname,
+                            email = email,
+                            creditCard = creditCard
                         )
-                        registerUser(user)
+                        registerUser(user, password)
                     }
                 }
 
@@ -137,9 +136,9 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(user: User) {
+    private fun registerUser(user: User, password: String) {
         progressBar2.visibility = View.VISIBLE
-        auth.createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener(this) {
+        auth.createUserWithEmailAndPassword(user.email, password).addOnCompleteListener(this) {
             if (it.isSuccessful) {
                 val userId = auth.currentUser?.uid
 

@@ -2,6 +2,7 @@ package hr.fer.grupa.erestoran.activity
 
 import android.Manifest
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,15 @@ class SplashActivity : AppCompatActivity() {
 
         initFirebase()
 
-        val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+        if (!checkPermissions()) {
+            requestPermissions()
+        } else {
+            checkLogin()
+        }
+    }
+
+    private fun checkLogin() {
+        prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
         val email = prefs.getString("email", "") ?: ""
         val password = prefs.getString("password", "") ?: ""
         if (email != "") {
@@ -37,10 +47,6 @@ class SplashActivity : AppCompatActivity() {
         } else {
             startActivity(Intent(this, UserTypeSelectActivity::class.java))
             finish()
-        }
-
-        if (!checkPermissions()) {
-            requestPermissions()
         }
     }
 
@@ -73,6 +79,7 @@ class SplashActivity : AppCompatActivity() {
                                 }
 
                             })
+                        prefs.edit().putBoolean("isGuest", false).apply()
                         startActivity(Intent(this, MethodSelectActivity::class.java))
                         finish()
                     } else {
@@ -111,5 +118,14 @@ class SplashActivity : AppCompatActivity() {
             ),
             123
         )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        checkLogin()
     }
 }

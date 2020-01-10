@@ -9,4 +9,19 @@
         <item>Order History</item>
         <item>Log Out</item>
     </string-array>
+
+    <array name="iconsCircleMenu">
+        <item>@drawable/ic_swipe</item>
+        <item>@drawable/ic_restaurant</item>
+        <item>@drawable/ic_food</item>
+        <item>@drawable/ic_drink</item>
+        <item>@drawable/ic_cart</item>
+    </array>
+    <array name="colorsCircleMenu">
+        <item>@android:color/holo_blue_light</item>
+        <item>@android:color/holo_green_dark</item>
+        <item>@android:color/holo_red_light</item>
+        <item>@android:color/holo_purple</item>
+        <item>@android:color/holo_orange_light</item>
+    </array>
 </resources>

@@ -13,10 +13,10 @@ import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.item_menu_list.view.*
 
 
-class CircularAdapter(
+class InfiniteAdapter(
     private val context: Context,
     private val objects: Array<String>
-) : RecyclerView.Adapter<CircularAdapter.CircularViewHolder>() {
+) : RecyclerView.Adapter<InfiniteAdapter.CircularViewHolder>() {
 
     var firstVisiblePosition: Int = 0
     var lastVisiblePosition: Int = 0

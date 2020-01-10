@@ -1,6 +1,7 @@
 package hr.fer.grupa.erestoran.activity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.view.View.GONE
@@ -19,11 +20,15 @@ class MethodSelectActivity : AppCompatActivity() {
 
     private lateinit var menuDialog: MenuDialog
 
+    private lateinit var prefs: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_method_select)
 
-        val isGuest: Boolean = intent.extras?.getBoolean("isGuest") ?: false
+        prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+
+        val isGuest: Boolean = prefs.getBoolean("isGuest", false)
 
         if (isGuest) {
             order_view.visibility = GONE
@@ -33,6 +38,7 @@ class MethodSelectActivity : AppCompatActivity() {
             menuButton.visibility = GONE
             menuButton2.visibility = GONE
             divider.visibility = GONE
+            navigate("restaurant")
         }
 
         menuDialog = MenuDialog(this)

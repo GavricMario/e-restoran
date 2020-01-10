@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#0090FF</color>
+    <color name="colorPrimaryDark">#1B6497</color>
+    <color name="colorAccent">#FD8B00</color>
     <color name="colorText">#a000</color>
-    <color name="buttonColor">#BFC6DEFF</color>
+    <color name="buttonColor">#FD8B00</color>
     <color name="colorRestaurantSelected">#CCEBFF</color>
     <color name="colorDefault">#FAFAFA</color>
     <color name="colorRed">#FF0000</color>

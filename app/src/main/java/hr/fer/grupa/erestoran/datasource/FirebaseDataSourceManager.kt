@@ -1,11 +1,11 @@
 package hr.fer.grupa.erestoran.datasource
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.models.AddressModel
+import hr.fer.grupa.erestoran.models.Order
 import hr.fer.grupa.erestoran.models.User
 import hr.fer.grupa.erestoran.util.sessionUser
 import hr.fer.grupa.erestoran.util.userUid
@@ -49,6 +49,13 @@ class FirebaseDataSourceManager{
     fun setLanguage(language: String) {
         if (userUid != "") {
             database.reference.child("Users").child(userUid).child("language").setValue(language)
+        }
+    }
+
+    fun saveOrder(order: Order) {
+        val key = database.reference.child("Users").child(userUid).child("orders").push().key
+        if (key != null ) {
+            database.reference.child("Users").child(userUid).child("orders").child(key).setValue(order)
         }
     }
 }

@@ -26,9 +26,13 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
 
+    private lateinit var prefs: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+
+        prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
 
         initFirebase()
         initListeners()
@@ -135,7 +139,9 @@ class SignInActivity : AppCompatActivity() {
         }
         guest_btn.setOnClickListener {
             val intent = Intent(this, MethodSelectActivity::class.java)
-            intent.putExtra("isGuest", true)
+            prefs.edit()
+                .putBoolean("isGuest", true)
+                .apply()
             startActivity(intent)
         }
     }
@@ -182,6 +188,7 @@ class SignInActivity : AppCompatActivity() {
 
                                     })
                             saveCredentials(email, password)
+                            prefs.edit().putBoolean("isGuest", false).apply()
                             startActivity(Intent(this, MethodSelectActivity::class.java))
                             finish()
                         } else {
