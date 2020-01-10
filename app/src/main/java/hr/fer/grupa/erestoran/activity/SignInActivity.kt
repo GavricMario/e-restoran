@@ -188,6 +188,7 @@ class SignInActivity : AppCompatActivity() {
 
                                     })
                             saveCredentials(email, password)
+                            prefs.edit().putBoolean("isGuest", false).apply()
                             startActivity(Intent(this, MethodSelectActivity::class.java))
                             finish()
                         } else {
