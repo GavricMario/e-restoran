@@ -1,5 +1,8 @@
 package hr.fer.grupa.erestoran.datasource
 
+import android.content.Context
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -14,6 +17,7 @@ class FirebaseDataSourceManager{
 
     companion object {
 
+        private val auth: FirebaseAuth = FirebaseAuth.getInstance()
         private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         private lateinit var instance: FirebaseDataSourceManager
         private lateinit var userListener: ValueEventListener
@@ -56,6 +60,16 @@ class FirebaseDataSourceManager{
         val key = database.reference.child("Users").child(userUid).child("orders").push().key
         if (key != null ) {
             database.reference.child("Users").child(userUid).child("orders").child(key).setValue(order)
+        }
+    }
+
+    fun resetPassword(email: String, context: Context) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(context, "Password reset email has been sent!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(context, "Something went wrong please try again later", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

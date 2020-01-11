@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran.activity
+package hr.fer.grupa.erestoran.account
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,6 +12,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.activity.MethodSelectActivity
+import hr.fer.grupa.erestoran.activity.UserTypeSelectActivity
 import hr.fer.grupa.erestoran.models.Drink
 import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.models.Restaurant

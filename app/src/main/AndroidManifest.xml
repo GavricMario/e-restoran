@@ -15,35 +15,69 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".account.AccountDetailsActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC1G1baglgRwsePY3agzsfUqvECYwkzUwk" />
 
-        <activity android:name=".activity.SplashActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MethodSelectActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.HomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Payment" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Zahvala" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Dostava" android:screenOrientation="portrait" />
-        <activity android:name=".activity.SignInActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.RegisterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Jezik" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Tutorial5" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Tutorial4" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Tutorial3" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Tutorial1" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Tutorial2" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.UserTypeSelectActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".order.OrderBaseActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.AddAddressActivity" android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".activity.MethodSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Payment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Zahvala"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Dostava"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".account.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".account.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Jezik"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Tutorial5"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Tutorial4"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Tutorial3"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Tutorial1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Tutorial2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserTypeSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".order.OrderBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".account.AddAddressActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

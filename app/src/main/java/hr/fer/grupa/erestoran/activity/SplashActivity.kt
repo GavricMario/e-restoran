@@ -87,6 +87,7 @@ class SplashActivity : AppCompatActivity() {
                         finish()
                     }
                 } else {
+                    prefs.edit().clear().apply()
                     startActivity(Intent(this, UserTypeSelectActivity::class.java))
                     finish()
                 }

@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran.activity
+package hr.fer.grupa.erestoran.account
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
