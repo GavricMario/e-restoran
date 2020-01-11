@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import hr.fer.grupa.erestoran.activity.*
 import hr.fer.grupa.erestoran.models.User
+import hr.fer.grupa.erestoran.orderhistory.OrderHistoryActivity
 import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.item_menu_list.view.*
 
@@ -56,7 +57,8 @@ class InfiniteAdapter(
                 //TODO profile edit view
             }
             "Order History" -> holder.container.setOnClickListener {
-                //TODO history view
+                val intent = Intent(context, OrderHistoryActivity::class.java)
+                context.startActivity(intent)
             }
             "Log Out" -> holder.container.setOnClickListener {
                 val prefs = context.getSharedPreferences(context.resources.getString(R.string.app_name), AppCompatActivity.MODE_PRIVATE)

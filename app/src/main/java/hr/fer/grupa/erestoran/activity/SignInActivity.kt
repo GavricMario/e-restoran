@@ -3,6 +3,7 @@ package hr.fer.grupa.erestoran.activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
-import hr.fer.grupa.erestoran.models.Drink
-import hr.fer.grupa.erestoran.models.Food
-import hr.fer.grupa.erestoran.models.Restaurant
-import hr.fer.grupa.erestoran.models.User
+import hr.fer.grupa.erestoran.models.*
 import hr.fer.grupa.erestoran.util.sessionUser
 import hr.fer.grupa.erestoran.util.userUid
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -177,8 +175,16 @@ class SignInActivity : AppCompatActivity() {
                                                 .orderByChild("email")
                                                 .equalTo(email).limitToFirst(1).addListenerForSingleValueEvent(object: ValueEventListener {
                                         override fun onDataChange(p0: DataSnapshot) {
-                                            sessionUser = p0.children.first().getValue(
-                                                User::class.java) ?: User()
+                                            sessionUser = p0.children.first().getValue(User::class.java) ?: User()
+
+                                            for (valueRes in p0.children.first().child("orders").children) {
+                                                val order = valueRes.getValue(Order::class.java)
+                                                Log.d("Test", "Test")
+                                                if(order != null) {
+                                                    sessionUser.orderHistory.add(order)
+                                                }
+                                            }
+
                                             userUid = p0.children.first().key ?: ""
                                         }
 
