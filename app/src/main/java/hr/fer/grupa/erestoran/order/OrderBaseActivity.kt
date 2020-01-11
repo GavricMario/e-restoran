@@ -1,25 +1,25 @@
 package hr.fer.grupa.erestoran.order
 
+import android.content.Intent
 import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import hr.fer.grupa.erestoran.PieDialog
+import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.activity.MethodSelectActivity
 import hr.fer.grupa.erestoran.databinding.OrderBaseActivityBinding
 import hr.fer.grupa.erestoran.drink.DrinkFragment
 import hr.fer.grupa.erestoran.food.FoodFragment
 import hr.fer.grupa.erestoran.models.*
 import hr.fer.grupa.erestoran.overview.OrderOverviewFragment
 import hr.fer.grupa.erestoran.restaurants.RestaurantsFragment
+import hr.fer.grupa.erestoran.util.ShakeListener
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import android.widget.Toast
-import android.hardware.SensorManager
-import android.view.WindowManager
-import hr.fer.grupa.erestoran.MenuDialog
-import hr.fer.grupa.erestoran.PieDialog
-import hr.fer.grupa.erestoran.R
-import hr.fer.grupa.erestoran.util.ShakeListener
 
 
 class OrderBaseActivity : AppCompatActivity() {
@@ -41,6 +41,7 @@ class OrderBaseActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.order_base_activity)
         binding.activity = this
         orderType = intent.getStringExtra("type")!!
+        binding.title.text = "Pick restaurant"
         val restaurantPickFragment = RestaurantsFragment()
         supportFragmentManager.beginTransaction()
             .add(R.id.container, restaurantPickFragment, "restaurant")
@@ -81,8 +82,9 @@ class OrderBaseActivity : AppCompatActivity() {
     fun onFragmentEvent(event: OrderFragmentEvent) {
         when (event.fragment) {
             is RestaurantsFragment -> {
+                binding.title.text = "Pick food"
                 order =
-                    Order(event.data as Restaurant, mutableSetOf(), mutableSetOf(), mutableListOf(), orderType)
+                    Order(event.data as Restaurant, mutableListOf(), mutableListOf(), orderType, 0)
                 val fragment = FoodFragment()
                 val bundle = Bundle()
                 bundle.putString("restaurant", order.restaurant.id)
@@ -96,7 +98,8 @@ class OrderBaseActivity : AppCompatActivity() {
                     ).commit()
             }
             is FoodFragment -> {
-                order.food = event.data as MutableSet<Food>
+                binding.title.text = "Pick drinks"
+                order.food = (event.data as MutableSet<Food>).toMutableList()
                 val fragment = DrinkFragment()
                 val bundle = Bundle()
                 bundle.putString("restaurant", order.restaurant.id)
@@ -110,7 +113,8 @@ class OrderBaseActivity : AppCompatActivity() {
                     ).commit()
             }
             is DrinkFragment -> {
-                order.drink = event.data as MutableSet<Drink>
+                binding.title.text = "Overview"
+                order.drink = (event.data as MutableSet<Drink>).toMutableList()
                 val fragment = OrderOverviewFragment()
                 val bundle = Bundle()
                 bundle.putSerializable("order", order)
@@ -126,8 +130,21 @@ class OrderBaseActivity : AppCompatActivity() {
         }
     }
 
+    fun homeClicked() {
+        startActivity(Intent(this, MethodSelectActivity::class.java))
+        finish()
+    }
+
     override fun onBackPressed() {
+        when (supportFragmentManager.fragments.last()) {
+            is OrderOverviewFragment -> binding.title.text = "Pick drinks"
+            is DrinkFragment -> binding.title.text = "Pick food"
+            is FoodFragment -> binding.title.text = "Pick restaurant"
+        }
         if (supportFragmentManager.fragments.size > 1) supportFragmentManager.popBackStack()
-        else super.onBackPressed()
+        else {
+            startActivity(Intent(this, MethodSelectActivity::class.java))
+            finish()
+        }
     }
 }

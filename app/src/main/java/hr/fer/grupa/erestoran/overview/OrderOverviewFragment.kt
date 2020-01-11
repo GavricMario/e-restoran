@@ -11,11 +11,12 @@ import androidx.fragment.app.Fragment
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.activity.Payment
-import hr.fer.grupa.erestoran.activity.MethodSelectActivity
 import hr.fer.grupa.erestoran.activity.Zahvala
 import hr.fer.grupa.erestoran.databinding.OrderOverviewFragmentBinding
+import hr.fer.grupa.erestoran.datasource.FirebaseDataSourceManager
 import hr.fer.grupa.erestoran.food.HeaderModel
 import hr.fer.grupa.erestoran.food.ItemModel
+import hr.fer.grupa.erestoran.food.Section
 import hr.fer.grupa.erestoran.models.Order
 
 class OrderOverviewFragment : Fragment() {
@@ -25,6 +26,8 @@ class OrderOverviewFragment : Fragment() {
     private lateinit var adapter: OverviewAdapter
 
     private lateinit var order: Order
+
+    private val allItems = mutableListOf<Section>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,45 +53,52 @@ class OrderOverviewFragment : Fragment() {
     private fun initRecycler(order: Order) {
         val foodHeaderModel = HeaderModel(0)
         foodHeaderModel.header = "Food"
-        order.allItems.add(foodHeaderModel)
+        allItems.add(foodHeaderModel)
         order.food.forEach { food ->
             val foodItem = ItemModel(0)
             foodItem.food = food
-            order.allItems.add(foodItem)
+            allItems.add(foodItem)
         }
         val drinkHeaderModel = HeaderModel(order.food.size)
         drinkHeaderModel.header = "Drinks"
-        order.allItems.add(drinkHeaderModel)
+        allItems.add(drinkHeaderModel)
         order.drink.forEach { drink ->
             val drinkItem = ItemModel(order.food.size)
             drinkItem.drink = drink
-            order.allItems.add(drinkItem)
+            allItems.add(drinkItem)
         }
-        adapter = OverviewAdapter(requireContext(), order.allItems)
+        adapter = OverviewAdapter(requireContext(), allItems)
         val decorator = StickyHeaderItemDecorator(adapter)
         decorator.attachToRecyclerView(binding.recyclerView)
         adapter.minusClick = { item, position ->
-            if (order.allItems[position].sectionPosition() == 0) {
-                if (order.allItems[position].getItem().quantity > 1)
-                    order.allItems[position].getItem().quantity--
+            if (allItems[position].sectionPosition() == 0) {
+                if (allItems[position].getItem().quantity > 1) {
+                    allItems[position].getItem().quantity--
+                }
             } else {
-                if (order.allItems[position].getDrinkItem().quantity > 1)
-                    order.allItems[position].getDrinkItem().quantity--
+                if (allItems[position].getDrinkItem().quantity > 1) {
+                    allItems[position].getDrinkItem().quantity--
+                }
             }
             adapter.notifyItemChanged(position)
             updateTotalPrice(order)
         }
         adapter.plusClick = { item, position ->
-            if (order.allItems[position].sectionPosition() == 0) {
-                order.allItems[position].getItem().quantity++
+            if (allItems[position].sectionPosition() == 0) {
+                allItems[position].getItem().quantity++
             } else {
-                order.allItems[position].getDrinkItem().quantity++
+                allItems[position].getDrinkItem().quantity++
             }
             adapter.notifyItemChanged(position)
             updateTotalPrice(order)
         }
         adapter.addToCartClick = { item, position ->
-            order.allItems.removeAt(position)
+            allItems.removeAt(position)
+            if (allItems[position].sectionPosition() == 0) {
+                order.food.remove(allItems[position].getItem())
+            } else {
+                order.drink.remove(allItems[position].getDrinkItem())
+            }
             adapter.notifyItemRemoved(position)
             updateTotalPrice(order)
         }
@@ -99,7 +109,7 @@ class OrderOverviewFragment : Fragment() {
 
     private fun updateTotalPrice(order: Order) {
         var totalPrice = 0f
-        order.allItems.forEach {
+        allItems.forEach {
             if (!it.isHeader()) {
                 totalPrice += if (it.sectionPosition() == 0) {
                     it.getItem().price * it.getItem().quantity
@@ -113,11 +123,13 @@ class OrderOverviewFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        order.allItems.clear()
+        allItems.clear()
         adapter.notifyDataSetChanged()
     }
 
     fun placeOrder() {
+        order.orderTime = System.currentTimeMillis()
+        FirebaseDataSourceManager.getInstance().saveOrder(order)
         if (order.type == "restaurant") {
             Toast.makeText(
                 requireContext(),
@@ -125,12 +137,14 @@ class OrderOverviewFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
             val intent = Intent(requireContext(), Zahvala::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             requireActivity().finish()
         } else if (order.type == "delivery") {
             val intent = Intent(requireContext(), Payment::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             requireActivity().finish()
         }
