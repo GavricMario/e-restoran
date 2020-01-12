@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.menu
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.account.AccountDetailsActivity
+import hr.fer.grupa.erestoran.account.AddAddressActivity
 import hr.fer.grupa.erestoran.activity.*
 import hr.fer.grupa.erestoran.models.User
 import hr.fer.grupa.erestoran.orderhistory.OrderHistoryActivity
@@ -54,7 +57,8 @@ class InfiniteAdapter(
                 //TODO add more setting
             }
             "Profile" -> holder.container.setOnClickListener {
-                //TODO profile edit view
+                val intent = Intent(context, AccountDetailsActivity::class.java)
+                context.startActivity(intent)
             }
             "Order History" -> holder.container.setOnClickListener {
                 val intent = Intent(context, OrderHistoryActivity::class.java)

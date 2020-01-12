@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.menu
 
 import android.app.Dialog
 import android.content.Context
@@ -8,6 +8,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.Window.FEATURE_NO_TITLE
 import com.ramotion.circlemenu.CircleMenuView
+import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.activity.Jezik
 import hr.fer.grupa.erestoran.activity.MethodSelectActivity
 import hr.fer.grupa.erestoran.drink.DrinkFragment
@@ -58,7 +59,8 @@ class PieDialog(private val activityContext: Context) : Dialog(activityContext, 
                     }
                     1 -> {
                         circleMenu.close(true)
-                        (activityContext as OrderBaseActivity).supportFragmentManager.beginTransaction().add(R.id.container, RestaurantsFragment(), "restaurant")
+                        (activityContext as OrderBaseActivity).supportFragmentManager.beginTransaction().add(
+                            R.id.container, RestaurantsFragment(), "restaurant")
                             .addToBackStack("restaurant").setCustomAnimations(
                                 R.anim.fragment_enter_animation,
                                 R.anim.fragment_stay_animation,
@@ -69,7 +71,8 @@ class PieDialog(private val activityContext: Context) : Dialog(activityContext, 
                     }
                     2 -> {
                         circleMenu.close(true)
-                        (activityContext as OrderBaseActivity).supportFragmentManager.beginTransaction().add(R.id.container, FoodFragment(), "food")
+                        (activityContext as OrderBaseActivity).supportFragmentManager.beginTransaction().add(
+                            R.id.container, FoodFragment(), "food")
                             .addToBackStack("drink").setCustomAnimations(
                                 R.anim.fragment_enter_animation,
                                 R.anim.fragment_stay_animation,
@@ -80,7 +83,8 @@ class PieDialog(private val activityContext: Context) : Dialog(activityContext, 
                     }
                     3 -> {
                         circleMenu.close(true)
-                        (activityContext as OrderBaseActivity).supportFragmentManager.beginTransaction().add(R.id.container, DrinkFragment(), "drink")
+                        (activityContext as OrderBaseActivity).supportFragmentManager.beginTransaction().add(
+                            R.id.container, DrinkFragment(), "drink")
                             .addToBackStack("drink").setCustomAnimations(
                                 R.anim.fragment_enter_animation,
                                 R.anim.fragment_stay_animation,
@@ -91,7 +95,8 @@ class PieDialog(private val activityContext: Context) : Dialog(activityContext, 
                     }
                     4 -> {
                         circleMenu.close(true)
-                        (activityContext as OrderBaseActivity).supportFragmentManager.beginTransaction().add(R.id.container, OrderOverviewFragment(), "overview")
+                        (activityContext as OrderBaseActivity).supportFragmentManager.beginTransaction().add(
+                            R.id.container, OrderOverviewFragment(), "overview")
                             .addToBackStack("overview").setCustomAnimations(
                                 R.anim.fragment_enter_animation,
                                 R.anim.fragment_stay_animation,

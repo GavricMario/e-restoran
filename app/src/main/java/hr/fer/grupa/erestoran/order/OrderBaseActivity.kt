@@ -27,6 +27,13 @@ import hr.fer.grupa.erestoran.util.userUid
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import android.widget.Toast
+import android.hardware.SensorManager
+import android.view.WindowManager
+import hr.fer.grupa.erestoran.MenuDialog
+import hr.fer.grupa.erestoran.PieDialog
+import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.util.ShakeListener
 
 
 class OrderBaseActivity : AppCompatActivity() {
