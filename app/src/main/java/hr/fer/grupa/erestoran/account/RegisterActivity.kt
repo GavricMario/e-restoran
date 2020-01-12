@@ -47,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 val str = credit_card_text.text.toString().trim()
                 if(!checkCreditCard(str)) {
-                    credit_card_text.error = "Enter valid number"
+                    credit_card_text.error = getString(R.string.enter_valid_number)
                     credit_card_text.requestFocus()
                 }else{
                     cardValidated = true
@@ -76,46 +76,46 @@ class RegisterActivity : AppCompatActivity() {
                     val creditCard = credit_card_text.text.toString().trim()
 
                     if(name.isEmpty()){
-                        nameText.error = "Enter First Name"
+                        nameText.error = getString(R.string.enter_first_name)
                         nameText.requestFocus()
                     } else if(surname.isEmpty()){
-                        surnameText.error = "Enter Last Name"
+                        surnameText.error = getString(R.string.enter_last_name)
                         surnameText.requestFocus()
                     } else if(username.isEmpty()){
-                        usernameText.error = "Enter Username"
+                        usernameText.error = getString(R.string.enter_username)
                         usernameText.requestFocus()
                     } else if (usernameText.length() < 6 || usernameText.length() > 30 ) {
-                        usernameText.error = "Usernam must be longer than 6 characters and and shorter than 30 characters"
+                        usernameText.error = getString(R.string.username_must_be_error)
                         usernameText.requestFocus()
                     } else if(!isValidUsername(
                             username
                         )
                     ){
-                        usernameText.error = "Special charaters are not allowed in username"
+                        usernameText.error = getString(R.string.special_characters_error)
                         usernameText.requestFocus()
                     } else if(p0.hasChild(usernameText.text.toString().trim())){
-                        usernameText.error = "Username already taken"
+                        usernameText.error = getString(R.string.username_taken_error)
                         usernameText.requestFocus()
                     } else if(email.isEmpty()){
-                        emailText.error = "Enter Email"
+                        emailText.error = getString(R.string.enter_email)
                         emailText.requestFocus()
                     } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                        emailText.error = "Enter valid email address"
+                        emailText.error = getString(R.string.enter_valid_email)
                         emailText.requestFocus()
                     } else if(password.isEmpty()){
-                        passwordText.error = "Enter Password"
+                        passwordText.error = getString(R.string.enter_password)
                         passwordText.requestFocus()
                     } else if(password.length < 6){
-                        passwordText.error = "Password should be at least 6 characters"
+                        passwordText.error = getString(R.string.password_length_error)
                         passwordText.requestFocus()
                     } else if (password != confirmPassword) {
-                        passwordConfirmText.error = "Password doesn't match"
+                        passwordConfirmText.error = getString(R.string.password_match_error)
                         passwordConfirmText.requestFocus()
                     } else if(creditCard.isEmpty()){
-                        credit_card_text.error="Enter credit card number"
+                        credit_card_text.error=getString(R.string.enter_credit_card)
                         credit_card_text.requestFocus()
                     } else if(!cardValidated){
-                        credit_card_text.error="Validate credit card first"
+                        credit_card_text.error=getString(R.string.validate_credit_card)
                         credit_card_text.requestFocus()
                     } else {
                         val user = User(
