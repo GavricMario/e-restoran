@@ -1,16 +1,13 @@
 package hr.fer.grupa.erestoran.account
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.datasource.FirebaseDataSourceManager
-import hr.fer.grupa.erestoran.menu.InfiniteAdapter
-import hr.fer.grupa.erestoran.models.AddressModel
 import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.activity_account_details.*
-import kotlinx.android.synthetic.main.custom_menu_dialog.*
 
 class AccountDetailsActivity : AppCompatActivity() {
 

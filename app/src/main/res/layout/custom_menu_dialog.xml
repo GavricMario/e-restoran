@@ -22,7 +22,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_menu_close"
-            android:elevation="7dp" />
+            android:elevation="7dp"
+            android:contentDescription="@string/todo" />
 
 
         <ImageButton
@@ -39,7 +40,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_menu_close"
-            android:scaleX="-1"/>
+            android:scaleX="-1"
+            android:contentDescription="@string/todo" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listView"

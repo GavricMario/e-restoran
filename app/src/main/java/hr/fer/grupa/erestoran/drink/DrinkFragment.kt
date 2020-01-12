@@ -97,7 +97,7 @@ class DrinkFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         if (nonAlcoholic.isNotEmpty()) {
             val starterHeaderModel = HeaderModel(0)
-            starterHeaderModel.header = "Bezalkoholna pića"
+            starterHeaderModel.header = getString(R.string.bezalkoholna_pica)
             drinkList.add(starterHeaderModel)
             nonAlcoholic.forEach { nonAlcoholic ->
                 val drinkItem = ItemModel(0)
@@ -107,7 +107,7 @@ class DrinkFragment : Fragment() {
         }
         if (alcoholic.isNotEmpty()) {
             val mainHeaderModel = HeaderModel(nonAlcoholic.size)
-            mainHeaderModel.header = "Alkoholna pića"
+            mainHeaderModel.header = getString(R.string.alkoholna_pica)
             drinkList.add(mainHeaderModel)
             alcoholic.forEach { alcoholic ->
                 val drinkItem = ItemModel(nonAlcoholic.size)
@@ -117,7 +117,7 @@ class DrinkFragment : Fragment() {
         }
         if (warmDrinks.isNotEmpty()) {
             val desertHeaderModel = HeaderModel(nonAlcoholic.size + alcoholic.size)
-            desertHeaderModel.header = "Topli napitci"
+            desertHeaderModel.header = getString(R.string.topli_napitci)
             drinkList.add(desertHeaderModel)
             warmDrinks.forEach { warm ->
                 val drinkItem = ItemModel(nonAlcoholic.size + alcoholic.size)

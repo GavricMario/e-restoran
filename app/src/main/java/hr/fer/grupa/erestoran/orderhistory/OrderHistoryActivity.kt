@@ -1,13 +1,11 @@
 package hr.fer.grupa.erestoran.orderhistory
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.FirebaseDatabase
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.util.sessionUser
-import hr.fer.grupa.erestoran.util.userUid
 import kotlinx.android.synthetic.main.activity_order_history.*
 
 class OrderHistoryActivity : AppCompatActivity() {

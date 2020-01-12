@@ -55,7 +55,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"
                 android:padding="8dp"
-                android:text="0.0"
+                android:text="@string/_0_0"
                 android:textAlignment="center"
                 />
 
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> fragment.placeOrder()}"
                 android:padding="8dp"
-                android:text="Place order"
+                android:text="@string/place_order"
                 android:layout_weight="3"
                 android:textAlignment="center"
                 android:textSize="24sp"

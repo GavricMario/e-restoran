@@ -31,19 +31,19 @@ class AddAddressActivity : AppCompatActivity() {
             when {
                 streetName == "" -> {
                     streetNameText.requestFocus()
-                    streetNameText.error = "Field necessaryy"
+                    streetNameText.error = getString(R.string.field_necessary_error)
                 }
                 streetNumber == "" -> {
                     streetNumberText.requestFocus()
-                    streetNumberText.error = "Field necessaryy"
+                    streetNumberText.error = getString(R.string.field_necessary_error)
                 }
                 city == "" -> {
                     cityText.requestFocus()
-                    cityText.error = "Field necessaryy"
+                    cityText.error = getString(R.string.field_necessary_error)
                 }
                 postalCode == "" -> {
                     postalCodeText.requestFocus()
-                    postalCodeText.error = "Field necessaryy"
+                    postalCodeText.error = getString(R.string.field_necessary_error)
                 }
                 else -> {
                     val address = AddressModel(

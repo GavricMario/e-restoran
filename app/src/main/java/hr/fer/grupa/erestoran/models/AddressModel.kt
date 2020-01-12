@@ -6,5 +6,4 @@ class AddressModel(
     var city: String = "",
     var postalCode: String = "",
     var specialNotes: String = ""
-) {
-}
+)

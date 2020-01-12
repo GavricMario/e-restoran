@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
-import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.databinding.FragmentFoodBinding
+import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.models.OrderFragmentEvent
 import org.greenrobot.eventbus.EventBus
 
@@ -96,7 +94,7 @@ class FoodFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         if (starters.isNotEmpty()) {
             val starterHeaderModel = HeaderModel(0)
-            starterHeaderModel.header = "Predjela"
+            starterHeaderModel.header = getString(R.string.predjela)
             foodList.add(starterHeaderModel)
             starters.forEach { starter ->
                 val foodItem = ItemModel(0)
@@ -106,7 +104,7 @@ class FoodFragment : Fragment() {
         }
         if (mains.isNotEmpty()) {
             val mainHeaderModel = HeaderModel(starters.size)
-            mainHeaderModel.header = "Glavna jela"
+            mainHeaderModel.header = getString(R.string.glavna_jela)
             foodList.add(mainHeaderModel)
             mains.forEach { main ->
                 val foodItem = ItemModel(starters.size)
@@ -116,7 +114,7 @@ class FoodFragment : Fragment() {
         }
         if (deserts.isNotEmpty()) {
             val desertHeaderModel = HeaderModel(starters.size + mains.size)
-            desertHeaderModel.header = "Deserti"
+            desertHeaderModel.header = getString(R.string.deserti)
             foodList.add(desertHeaderModel)
             deserts.forEach { desert ->
                 val foodItem = ItemModel(starters.size + mains.size)

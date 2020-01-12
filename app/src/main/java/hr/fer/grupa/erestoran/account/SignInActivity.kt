@@ -3,6 +3,7 @@ package hr.fer.grupa.erestoran.account
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,10 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.activity.MethodSelectActivity
 import hr.fer.grupa.erestoran.activity.UserTypeSelectActivity
-import hr.fer.grupa.erestoran.models.Drink
-import hr.fer.grupa.erestoran.models.Food
-import hr.fer.grupa.erestoran.models.Restaurant
-import hr.fer.grupa.erestoran.models.User
+import hr.fer.grupa.erestoran.models.*
 import hr.fer.grupa.erestoran.util.sessionUser
 import hr.fer.grupa.erestoran.util.userUid
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -151,57 +149,66 @@ class SignInActivity : AppCompatActivity() {
     private fun loginUser(){
         val emailUsername = email_username_text.text.toString().trim()
         val password = password_text.text.toString().trim()
-        if(emailUsername.isEmpty()){
-            email_username_text.error = "Enter Email or Username"
-            email_username_text.requestFocus()
-            progressBar.visibility = View.GONE
-        } else if(password.isEmpty()){
-            password_text.error = "Enter password"
-            password_text.requestFocus()
-            progressBar.visibility = View.GONE
-        }else if(emailUsername.contains('@')){
-            emailLogin(emailUsername, password)
-        }else{
-            usernameLogin(emailUsername, password)
+        when {
+            emailUsername.isEmpty() -> {
+                email_username_text.error = "Enter Email or Username"
+                email_username_text.requestFocus()
+                progressBar.visibility = View.GONE
+            }
+            password.isEmpty() -> {
+                password_text.error = "Enter password"
+                password_text.requestFocus()
+                progressBar.visibility = View.GONE
+            }
+            emailUsername.contains('@') -> emailLogin(emailUsername, password)
+            else -> usernameLogin(emailUsername, password)
         }
 
     }
     private fun emailLogin(email: String, password: String){
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) {
-                    if (it.isSuccessful) {
-                        val isVerified = it.result?.user?.isEmailVerified ?: false
-                        if (isVerified) {
-                            progressBar.visibility = View.GONE
-                            Toast.makeText(this, "Signed in successfully!", Toast.LENGTH_SHORT).show()
+            .addOnCompleteListener(this) {
+                if (it.isSuccessful) {
+                    val isVerified = it.result?.user?.isEmailVerified ?: false
+                    if (isVerified) {
+                        progressBar.visibility = View.GONE
+                        Toast.makeText(this, "Signed in successfully!", Toast.LENGTH_SHORT).show()
 
-                            database.reference.child("Users")
-                                                .orderByChild("email")
-                                                .equalTo(email).limitToFirst(1).addListenerForSingleValueEvent(object: ValueEventListener {
-                                        override fun onDataChange(p0: DataSnapshot) {
-                                            sessionUser = p0.children.first().getValue(
-                                                User::class.java) ?: User()
-                                            userUid = p0.children.first().key ?: ""
+                        database.reference.child("Users")
+                            .orderByChild("email")
+                            .equalTo(email).limitToFirst(1).addListenerForSingleValueEvent(object: ValueEventListener {
+                                override fun onDataChange(p0: DataSnapshot) {
+                                    sessionUser = p0.children.first().getValue(User::class.java) ?: User()
+
+                                    for (valueRes in p0.children.first().child("orders").children) {
+                                        val order = valueRes.getValue(Order::class.java)
+                                        Log.d("Test", "Test")
+                                        if(order != null) {
+                                            sessionUser.orderHistory.add(order)
                                         }
+                                    }
 
-                                        override fun onCancelled(p0: DatabaseError) {
-                                            //DO NOTHING
-                                        }
+                                    userUid = p0.children.first().key ?: ""
+                                }
 
-                                    })
-                            saveCredentials(email, password)
-                            prefs.edit().putBoolean("isGuest", false).apply()
-                            startActivity(Intent(this, MethodSelectActivity::class.java))
-                            finish()
-                        } else {
-                            progressBar.visibility = View.GONE
-                            Toast.makeText(this, "Please verify your email first", Toast.LENGTH_SHORT).show()
-                        }
+                                override fun onCancelled(p0: DatabaseError) {
+                                    //DO NOTHING
+                                }
+
+                            })
+                        saveCredentials(email, password)
+                        prefs.edit().putBoolean("isGuest", false).apply()
+                        startActivity(Intent(this, MethodSelectActivity::class.java))
+                        finish()
                     } else {
                         progressBar.visibility = View.GONE
-                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Please verify your email first", Toast.LENGTH_SHORT).show()
                     }
+                } else {
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 }
+            }
 
     }
 

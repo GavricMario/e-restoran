@@ -3,7 +3,7 @@ package hr.fer.grupa.erestoran.food
 import hr.fer.grupa.erestoran.models.Drink
 import hr.fer.grupa.erestoran.models.Food
 
-class ItemModel(var section: Int) : Section {
+class ItemModel(private var section: Int) : Section {
 
     lateinit var item : String
     lateinit var food: Food
