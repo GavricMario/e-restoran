@@ -51,6 +51,7 @@ class OrderBaseActivity : AppCompatActivity() {
 
         val oldOrder = intent.getSerializableExtra("order") as? Order
         if (oldOrder != null) {
+            order = oldOrder
             binding.title.text = "Overview"
             val fragment = OrderOverviewFragment()
             val bundle = Bundle()
