@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import hr.fer.grupa.erestoran.R
@@ -57,9 +58,34 @@ class OrderItemCustomizationDialog : BottomSheetDialogFragment() {
         if (!food.title.toLowerCase().contains("odrezak")) {
             binding.steakRareness.visibility = View.GONE
         } else {
+            when (food.rareness) {
+                0 -> binding.rarenessLevel.text = "Rare"
+                1 -> binding.rarenessLevel.text = "Medium rare"
+                2 -> binding.rarenessLevel.text = "Medium"
+                3 -> binding.rarenessLevel.text = "Medium done"
+                4 -> binding.rarenessLevel.text = "Well done"
+            }
             binding.seekBar.progress = food.rareness
         }
         if (food.extras.isNotEmpty()) setupRecycler(food)
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, isUser: Boolean) {
+                when (progress) {
+                    0 -> binding.rarenessLevel.text = "Rare"
+                    1 -> binding.rarenessLevel.text = "Medium rare"
+                    2 -> binding.rarenessLevel.text = "Medium"
+                    3 -> binding.rarenessLevel.text = "Medium done"
+                    4 -> binding.rarenessLevel.text = "Well done"
+                }
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+
+        })
     }
 
     private fun setupDrink(drink: Drink) {

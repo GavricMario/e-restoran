@@ -12,5 +12,5 @@ class Food(
     var isInCart: Boolean = false,
     var quantity: Int = 1,
     var extras: MutableList<ExtraFood> = mutableListOf(),
-    var rareness: Int = 0
+    var rareness: Int = 2
 ): Serializable
