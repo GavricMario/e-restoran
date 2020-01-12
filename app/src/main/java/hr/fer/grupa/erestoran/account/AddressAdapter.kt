@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hr.fer.grupa.erestoran.R
@@ -16,6 +17,7 @@ class AddressAdapter(
     private val objects: ArrayList<AddressModel>
 ) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
 
+    private var snappedPosition = -1
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         val currentObj = objects[position % objects.size]
@@ -23,6 +25,17 @@ class AddressAdapter(
         val address = "${currentObj.streetName} ${currentObj.streetNumber}, ${currentObj.city} ${currentObj.postalCode}"
         holder.addressText.text = address
 
+        if (snappedPosition == position) {
+            holder.layout.background = context.getDrawable(R.color.colorPrimaryTransparent)
+        } else {
+            holder.layout.background = context.getDrawable(R.color.white)
+        }
+
+    }
+
+    fun setSnappedPosition(pos: Int) {
+        snappedPosition = pos
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
@@ -36,5 +49,6 @@ class AddressAdapter(
 
     class AddressViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val addressText: TextView = view.addressText
+        val layout: LinearLayout = view.layout
     }
 }

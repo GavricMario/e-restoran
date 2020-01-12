@@ -6,7 +6,7 @@ class User(
     var lastName: String = "",
     var email: String = "",
     var creditCard: String = "",
-    var language: String= "hr",
+    var language: String= "en",
     var orderHistory: ArrayList<Order> = ArrayList(),
     var addresses: ArrayList<AddressModel> = ArrayList()
 )

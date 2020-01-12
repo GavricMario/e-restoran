@@ -145,11 +145,11 @@ class RegisterActivity : AppCompatActivity() {
                 if (userId != null) {
                     FirebaseDatabase.getInstance().getReference("Usernames").child(user.username).setValue(userId)
                     FirebaseDatabase.getInstance().getReference("Users").child(userId).setValue(user).addOnCompleteListener {
-                        Toast.makeText(baseContext, "Registration successful!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(baseContext, getString(R.string.registration_success), Toast.LENGTH_LONG).show()
                     }
                     auth.currentUser?.sendEmailVerification()
                 } else {
-                    Toast.makeText(baseContext, "Registration failed, try again later.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, getString(R.string.registration_fail), Toast.LENGTH_SHORT).show()
                 }
 
                 startActivity(Intent(this, SignInActivity::class.java))
@@ -159,19 +159,19 @@ class RegisterActivity : AppCompatActivity() {
                     throw it.exception ?: Exception()
                 } catch (weakPassword: FirebaseAuthWeakPasswordException) {
                     progressBar2.visibility = View.GONE
-                    Toast.makeText(baseContext, "Please use a stronger password", Toast.LENGTH_LONG).show()
+                    Toast.makeText(baseContext, getString(R.string.stronger_password_error), Toast.LENGTH_LONG).show()
                     passwordText.requestFocus()
                 } catch (malformedEmail: FirebaseAuthInvalidCredentialsException) {
                     progressBar2.visibility = View.GONE
-                    Toast.makeText(baseContext, "Email address is malformed, please use another one", Toast.LENGTH_LONG).show()
+                    Toast.makeText(baseContext, getString(R.string.email_malformed_error), Toast.LENGTH_LONG).show()
                     emailText.requestFocus()
                 } catch (existEmail: FirebaseAuthUserCollisionException) {
                     progressBar2.visibility = View.GONE
-                    Toast.makeText(baseContext, "Email address already in use", Toast.LENGTH_LONG).show()
+                    Toast.makeText(baseContext, getString(R.string.email_in_use_error), Toast.LENGTH_LONG).show()
                     emailText.requestFocus()
                 } catch (e: Exception) {
                     progressBar2.visibility = View.GONE
-                    Toast.makeText(baseContext, "Registration failed, try again later.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, getString(R.string.registration_fail), Toast.LENGTH_SHORT).show()
 
                 }
             }

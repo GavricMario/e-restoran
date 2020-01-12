@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -15,10 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
-import hr.fer.grupa.erestoran.models.ExtraFood
-import hr.fer.grupa.erestoran.models.Food
-import hr.fer.grupa.erestoran.models.Order
-import hr.fer.grupa.erestoran.models.User
+import hr.fer.grupa.erestoran.models.*
 import hr.fer.grupa.erestoran.util.sessionUser
 import hr.fer.grupa.erestoran.util.userUid
 import java.util.*
@@ -92,7 +90,7 @@ class SplashActivity : AppCompatActivity() {
                 if (it.isSuccessful) {
                     val isVerified = it.result?.user?.isEmailVerified ?: false
                     if (isVerified) {
-                        Toast.makeText(this, "Signed in successfully!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.sign_in_message), Toast.LENGTH_SHORT).show()
 
                         database.reference.child("Users")
                             .orderByChild("email")
@@ -101,25 +99,40 @@ class SplashActivity : AppCompatActivity() {
                                 override fun onDataChange(p0: DataSnapshot) {
                                     sessionUser = p0.children.first().getValue(User::class.java) ?: User()
 
+                                    val locale = Locale(sessionUser.language)
+                                    Locale.setDefault(locale)
+                                    val config = Configuration()
+                                    config.locale = locale
+                                    resources.updateConfiguration(config, resources.displayMetrics)
+
                                     for (valueRes in p0.children.first().child("orders").children) {
                                         val order = valueRes.getValue(Order::class.java)
-                                        Log.d("Test", "Test")
                                         if(order != null) {
                                             sessionUser.orderHistory.add(order)
                                         }
                                     }
 
+                                    for (valueRes in p0.children.first().child("address").children) {
+                                        val order = valueRes.getValue(AddressModel::class.java)
+                                        if(order != null) {
+                                            sessionUser.addresses.add(order)
+                                        }
+                                    }
+
                                     userUid = p0.children.first().key ?: ""
+
+                                    prefs.edit().putBoolean("isGuest", false).apply()
+                                    startActivity(Intent(this@SplashActivity, MethodSelectActivity::class.java))
+                                    finish()
                                 }
 
                                 override fun onCancelled(p0: DatabaseError) {
-                                    //DO NOTHING
+                                    prefs.edit().putBoolean("isGuest", false).apply()
+                                    startActivity(Intent(this@SplashActivity, MethodSelectActivity::class.java))
+                                    finish()
                                 }
 
                             })
-                        prefs.edit().putBoolean("isGuest", false).apply()
-                        startActivity(Intent(this, MethodSelectActivity::class.java))
-                        finish()
                     } else {
                         startActivity(Intent(this, UserTypeSelectActivity::class.java))
                         finish()

@@ -1,5 +1,6 @@
 package hr.fer.grupa.erestoran.activity
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -55,6 +56,11 @@ class Jezik : AppCompatActivity() {
 
             onBackPressed()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, MethodSelectActivity::class.java))
     }
 
 }

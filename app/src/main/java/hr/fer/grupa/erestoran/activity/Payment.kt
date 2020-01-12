@@ -23,8 +23,7 @@ class Payment : AppCompatActivity() {
         }
 
         backButton.setOnClickListener{
-            onBackPressed()
-
+            startActivity(Intent(this, MethodSelectActivity::class.java))
         }
     }
 }

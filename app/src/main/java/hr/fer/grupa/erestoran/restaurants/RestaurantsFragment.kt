@@ -103,7 +103,7 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
             override fun onCancelled(p0: DatabaseError) {
                 Toast.makeText(
                     requireContext(),
-                    "An unexpected error occured.",
+                    getString(R.string.unexpected_error),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -151,7 +151,7 @@ class RestaurantsFragment : Fragment(), OnMapReadyCallback {
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "Turn on location", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.location_error), Toast.LENGTH_LONG).show()
                 val intent = Intent(ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
             }

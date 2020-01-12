@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.activity.MethodSelectActivity
+import hr.fer.grupa.erestoran.activity.UserTypeSelectActivity
 import hr.fer.grupa.erestoran.databinding.OrderBaseActivityBinding
 import hr.fer.grupa.erestoran.drink.DrinkFragment
 import hr.fer.grupa.erestoran.food.FoodFragment
@@ -144,11 +145,19 @@ class OrderBaseActivity : AppCompatActivity() {
     }
 
     fun homeClicked() {
-        startActivity(Intent(this, MethodSelectActivity::class.java))
-        finish()
+        val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+        if (prefs.getBoolean("isGuest", false)) {
+            startActivity(Intent(this, UserTypeSelectActivity::class.java))
+            finish()
+        } else {
+            startActivity(Intent(this, MethodSelectActivity::class.java))
+            finish()
+        }
     }
 
     override fun onBackPressed() {
+        val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+
         when (supportFragmentManager.fragments.last()) {
             is OrderOverviewFragment -> binding.title.text = getString(R.string.pick_drinks)
             is DrinkFragment -> binding.title.text = getString(R.string.pick_food)
@@ -156,8 +165,13 @@ class OrderBaseActivity : AppCompatActivity() {
         }
         if (supportFragmentManager.fragments.size > 1) supportFragmentManager.popBackStack()
         else {
-            startActivity(Intent(this, MethodSelectActivity::class.java))
-            finish()
+            if (prefs.getBoolean("isGuest", false)) {
+                startActivity(Intent(this, UserTypeSelectActivity::class.java))
+                finish()
+            } else {
+                startActivity(Intent(this, MethodSelectActivity::class.java))
+                finish()
+            }
         }
     }
 }
