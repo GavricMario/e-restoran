@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.shuhart.stickyheader.StickyAdapter
+import com.squareup.picasso.Picasso
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.food.Section
 import hr.fer.grupa.erestoran.models.Drink
@@ -100,6 +101,9 @@ class DrinkAdapter(var context: Context, var sections: MutableList<Section>) :
             } else {
                 isInCartView.visibility = View.INVISIBLE
                 addToCartView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen))
+            }
+            if (drink.imageUrl.isNotBlank()) {
+                Picasso.get().load(drink.imageUrl).into(drinkImage)
             }
         }
     }
