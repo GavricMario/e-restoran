@@ -52,13 +52,22 @@
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginStart="288dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="436dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/prst" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="prstom povucite za odabir"
+        app:layout_constraintBottom_toTopOf="@+id/odabir"
+        tools:layout_editor_absoluteX="123dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,16 +3,29 @@ package hr.fer.grupa.erestoran.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.R.layout.activity_tutorial_1
 import kotlinx.android.synthetic.main.activity_tutorial_1.*
 import android.view.animation.TranslateAnimation
+import android.view.animation.Animation
+
+
+
+import android.view.animation.LinearInterpolator
+
+
+
+
+
+
 
 
 
 
 class Tutorial1 : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +33,12 @@ class Tutorial1 : AppCompatActivity() {
         setContentView(activity_tutorial_1)
 
         val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+
+
+
+
+
+
 
         dalje.setOnClickListener{
             val intent= Intent(this, Tutorial2::class.java)
@@ -32,19 +51,20 @@ class Tutorial1 : AppCompatActivity() {
             onBackPressed()
         }
 
+        prst.setVisibility(View.VISIBLE)
+         var  mAnimation = TranslateAnimation(
+            TranslateAnimation.ABSOLUTE, 0f,
+            TranslateAnimation.ABSOLUTE, 0f,
+            TranslateAnimation.ABSOLUTE, 0f,
+            TranslateAnimation.ABSOLUTE, -1000f
+        )
+        mAnimation.setDuration(2000)
+        mAnimation.setRepeatCount(-1)
+        mAnimation.setRepeatMode(Animation.REVERSE)
+        mAnimation.setInterpolator(LinearInterpolator())
+        prst.setAnimation(mAnimation)
 
-            for(x in 0 until 10){
-            val moveDownToUp = TranslateAnimation(0f, 0f, 0f, 400f)
-            moveDownToUp.setDuration(1000)
-            moveDownToUp.setFillAfter(true)
 
-            prst.startAnimation(moveDownToUp)
-
-            val moveUpToDown = TranslateAnimation(0f, 0f, 0f, -400f)
-            moveUpToDown.setDuration(1000)
-            moveUpToDown.setFillAfter(true)
-            prst.startAnimation(moveUpToDown)
-        }
 
 
 
