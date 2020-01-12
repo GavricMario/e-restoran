@@ -13,7 +13,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="75dp"
-        android:text="Tutorial"
+        android:text="@string/tutorial"
         android:background="@drawable/rounded_button"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/buttonColor"
@@ -29,7 +29,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
         android:background="@drawable/rounded_button"
-        android:text="jezici"
+        android:text="@string/jezici"
         android:backgroundTint="@color/buttonColor"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/tutorijal"
@@ -45,11 +45,12 @@
         android:layout_marginStart="50dp"
         android:background="#0000"
         android:src="@drawable/user_anonim"
-        android:text="Gost"
+        android:text="@string/gost"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.3"
+        android:contentDescription="@string/todo" />
 
     <ImageButton
         android:id="@+id/prijava"
@@ -60,27 +61,29 @@
         android:layout_marginEnd="50dp"
         android:background="#0000"
         android:src="@drawable/user_login"
-        android:text="Prijava"
+        android:text="@string/prijava"
         app:layout_constraintBottom_toBottomOf="@+id/gost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gost" />
+        app:layout_constraintTop_toTopOf="@+id/gost"
+        android:contentDescription="@string/todo" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="KORISNIK"
+        android:text="@string/korisnik"
         app:layout_constraintEnd_toEndOf="@+id/prijava"
         app:layout_constraintStart_toStartOf="@+id/prijava"
-        app:layout_constraintTop_toBottomOf="@+id/prijava" />
+        app:layout_constraintTop_toBottomOf="@+id/prijava"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="GOST"
+        android:text="@string/gostCaps"
         app:layout_constraintEnd_toEndOf="@+id/gost"
         app:layout_constraintStart_toStartOf="@+id/gost"
         app:layout_constraintTop_toBottomOf="@+id/gost" />

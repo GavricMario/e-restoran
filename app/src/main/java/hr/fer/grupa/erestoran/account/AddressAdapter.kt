@@ -1,21 +1,14 @@
 package hr.fer.grupa.erestoran.account
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import hr.fer.grupa.erestoran.R
-import hr.fer.grupa.erestoran.account.AddAddressActivity
-import hr.fer.grupa.erestoran.activity.*
 import hr.fer.grupa.erestoran.models.AddressModel
-import hr.fer.grupa.erestoran.models.User
-import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.item_address.view.*
-import kotlinx.android.synthetic.main.item_menu_list.view.*
 
 
 class AddressAdapter(

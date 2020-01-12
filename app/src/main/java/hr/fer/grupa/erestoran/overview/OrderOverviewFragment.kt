@@ -52,7 +52,7 @@ class OrderOverviewFragment : Fragment() {
 
     private fun initRecycler(order: Order) {
         val foodHeaderModel = HeaderModel(0)
-        foodHeaderModel.header = "Food"
+        foodHeaderModel.header = getString(R.string.food)
         allItems.add(foodHeaderModel)
         order.food.forEach { food ->
             val foodItem = ItemModel(0)
@@ -60,7 +60,7 @@ class OrderOverviewFragment : Fragment() {
             allItems.add(foodItem)
         }
         val drinkHeaderModel = HeaderModel(order.food.size)
-        drinkHeaderModel.header = "Drinks"
+        drinkHeaderModel.header = getString(R.string.drinks)
         allItems.add(drinkHeaderModel)
         order.drink.forEach { drink ->
             val drinkItem = ItemModel(order.food.size)

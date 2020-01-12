@@ -1,15 +1,11 @@
 package hr.fer.grupa.erestoran.activity
 
-import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_zahvala.*
-import android.view.View
-import android.view.Window
-import android.widget.Button
-import android.widget.RatingBar
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import hr.fer.grupa.erestoran.R
+import kotlinx.android.synthetic.main.activity_zahvala.*
 
 
 class Zahvala : AppCompatActivity() {
@@ -17,27 +13,35 @@ class Zahvala : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_zahvala)
-        dostava_restoran.setOnClickListener { openDialog() }
 
+        initListeners()
     }
 
-    private fun openDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.dialog_rating)
+    private fun initListeners() {
 
-        val c = dialog.findViewById(R.id.c) as Button
-        val ratingBar = dialog.findViewById(R.id.ratingBar) as RatingBar
-
-        c.setOnClickListener {
+        val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+        ocjena.setOnClickListener{
             if (ratingBar.rating != 0f) {
+                Toast.makeText(this,  "Hvala Vam na povratnoj informaciji", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                Toast.makeText(this,  "Molimo Vas ocijenite Nas", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
+        dostava_restoran.setOnClickListener {
+            if (ratingBar.rating != 0f) {
+                if (prefs.getBoolean("isGuest", false)) {
+                    val intent = Intent(this, UserTypeSelectActivity::class.java)
+                    startActivity(intent)
+                }
                 val intent = Intent(this, MethodSelectActivity::class.java)
                 startActivity(intent)
             }
         }
 
-        dialog.show()
+
 
     }
 

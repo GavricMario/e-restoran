@@ -19,7 +19,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/rounded_button"
-        android:elevation="2dp">
+        android:elevation="2dp"
+        android:focusable="true">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="50dp"
@@ -30,7 +31,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Hrvatski"
+            android:text="@string/hrvatski"
             android:textSize="20sp"
             android:textColor="@color/colorText"/>
 
@@ -49,7 +50,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         android:background="@drawable/rounded_button"
-        android:elevation="2dp">
+        android:elevation="2dp"
+        android:focusable="true">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="50dp"
@@ -60,7 +62,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="English"
+            android:text="@string/english"
             android:textSize="20sp"
             android:textColor="@color/colorText"/>
 
@@ -79,7 +81,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eng"
         android:background="@drawable/rounded_button"
-        android:elevation="2dp">
+        android:elevation="2dp"
+        android:focusable="true">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="50dp"
@@ -90,7 +93,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Deutsch"
+            android:text="@string/deutsch"
             android:textSize="20sp"
             android:textColor="@color/colorText"/>
 

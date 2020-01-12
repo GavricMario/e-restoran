@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.activity_dostava.*
 
 class Dostava : AppCompatActivity() {
 
-    var radioGroup: RadioGroup? = null
-    var radioButton: RadioButton? = null
+    private var radioGroup: RadioGroup? = null
+    private var radioButton: RadioButton? = null
 
 
 
@@ -20,13 +20,13 @@ class Dostava : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dostava)
 
-        radioGroup = findViewById(R.id.radio_Group);
-        val radioId = radioGroup!!.getCheckedRadioButtonId()
+        radioGroup = findViewById(R.id.radio_Group)
+        val radioId = radioGroup!!.checkedRadioButtonId
 
         radioButton = findViewById(radioId)
 
 
-        potvrdi_id.setOnClickListener(){
+        potvrdi_id.setOnClickListener {
             if (kartica.isChecked){
                 val intent= Intent(this,
                     Payment::class.java)

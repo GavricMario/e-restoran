@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.Tutorial5" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tutorial5"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/povratak"
@@ -22,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="30dp"
-        android:text="Povratak"
+        android:text="@string/povratak"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -34,11 +25,34 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginBottom="30dp"
-        android:text="Izbornik"
+        android:text="@string/izbornik"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/mobitel"
+        android:layout_width="212dp"
+        android:layout_height="345dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fensi_smartfon" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/protresite_za_otvaranje_brzog_izbornika"
+        android:textSize="24sp"
+        android:textColor="@color/colorGray"
+        app:layout_constraintBottom_toTopOf="@+id/mobitel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

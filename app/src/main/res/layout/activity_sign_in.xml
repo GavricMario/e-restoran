@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="50dp"
-            android:hint="Email/Username"
+            android:hint="@string/email_username"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -25,7 +25,7 @@
             android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
         <Button
@@ -33,7 +33,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Sign In"
+            android:text="@string/sign_in"
             android:backgroundTint="@color/buttonColor"
             android:textColor="@android:color/white"
             android:background="@drawable/rounded_button"
@@ -45,7 +45,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="View as Guest"
+            android:text="@string/view_as_guest"
             android:backgroundTint="@color/buttonColor"
             android:textColor="@android:color/white"
             android:background="@drawable/rounded_button"
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:text="Don't have an account?"
+            android:text="@string/don_t_have_an_account"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="Register"
+            android:text="@string/registerUpper"
             android:backgroundTint="@color/buttonColor"
             android:textColor="@android:color/white"
             android:background="@drawable/rounded_button"

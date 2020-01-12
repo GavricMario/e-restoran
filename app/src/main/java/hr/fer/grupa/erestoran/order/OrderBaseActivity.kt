@@ -46,7 +46,7 @@ class OrderBaseActivity : AppCompatActivity() {
         if (oldOrder != null) {
             order = oldOrder
             orderType = oldOrder.type
-            binding.title.text = "Overview"
+            binding.title.text = getString(R.string.overview)
             val fragment = OrderOverviewFragment()
             val bundle = Bundle()
             bundle.putSerializable("order", oldOrder)
@@ -54,7 +54,7 @@ class OrderBaseActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().add(R.id.container, fragment, "overview")
                 .addToBackStack("overview").commit()
         } else {
-            binding.title.text = "Pick restaurant"
+            binding.title.text = getString(R.string.pick_restaurant)
             val restaurantPickFragment = RestaurantsFragment()
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, restaurantPickFragment, "restaurant")
@@ -82,7 +82,7 @@ class OrderBaseActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
         EventBus.getDefault().register(this)
     }
 
@@ -96,7 +96,7 @@ class OrderBaseActivity : AppCompatActivity() {
     fun onFragmentEvent(event: OrderFragmentEvent) {
         when (event.fragment) {
             is RestaurantsFragment -> {
-                binding.title.text = "Pick food"
+                binding.title.text = getString(R.string.pick_food)
                 order.restaurant = event.data as Restaurant
                 val fragment = FoodFragment()
                 val bundle = Bundle()
@@ -111,7 +111,7 @@ class OrderBaseActivity : AppCompatActivity() {
                     ).commit()
             }
             is FoodFragment -> {
-                binding.title.text = "Pick drinks"
+                binding.title.text = getString(R.string.pick_drinks)
                 order.food = (event.data as MutableSet<Food>).toMutableList()
                 val fragment = DrinkFragment()
                 val bundle = Bundle()
@@ -126,7 +126,7 @@ class OrderBaseActivity : AppCompatActivity() {
                     ).commit()
             }
             is DrinkFragment -> {
-                binding.title.text = "Overview"
+                binding.title.text = getString(R.string.overview)
                 order.drink = (event.data as MutableSet<Drink>).toMutableList()
                 val fragment = OrderOverviewFragment()
                 val bundle = Bundle()
@@ -150,9 +150,9 @@ class OrderBaseActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         when (supportFragmentManager.fragments.last()) {
-            is OrderOverviewFragment -> binding.title.text = "Pick drinks"
-            is DrinkFragment -> binding.title.text = "Pick food"
-            is FoodFragment -> binding.title.text = "Pick restaurant"
+            is OrderOverviewFragment -> binding.title.text = getString(R.string.pick_drinks)
+            is DrinkFragment -> binding.title.text = getString(R.string.pick_food)
+            is FoodFragment -> binding.title.text = getString(R.string.pick_restaurant)
         }
         if (supportFragmentManager.fragments.size > 1) supportFragmentManager.popBackStack()
         else {

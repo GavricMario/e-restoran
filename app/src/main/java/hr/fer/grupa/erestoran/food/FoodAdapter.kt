@@ -75,10 +75,10 @@ class FoodAdapter(var context: Context, var sections: MutableList<Section>) :
     inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var foodImage = itemView.food_image
         var name = itemView.name!!
-        var description = itemView.description!!
+        private var description = itemView.description!!
         var price = itemView.price!!
-        var isInCartView = itemView.is_in_cart_view!!
-        var addToCartView = itemView.add_to_cart!!
+        private var isInCartView = itemView.is_in_cart_view!!
+        private var addToCartView = itemView.add_to_cart!!
 
         init {
             itemView.findViewById<LinearLayout>(R.id.root_item_view).setOnClickListener {

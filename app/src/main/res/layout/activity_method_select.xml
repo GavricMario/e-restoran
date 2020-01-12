@@ -23,7 +23,7 @@
             android:id="@+id/order_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order"
+            android:text="@string/order"
             android:textColor="#000000"
             android:textSize="40sp"
             android:textStyle="bold"
@@ -53,7 +53,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divider"
-        app:srcCompat="@drawable/ic_menu" />
+        app:srcCompat="@drawable/ic_menu"
+        android:contentDescription="@string/todo" />
 
     <ImageButton
         android:id="@+id/menuButton2"
@@ -68,7 +69,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toTopOf="@+id/divider"
-        app:srcCompat="@drawable/ic_menu" />
+        app:srcCompat="@drawable/ic_menu"
+        android:contentDescription="@string/todo" />
 
     <LinearLayout
         android:id="@+id/restaurant_view"
@@ -87,7 +89,7 @@
             android:id="@+id/restaurant_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restaurant"
+            android:text="@string/restaurant"
             android:textColor="#000000"
             android:textSize="40sp"
             android:textStyle="bold"

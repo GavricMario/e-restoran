@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -30,7 +29,8 @@
                     android:background="@drawable/ic_arrow_back"
                     android:backgroundTint="@android:color/black"
                     android:onClick="@{() -> activity.onBackPressed()}"
-                    android:padding="15dp" />
+                    android:padding="15dp"
+                    android:contentDescription="@string/todo" />
 
                 <TextView
                     android:id="@+id/title"
@@ -50,7 +50,8 @@
                     android:background="@drawable/ic_home_black_24dp"
                     android:backgroundTint="@android:color/black"
                     android:onClick="@{() -> activity.homeClicked()}"
-                    android:padding="15dp" />
+                    android:padding="15dp"
+                    android:contentDescription="@string/todo" />
 
             </LinearLayout>
 
