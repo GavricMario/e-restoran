@@ -122,6 +122,6 @@
     <string name="iskoristi">Use</string>
     <string name="invalid_coupon">Invalid coupon</string>
     <string name="add_address_message">Please add an address first</string>
-    <string name="food_image">food_image</string>
-    <string name="restaurant_image">restaurant_image</string>
+    <string name="food_image" translatable="false">food_image</string>
+    <string name="restaurant_image" translatable="false">restaurant_image</string>
 </resources>
