@@ -34,7 +34,6 @@ class InfiniteAdapter(
             "Change Language" -> holder.image.setImageResource(R.drawable.language)
             "Add Address" -> holder.image.setImageResource(R.drawable.address)
             "Tutorial" -> holder.image.setImageResource(R.drawable.tutorial)
-            "MoreSettings3" -> holder.image.setImageResource(R.drawable.user_anonim)
             "Profile" -> holder.image.setImageResource(R.drawable.user_login)
             "Order History" -> holder.image.setImageResource(R.drawable.order_history)
             "Log Out" -> holder.image.setImageResource(R.drawable.user_anonim)
@@ -52,9 +51,6 @@ class InfiniteAdapter(
             "Tutorial" -> holder.container.setOnClickListener {
                 val intent = Intent(context, Tutorial1::class.java)
                 context.startActivity(intent)
-            }
-            "MoreSettings3" -> holder.container.setOnClickListener {
-                //TODO add more setting
             }
             "Profile" -> holder.container.setOnClickListener {
                 val intent = Intent(context, AccountDetailsActivity::class.java)
