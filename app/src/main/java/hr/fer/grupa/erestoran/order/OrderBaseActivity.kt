@@ -56,9 +56,9 @@ class OrderBaseActivity : AppCompatActivity() {
             binding.title.text = "Pick restaurant"
             val restaurantPickFragment = RestaurantsFragment()
             supportFragmentManager.beginTransaction()
-                .add(R.id.container, restaurantPickFragment, "restaurant")
-                .addToBackStack("restaurant").commit()
-        }
+            .add(R.id.container, restaurantPickFragment, "restaurant")
+            .addToBackStack("restaurant").commit()
+    }
 
         pieMenu = PieDialog(this)
         pieMenu.setCancelable(true)
@@ -96,7 +96,7 @@ class OrderBaseActivity : AppCompatActivity() {
             is RestaurantsFragment -> {
                 binding.title.text = "Pick food"
                 order =
-                    Order(restaurant = event.data as Restaurant)
+                    Order(restaurant = event.data as Restaurant, type = orderType)
                 val fragment = FoodFragment()
                 val bundle = Bundle()
                 bundle.putString("restaurant", order.restaurant.id)
