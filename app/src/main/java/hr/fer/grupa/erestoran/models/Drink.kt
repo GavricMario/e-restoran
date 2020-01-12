@@ -10,5 +10,6 @@ class Drink(
     var imageUrl: String = "",
     var type: String = "",
     var isInCart: Boolean = false,
-    var quantity: Int = 1
+    var quantity: Int = 1,
+    var drinkSize: String = "Medium 0.5L"
 ): Serializable

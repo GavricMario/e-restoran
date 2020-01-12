@@ -4,36 +4,22 @@ import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.renderscript.Sampler
-import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import hr.fer.grupa.erestoran.PieDialog
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.activity.MethodSelectActivity
 import hr.fer.grupa.erestoran.databinding.OrderBaseActivityBinding
 import hr.fer.grupa.erestoran.drink.DrinkFragment
 import hr.fer.grupa.erestoran.food.FoodFragment
+import hr.fer.grupa.erestoran.menu.PieDialog
 import hr.fer.grupa.erestoran.models.*
 import hr.fer.grupa.erestoran.overview.OrderOverviewFragment
 import hr.fer.grupa.erestoran.restaurants.RestaurantsFragment
 import hr.fer.grupa.erestoran.util.ShakeListener
-import hr.fer.grupa.erestoran.util.userUid
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import android.widget.Toast
-import android.hardware.SensorManager
-import android.view.WindowManager
-import hr.fer.grupa.erestoran.MenuDialog
-import hr.fer.grupa.erestoran.PieDialog
-import hr.fer.grupa.erestoran.R
-import hr.fer.grupa.erestoran.util.ShakeListener
 
 
 class OrderBaseActivity : AppCompatActivity() {
@@ -59,6 +45,7 @@ class OrderBaseActivity : AppCompatActivity() {
         val oldOrder = intent.getSerializableExtra("order") as? Order
         if (oldOrder != null) {
             order = oldOrder
+            orderType = oldOrder.type
             binding.title.text = "Overview"
             val fragment = OrderOverviewFragment()
             val bundle = Bundle()
@@ -72,6 +59,7 @@ class OrderBaseActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, restaurantPickFragment, "restaurant")
                 .addToBackStack("restaurant").commit()
+            order = Order(type = orderType)
         }
 
         pieMenu = PieDialog(this)
@@ -109,8 +97,7 @@ class OrderBaseActivity : AppCompatActivity() {
         when (event.fragment) {
             is RestaurantsFragment -> {
                 binding.title.text = "Pick food"
-                order =
-                    Order(restaurant = event.data as Restaurant)
+                order.restaurant = event.data as Restaurant
                 val fragment = FoodFragment()
                 val bundle = Bundle()
                 bundle.putString("restaurant", order.restaurant.id)
