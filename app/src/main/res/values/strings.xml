@@ -97,4 +97,6 @@
     <string name="enter_credit_card">Enter credit card number</string>
     <string name="validate_credit_card">Validate credit card first</string>
     <string name="field_necessary_error">Field necessary</string>
+    <string name="food_image">food_image</string>
+    <string name="restaurant_image">restaurant_image</string>
 </resources>

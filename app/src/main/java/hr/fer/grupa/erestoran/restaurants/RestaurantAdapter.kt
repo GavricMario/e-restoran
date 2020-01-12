@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.models.Restaurant
 import kotlinx.android.synthetic.main.item_restaurant.view.*
@@ -57,7 +58,9 @@ class RestaurantAdapter(
                     )
                 )
             view.setOnClickListener { clickListener(restaurant, position) }
-            //        Picasso.get().load(items[position].imageUrl).into(holder.image)
+            if (items[position].imageUrl.isNotBlank()) {
+                Picasso.get().load(items[position].imageUrl).into(view.restaurant_image)
+            }
         }
     }
 
