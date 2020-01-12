@@ -34,13 +34,14 @@
         app:layout_constraintBottom_toBottomOf="@+id/view2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view2"
-        app:srcCompat="@drawable/ic_arrow_back" />
+        app:srcCompat="@drawable/ic_arrow_back"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/noItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You have no orders"
+        android:text="@string/you_have_no_orders"
         android:textColor="@color/colorGray"
         android:textSize="28sp"
         android:textStyle="bold"

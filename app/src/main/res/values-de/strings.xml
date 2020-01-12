@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="are_you_here">Bist du hier?</string>
+    <string name="title_activity_login">Anmelden</string>
+    <string name="search_hint">Suchen...</string>
+    <string name="restaurant_prompt">Wahlen Sie dieses restaurant?</string>
+    <string name="register">REGISTRIEREN</string>
+</resources>

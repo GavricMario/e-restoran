@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
+    <string name="are_you_here">Jesi ovdje?</string>
+    <string name="title_activity_login">Prijavi se</string>
+    <string name="search_hint">Pretraži...</string>
+    <string name="restaurant_prompt">Odaberi ovaj restoran?</string>
+    <string name="register">REGISTRIRAJ SE</string>
+</resources>

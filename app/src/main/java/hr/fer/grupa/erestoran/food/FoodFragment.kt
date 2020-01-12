@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
-import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.databinding.FragmentFoodBinding
+import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.models.OrderFragmentEvent
 import org.greenrobot.eventbus.EventBus
 

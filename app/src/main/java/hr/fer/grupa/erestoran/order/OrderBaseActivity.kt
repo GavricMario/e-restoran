@@ -80,7 +80,7 @@ class OrderBaseActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
         EventBus.getDefault().register(this)
     }
 

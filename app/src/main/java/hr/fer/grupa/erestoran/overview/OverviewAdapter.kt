@@ -17,7 +17,6 @@ import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.food.Section
 import hr.fer.grupa.erestoran.models.Drink
 import hr.fer.grupa.erestoran.models.Food
-import kotlinx.android.synthetic.main.item_food.view.*
 import kotlinx.android.synthetic.main.item_food.view.add_to_cart
 import kotlinx.android.synthetic.main.item_food.view.description
 import kotlinx.android.synthetic.main.item_food.view.food_image
@@ -91,10 +90,10 @@ class OverviewAdapter(var context: Context, var sections: MutableList<Section>) 
     inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var foodImage = itemView.food_image
         var name = itemView.name!!
-        var description = itemView.description!!
+        private var description = itemView.description!!
         var price = itemView.price!!
-        var addToCartView = itemView.add_to_cart!!
-        var quantity = itemView.quantity!!
+        private var addToCartView = itemView.add_to_cart!!
+        private var quantity = itemView.quantity!!
 
         init {
             itemView.findViewById<LinearLayout>(R.id.root_item_view).setOnClickListener {

@@ -2,14 +2,13 @@ package hr.fer.grupa.erestoran.activity
 
 import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_zahvala.*
-import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.RatingBar
+import androidx.appcompat.app.AppCompatActivity
 import hr.fer.grupa.erestoran.R
+import kotlinx.android.synthetic.main.activity_zahvala.*
 
 
 class Zahvala : AppCompatActivity() {
