@@ -45,7 +45,6 @@ class Zahvala : AppCompatActivity() {
         }
 
         dostava_restoran.setOnClickListener {
-            if (ratingBar.rating != 0f) {
                 if (prefs.getBoolean("isGuest", false)) {
                     val intent = Intent(this, UserTypeSelectActivity::class.java)
                     startActivity(intent)
@@ -55,7 +54,6 @@ class Zahvala : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-            }
         }
 
 
