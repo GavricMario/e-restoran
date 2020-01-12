@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/mobitel"
         android:layout_width="212dp"
         android:layout_height="345dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,9 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:text="Protresite za otvaranje Brzog Izbornika"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/mobitel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

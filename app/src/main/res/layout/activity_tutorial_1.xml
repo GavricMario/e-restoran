@@ -36,15 +36,14 @@
 
     <ImageView
         android:id="@+id/odabir"
-        android:layout_width="200dp"
-        android:layout_height="400dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="286dp"
+        android:layout_height="455dp"
+        app:layout_constraintBottom_toTopOf="@+id/dalje"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
         app:srcCompat="@drawable/dostava_restoran" />
 
     <ImageView
@@ -64,10 +63,11 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
         android:text="prstom povucite za odabir"
-        app:layout_constraintBottom_toTopOf="@+id/odabir"
-        tools:layout_editor_absoluteX="123dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
