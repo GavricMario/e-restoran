@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.menu
 
 import android.app.Dialog
 import android.content.Context
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Window.FEATURE_NO_TITLE
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import hr.fer.grupa.erestoran.R
 import kotlinx.android.synthetic.main.custom_menu_dialog.*
 
 

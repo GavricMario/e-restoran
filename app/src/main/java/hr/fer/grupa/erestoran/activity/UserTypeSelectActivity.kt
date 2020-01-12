@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.account.SignInActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class UserTypeSelectActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran
+package hr.fer.grupa.erestoran.menu
 
 import android.content.Context
 import android.view.GestureDetector

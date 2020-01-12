@@ -9,8 +9,8 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import hr.fer.grupa.erestoran.MenuDialog
-import hr.fer.grupa.erestoran.OnSwipeTouchListener
+import hr.fer.grupa.erestoran.menu.MenuDialog
+import hr.fer.grupa.erestoran.menu.OnSwipeTouchListener
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.order.OrderBaseActivity
 import kotlinx.android.synthetic.main.activity_method_select.*

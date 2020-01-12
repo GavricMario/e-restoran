@@ -1,4 +1,4 @@
-package hr.fer.grupa.erestoran.activity
+package hr.fer.grupa.erestoran.account
 
 import android.content.Intent
 import android.os.Bundle
