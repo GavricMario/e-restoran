@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Unutar izbornika imamo opciju ponavljanja narudzbe"
+        android:textAlignment="center"
         android:textSize="24sp"
+        android:textColor="@color/colorGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,22 +66,22 @@
         android:id="@+id/imageView7"
         android:layout_width="75dp"
         android:layout_height="50dp"
-        android:layout_marginTop="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.295"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.25"
         app:srcCompat="@drawable/strelica" />
 
     <ImageView
         android:id="@+id/imageView11"
         android:layout_width="75dp"
         android:layout_height="50dp"
-        android:layout_marginTop="116dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.6"
         app:srcCompat="@drawable/nije_strelica" />
 
 

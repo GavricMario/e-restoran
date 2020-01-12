@@ -27,8 +27,7 @@ class Tutorial5 : AppCompatActivity() {
         povratak.setOnClickListener{
             prefs.edit().putBoolean("firstUse", true).apply()
 
-            val intent = Intent(this, UserTypeSelectActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
 
 
         }

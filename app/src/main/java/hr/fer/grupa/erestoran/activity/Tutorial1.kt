@@ -10,18 +10,9 @@ import hr.fer.grupa.erestoran.R.layout.activity_tutorial_1
 import kotlinx.android.synthetic.main.activity_tutorial_1.*
 import android.view.animation.TranslateAnimation
 import android.view.animation.Animation
-
-
-
 import android.view.animation.LinearInterpolator
-
-
-
-
-
-
-
-
+import android.content.res.Resources
+import kotlin.math.roundToInt
 
 
 class Tutorial1 : AppCompatActivity() {
@@ -51,18 +42,21 @@ class Tutorial1 : AppCompatActivity() {
             onBackPressed()
         }
 
-        prst.setVisibility(View.VISIBLE)
+        val metrics = Resources.getSystem().displayMetrics
+        val px = 455 * (metrics.densityDpi / 160f)
+
+        prst.visibility = View.VISIBLE
          var  mAnimation = TranslateAnimation(
             TranslateAnimation.ABSOLUTE, 0f,
             TranslateAnimation.ABSOLUTE, 0f,
             TranslateAnimation.ABSOLUTE, 0f,
-            TranslateAnimation.ABSOLUTE, -1000f
+            TranslateAnimation.ABSOLUTE, -(px.roundToInt().toFloat())
         )
-        mAnimation.setDuration(2000)
-        mAnimation.setRepeatCount(-1)
-        mAnimation.setRepeatMode(Animation.REVERSE)
-        mAnimation.setInterpolator(LinearInterpolator())
-        prst.setAnimation(mAnimation)
+        mAnimation.duration = 2000
+        mAnimation.repeatCount = -1
+        mAnimation.repeatMode = Animation.REVERSE
+        mAnimation.interpolator = LinearInterpolator()
+        prst.animation = mAnimation
 
 
 
