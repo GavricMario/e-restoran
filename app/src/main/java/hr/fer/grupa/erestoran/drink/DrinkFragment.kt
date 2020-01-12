@@ -18,10 +18,12 @@ import hr.fer.grupa.erestoran.food.HeaderModel
 import hr.fer.grupa.erestoran.food.ItemModel
 import hr.fer.grupa.erestoran.food.Section
 import hr.fer.grupa.erestoran.models.Drink
+import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.models.OrderFragmentEvent
+import hr.fer.grupa.erestoran.util.OrderItemCustomizationDialog
 import org.greenrobot.eventbus.EventBus
 
-class DrinkFragment : Fragment() {
+class DrinkFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener {
 
     private lateinit var binding: DrinkFragmentBinding
 
@@ -81,13 +83,32 @@ class DrinkFragment : Fragment() {
         adapter = DrinkAdapter(requireContext(), drinkList)
         val decorator = StickyHeaderItemDecorator(adapter)
         decorator.attachToRecyclerView(binding.recyclerView)
-        adapter.onItemClick = {
-            //todo open next step
+        adapter.onItemClick = { section, position ->
+            if (selectedDrinks.contains(section.getDrinkItem()) && section.getDrinkItem().type != "toplo") {
+                val drinkOptionsDialog = OrderItemCustomizationDialog()
+                drinkOptionsDialog.listener = this
+                val bundle = Bundle()
+                bundle.putInt("position", position)
+                bundle.putSerializable("drink", section.getDrinkItem())
+                drinkOptionsDialog.arguments = bundle
+                drinkOptionsDialog.show(requireActivity().supportFragmentManager, "ItemOptions")
+            }
         }
         adapter.addToCartClick = { section, position ->
-            if (selectedDrinks.add(section.getDrinkItem())) {
-                drinkList[position].getDrinkItem().isInCart = true
-                adapter.notifyItemChanged(position)
+            if (!selectedDrinks.contains(section.getDrinkItem())) {
+                if (section.getDrinkItem().type != "toplo") {
+                    val drinkOptionsDialog = OrderItemCustomizationDialog()
+                    drinkOptionsDialog.listener = this
+                    val bundle = Bundle()
+                    bundle.putInt("position", position)
+                    bundle.putSerializable("drink", section.getDrinkItem())
+                    drinkOptionsDialog.arguments = bundle
+                    drinkOptionsDialog.show(requireActivity().supportFragmentManager, "ItemOptions")
+                } else {
+                    drinkList[position].getDrinkItem().isInCart = true
+                    selectedDrinks.add(section.getDrinkItem())
+                    adapter.notifyItemChanged(position)
+                }
             } else {
                 selectedDrinks.remove(section.getDrinkItem())
                 drinkList[position].getDrinkItem().isInCart = false
@@ -130,5 +151,14 @@ class DrinkFragment : Fragment() {
 
     fun finishDrinkPicking() {
         EventBus.getDefault().post(OrderFragmentEvent(this, selectedDrinks))
+    }
+
+    override fun saveFood(food: Food, position: Int) {
+    }
+
+    override fun saveDrink(drink: Drink, position: Int) {
+        drinkList[position].getDrinkItem().isInCart = true
+        selectedDrinks.add(drink)
+        adapter.notifyItemChanged(position)
     }
 }

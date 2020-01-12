@@ -45,6 +45,7 @@ class OrderBaseActivity : AppCompatActivity() {
         val oldOrder = intent.getSerializableExtra("order") as? Order
         if (oldOrder != null) {
             order = oldOrder
+            orderType = oldOrder.type
             binding.title.text = getString(R.string.overview)
             val fragment = OrderOverviewFragment()
             val bundle = Bundle()
@@ -56,9 +57,10 @@ class OrderBaseActivity : AppCompatActivity() {
             binding.title.text = getString(R.string.pick_restaurant)
             val restaurantPickFragment = RestaurantsFragment()
             supportFragmentManager.beginTransaction()
-            .add(R.id.container, restaurantPickFragment, "restaurant")
-            .addToBackStack("restaurant").commit()
-    }
+                .add(R.id.container, restaurantPickFragment, "restaurant")
+                .addToBackStack("restaurant").commit()
+            order = Order(type = orderType)
+        }
 
         pieMenu = PieDialog(this)
         pieMenu.setCancelable(true)
@@ -95,8 +97,7 @@ class OrderBaseActivity : AppCompatActivity() {
         when (event.fragment) {
             is RestaurantsFragment -> {
                 binding.title.text = getString(R.string.pick_food)
-                order =
-                    Order(restaurant = event.data as Restaurant, type = orderType)
+                order.restaurant = event.data as Restaurant
                 val fragment = FoodFragment()
                 val bundle = Bundle()
                 bundle.putString("restaurant", order.restaurant.id)

@@ -15,10 +15,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.models.ExtraFood
+import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.models.Order
 import hr.fer.grupa.erestoran.models.User
 import hr.fer.grupa.erestoran.util.sessionUser
 import hr.fer.grupa.erestoran.util.userUid
+import java.util.*
 
 class SplashActivity : AppCompatActivity() {
 
@@ -56,6 +59,31 @@ class SplashActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 //        addRestaurants()
 //        addFood()
+    }
+
+    private fun addFood() {
+        val food = Food()
+        food.title = "Juha"
+        food.subtitle = "Juha od gljiva"
+        food.type = "predjelo"
+        food.price = 20.00f
+        database.reference.child("Food").child("792b275f-9b77-4126-b430-c8462dc7acd7").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Naresci"
+        food.subtitle = "Prsut, sir"
+        food.type = "predjelo"
+        food.price = 15.00f
+        database.reference.child("Food").child("792b275f-9b77-4126-b430-c8462dc7acd7").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Odrezak"
+        food.subtitle = ""
+        food.type = "glavno"
+        food.price = 50.00f
+        food.extras.add(ExtraFood("Peceni krumpir", 10.00f))
+        database.reference.child("Food").child("792b275f-9b77-4126-b430-c8462dc7acd7").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Kolac"
+        food.subtitle = "Od oraha"
+        food.type = "desert"
+        food.price = 10.00f
+        database.reference.child("Food").child("792b275f-9b77-4126-b430-c8462dc7acd7").child(UUID.randomUUID().toString()).setValue(food)
     }
 
     private fun emailLogin(email: String, password: String){

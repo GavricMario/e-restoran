@@ -24,7 +24,7 @@ class DrinkAdapter(var context: Context, var sections: MutableList<Section>) :
     private val LAYOUT_HEADER = 0
     private val LAYOUT_ITEM = 1
 
-    var onItemClick: ((Section) -> Unit)? = null
+    var onItemClick: ((Section, Int) -> Unit)? = null
     var addToCartClick: ((Section, Int) -> Unit)? = null
 
     override fun onCreateHeaderViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
@@ -82,7 +82,7 @@ class DrinkAdapter(var context: Context, var sections: MutableList<Section>) :
 
         init {
             itemView.findViewById<LinearLayout>(R.id.root_item_view).setOnClickListener {
-                onItemClick?.invoke(sections[adapterPosition])
+                onItemClick?.invoke(sections[adapterPosition], adapterPosition)
             }
             itemView.findViewById<ImageView>(R.id.add_to_cart).setOnClickListener {
                 addToCartClick?.invoke(sections[adapterPosition], adapterPosition)

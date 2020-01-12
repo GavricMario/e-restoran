@@ -5,7 +5,7 @@ import hr.fer.grupa.erestoran.models.Food
 
 class ItemModel(private var section: Int) : Section {
 
-    lateinit var item : String
+    var item : String = ""
     lateinit var food: Food
     lateinit var drink: Drink
 

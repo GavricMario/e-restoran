@@ -14,11 +14,13 @@ import com.google.firebase.database.ValueEventListener
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.databinding.FragmentFoodBinding
+import hr.fer.grupa.erestoran.models.Drink
 import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.models.OrderFragmentEvent
+import hr.fer.grupa.erestoran.util.OrderItemCustomizationDialog
 import org.greenrobot.eventbus.EventBus
 
-class FoodFragment : Fragment() {
+class FoodFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener {
 
     private lateinit var binding: FragmentFoodBinding
 
@@ -78,13 +80,35 @@ class FoodFragment : Fragment() {
         adapter = FoodAdapter(requireContext(), foodList)
         val decorator = StickyHeaderItemDecorator(adapter)
         decorator.attachToRecyclerView(binding.recyclerView)
-        adapter.onItemClick = {
-            //todo open next step
+        adapter.onItemClick = { section, position ->
+            if (selectedFood.contains(section.getItem()) && (section.getItem().title.toLowerCase().contains(
+                    "odrezak"
+                ) || section.getItem().extras.isNotEmpty())
+            ) {
+                val foodOptionsDialog = OrderItemCustomizationDialog()
+                foodOptionsDialog.listener = this
+                val bundle = Bundle()
+                bundle.putInt("position", position)
+                bundle.putSerializable("food", section.getItem())
+                foodOptionsDialog.arguments = bundle
+                foodOptionsDialog.show(requireActivity().supportFragmentManager, "ItemOptions")
+            }
         }
         adapter.addToCartClick = { section, position ->
-            if (selectedFood.add(section.getItem())) {
-                foodList[position].getItem().isInCart = true
-                adapter.notifyItemChanged(position)
+            if (!selectedFood.contains(section.getItem())) {
+                if (section.getItem().title.toLowerCase().contains("odrezak") || section.getItem().extras.isNotEmpty()) {
+                    val foodOptionsDialog = OrderItemCustomizationDialog()
+                    foodOptionsDialog.listener = this
+                    val bundle = Bundle()
+                    bundle.putInt("position", position)
+                    bundle.putSerializable("food", section.getItem())
+                    foodOptionsDialog.arguments = bundle
+                    foodOptionsDialog.show(requireActivity().supportFragmentManager, "ItemOptions")
+                } else {
+                    foodList[position].getItem().isInCart = true
+                    selectedFood.add(section.getItem())
+                    adapter.notifyItemChanged(position)
+                }
             } else {
                 selectedFood.remove(section.getItem())
                 foodList[position].getItem().isInCart = false
@@ -127,6 +151,15 @@ class FoodFragment : Fragment() {
 
     fun finishFoodPicking() {
         EventBus.getDefault().post(OrderFragmentEvent(this, selectedFood))
+    }
+
+    override fun saveFood(food: Food, position: Int) {
+        foodList[position].getItem().isInCart = true
+        selectedFood.add(food)
+        adapter.notifyItemChanged(position)
+    }
+
+    override fun saveDrink(drink: Drink, position: Int) {
     }
 
 }

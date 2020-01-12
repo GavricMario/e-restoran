@@ -10,5 +10,7 @@ class Food(
     var imageUrl: String = "",
     var type: String = "",
     var isInCart: Boolean = false,
-    var quantity: Int = 1
+    var quantity: Int = 1,
+    var extras: MutableList<ExtraFood> = mutableListOf(),
+    var rareness: Int = 2
 ): Serializable

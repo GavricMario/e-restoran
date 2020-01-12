@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.account.RegisterActivity
 import hr.fer.grupa.erestoran.activity.MethodSelectActivity
 import hr.fer.grupa.erestoran.activity.UserTypeSelectActivity
 import hr.fer.grupa.erestoran.models.*
@@ -77,22 +78,23 @@ class SignInActivity : AppCompatActivity() {
         food.subtitle = "Juha od gljiva"
         food.type = "predjelo"
         food.price = 20.00f
-        database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        database.reference.child("Food").child("792b275f-9b77-4126-b430-c8462dc7acd7").child(UUID.randomUUID().toString()).setValue(food)
         food.title = "Naresci"
         food.subtitle = "Prsut, sir"
         food.type = "predjelo"
         food.price = 15.00f
-        database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
-        food.title = "Mesna plata"
-        food.subtitle = "Pljeskavice, cevapi"
+        database.reference.child("Food").child("792b275f-9b77-4126-b430-c8462dc7acd7").child(UUID.randomUUID().toString()).setValue(food)
+        food.title = "Odrezak"
+        food.subtitle = ""
         food.type = "glavno"
         food.price = 50.00f
-        database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        food.extras.add(ExtraFood("Peceni krumpir", 10.00f))
+        database.reference.child("Food").child("792b275f-9b77-4126-b430-c8462dc7acd7").child(UUID.randomUUID().toString()).setValue(food)
         food.title = "Kolac"
         food.subtitle = "Od oraha"
         food.type = "desert"
         food.price = 10.00f
-        database.reference.child("Food").child("3e092f4e-030a-415a-9308-90be8df7801f").child(UUID.randomUUID().toString()).setValue(food)
+        database.reference.child("Food").child("792b275f-9b77-4126-b430-c8462dc7acd7").child(UUID.randomUUID().toString()).setValue(food)
     }
     // Function for adding drink data to firebase
     private fun addDrinks() {
