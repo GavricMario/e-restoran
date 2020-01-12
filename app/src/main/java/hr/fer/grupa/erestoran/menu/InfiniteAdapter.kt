@@ -12,6 +12,7 @@ import hr.fer.grupa.erestoran.account.AccountDetailsActivity
 import hr.fer.grupa.erestoran.account.AddAddressActivity
 import hr.fer.grupa.erestoran.activity.*
 import hr.fer.grupa.erestoran.models.User
+import hr.fer.grupa.erestoran.orderhistory.OrderHistoryActivity
 import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.item_menu_list.view.*
 
@@ -60,7 +61,8 @@ class InfiniteAdapter(
                 context.startActivity(intent)
             }
             "Order History" -> holder.container.setOnClickListener {
-                //TODO history view
+                val intent = Intent(context, OrderHistoryActivity::class.java)
+                context.startActivity(intent)
             }
             "Log Out" -> holder.container.setOnClickListener {
                 val prefs = context.getSharedPreferences(context.resources.getString(R.string.app_name), AppCompatActivity.MODE_PRIVATE)

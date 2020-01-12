@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.models.Order
 import hr.fer.grupa.erestoran.models.User
 import hr.fer.grupa.erestoran.util.sessionUser
 import hr.fer.grupa.erestoran.util.userUid
@@ -71,6 +73,15 @@ class SplashActivity : AppCompatActivity() {
                                 ValueEventListener {
                                 override fun onDataChange(p0: DataSnapshot) {
                                     sessionUser = p0.children.first().getValue(User::class.java) ?: User()
+
+                                    for (valueRes in p0.children.first().child("orders").children) {
+                                        val order = valueRes.getValue(Order::class.java)
+                                        Log.d("Test", "Test")
+                                        if(order != null) {
+                                            sessionUser.orderHistory.add(order)
+                                        }
+                                    }
+
                                     userUid = p0.children.first().key ?: ""
                                 }
 

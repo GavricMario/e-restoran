@@ -3,6 +3,7 @@ package hr.fer.grupa.erestoran.datasource
 import android.content.Context
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -29,6 +30,15 @@ class FirebaseDataSourceManager{
                 userListener = database.reference.child("Users").child(userUid).addValueEventListener(object: ValueEventListener{
                     override fun onDataChange(p0: DataSnapshot) {
                         sessionUser = p0.getValue(User::class.java) ?: sessionUser
+
+                        for (valueRes in p0.child("orders").children) {
+                            val order = valueRes.getValue(Order::class.java)
+                            Log.d("Test", "Test")
+                            if(order != null) {
+                                sessionUser.orderHistory.add(order)
+                            }
+                        }
+
                         userUid = p0.key ?: ""
                     }
 
