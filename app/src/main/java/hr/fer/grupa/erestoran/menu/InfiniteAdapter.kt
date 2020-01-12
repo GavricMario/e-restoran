@@ -5,8 +5,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.mikhaellopez.circularimageview.CircularImageView
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.account.AccountDetailsActivity
 import hr.fer.grupa.erestoran.account.AddAddressActivity
@@ -14,11 +17,13 @@ import hr.fer.grupa.erestoran.activity.*
 import hr.fer.grupa.erestoran.models.User
 import hr.fer.grupa.erestoran.orderhistory.OrderHistoryActivity
 import hr.fer.grupa.erestoran.util.sessionUser
+import hr.fer.grupa.erestoran.util.userUid
 import kotlinx.android.synthetic.main.item_menu_list.view.*
 
 
 class InfiniteAdapter(
     private val context: Context,
+    private val activityContext: Context,
     private val objects: Array<String>
 ) : RecyclerView.Adapter<InfiniteAdapter.CircularViewHolder>() {
 
@@ -28,7 +33,15 @@ class InfiniteAdapter(
 
     override fun onBindViewHolder(holder: CircularViewHolder, position: Int) {
         val currentObj = objects[position % objects.size]
-        holder.menuItemText.text = currentObj
+
+        when(currentObj) {
+            "Change Language" -> holder.menuItemText.text = context.getString(R.string.change_language_setting)
+            "Add Address" -> holder.menuItemText.text = context.getString(R.string.add_address_setting)
+            "Tutorial" -> holder.menuItemText.text = context.getString(R.string.tutorial_setting)
+            "Profile" -> holder.menuItemText.text = context.getString(R.string.profile_setting)
+            "Order History" -> holder.menuItemText.text = context.getString(R.string.order_history_setting)
+            "Log Out" -> holder.menuItemText.text = context.getString(R.string.log_out_setting)
+        }
 
         when(currentObj) {
             "Change Language" -> holder.image.setImageResource(R.drawable.language)
@@ -43,6 +56,11 @@ class InfiniteAdapter(
             "Change Language" -> holder.container.setOnClickListener {
                 val intent = Intent(context, Jezik::class.java)
                 context.startActivity(intent)
+                try {
+                    (activityContext as MethodSelectActivity).finishActivity()
+                } catch (e: Exception) {
+                    //nothing
+                }
             }
             "Add Address" -> holder.container.setOnClickListener {
                 val intent = Intent(context, AddAddressActivity::class.java)
@@ -67,10 +85,11 @@ class InfiniteAdapter(
                     .remove("password")
                     .apply()
                 sessionUser = User()
+                userUid = ""
                 val intent = Intent(context, UserTypeSelectActivity::class.java)
                 context.startActivity(intent)
                 try {
-                    (context as MethodSelectActivity).finishActivity()
+                    (activityContext as MethodSelectActivity).finishActivity()
                 } catch (e: Exception) {
                     //nothing
                 }
@@ -133,8 +152,8 @@ class InfiniteAdapter(
     }
 
     class CircularViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val menuItemText = view.menuItemText
-        val image = view.image
-        val container = view.container
+        val menuItemText: TextView = view.menuItemText
+        val image: CircularImageView = view.image
+        val container: LinearLayout = view.container
     }
 }

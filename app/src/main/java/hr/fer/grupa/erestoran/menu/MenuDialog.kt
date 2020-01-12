@@ -10,7 +10,7 @@ import hr.fer.grupa.erestoran.R
 import kotlinx.android.synthetic.main.custom_menu_dialog.*
 
 
-class MenuDialog(context: Context) : Dialog(context, android.R.style.Theme_Light) {
+class MenuDialog(private val activityContext: Context) : Dialog(activityContext, android.R.style.Theme_Light) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +18,7 @@ class MenuDialog(context: Context) : Dialog(context, android.R.style.Theme_Light
         setContentView(R.layout.custom_menu_dialog)
 
         val listItem = context.resources.getStringArray(R.array.array_settings)
-        val adapter = InfiniteAdapter(context, listItem)
+        val adapter = InfiniteAdapter(context, activityContext, listItem)
         listView.layoutManager = LinearLayoutManager(context)
 
         listView.adapter = adapter

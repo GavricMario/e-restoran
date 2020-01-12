@@ -59,7 +59,7 @@ class DrinkFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener 
             override fun onCancelled(p0: DatabaseError) {
                 Toast.makeText(
                     requireContext(),
-                    "An unexpected error occured.",
+                    getString(R.string.unexpected_error),
                     Toast.LENGTH_SHORT
                 ).show()
             }

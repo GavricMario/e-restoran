@@ -8,8 +8,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.models.AddressModel
 import hr.fer.grupa.erestoran.models.Order
+import hr.fer.grupa.erestoran.models.RatingModel
 import hr.fer.grupa.erestoran.models.User
 import hr.fer.grupa.erestoran.util.sessionUser
 import hr.fer.grupa.erestoran.util.userUid
@@ -39,6 +41,13 @@ class FirebaseDataSourceManager{
                             }
                         }
 
+                        for (valueRes in p0.child("address").children) {
+                            val order = valueRes.getValue(AddressModel::class.java)
+                            if(order != null) {
+                                sessionUser.addresses.add(order)
+                            }
+                        }
+
                         userUid = p0.key ?: ""
                     }
 
@@ -54,9 +63,9 @@ class FirebaseDataSourceManager{
     }
 
     fun saveAddress(address: AddressModel) {
-        val key = database.reference.child("Users").child(userUid).child("address").push().key
+        val key = database.reference.child("Users").child(userUid).child("addresses").push().key
         if (key != null ) {
-            database.reference.child("Users").child(userUid).child("address").child(key).setValue(address)
+            database.reference.child("Users").child(userUid).child("addresses").child(key).setValue(address)
         }
     }
 
@@ -76,10 +85,17 @@ class FirebaseDataSourceManager{
     fun resetPassword(email: String, context: Context) {
         auth.sendPasswordResetEmail(email).addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(context, "Password reset email has been sent!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, context.getString(R.string.password_reset_text), Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(context, "Something went wrong please try again later", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, context.getString(R.string.something_went_wrong_error), Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    fun saveRating(rating: RatingModel) {
+        val key = database.reference.child("Ratings").push().key
+        if (key != null ) {
+            database.reference.child("Ratings").child(key).setValue(rating)
         }
     }
 }

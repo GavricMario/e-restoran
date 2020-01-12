@@ -108,11 +108,6 @@ class PieDialog(private val activityContext: Context) : Dialog(activityContext, 
                 }
             }
         }
-
-        languageChangeButton.setOnClickListener {
-            val intent = Intent(context, Jezik::class.java)
-            context.startActivity(intent)
-        }
     }
 
     override fun show() {

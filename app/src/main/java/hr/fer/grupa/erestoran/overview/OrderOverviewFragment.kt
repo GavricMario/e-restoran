@@ -10,14 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.activity.Dostava
 import hr.fer.grupa.erestoran.activity.Payment
-import hr.fer.grupa.erestoran.activity.Zahvala
 import hr.fer.grupa.erestoran.databinding.OrderOverviewFragmentBinding
 import hr.fer.grupa.erestoran.datasource.FirebaseDataSourceManager
 import hr.fer.grupa.erestoran.food.HeaderModel
 import hr.fer.grupa.erestoran.food.ItemModel
 import hr.fer.grupa.erestoran.food.Section
 import hr.fer.grupa.erestoran.models.Order
+import kotlin.math.roundToLong
 
 class OrderOverviewFragment : Fragment() {
 
@@ -26,6 +27,8 @@ class OrderOverviewFragment : Fragment() {
     private lateinit var adapter: OverviewAdapter
 
     private lateinit var order: Order
+
+    private var discountMultiplier: Float = 1f
 
     private val allItems = mutableListOf<Section>()
 
@@ -42,6 +45,16 @@ class OrderOverviewFragment : Fragment() {
             order = bundle.getSerializable("order") as Order
             showOrder(order)
         }
+
+        binding.applyButton.setOnClickListener {
+            if (binding.kuponText.text.toString() == "ADMIN50") {
+                discountMultiplier = 0.5f
+                updateTotalPrice()
+            } else {
+                binding.kuponText.error = getString(R.string.invalid_coupon)
+            }
+        }
+
         return binding.root
     }
 
@@ -81,7 +94,7 @@ class OrderOverviewFragment : Fragment() {
                 }
             }
             adapter.notifyItemChanged(position)
-            updateTotalPrice(order)
+            updateTotalPrice()
         }
         adapter.plusClick = { item, position ->
             if (allItems[position].sectionPosition() == 0) {
@@ -90,7 +103,7 @@ class OrderOverviewFragment : Fragment() {
                 allItems[position].getDrinkItem().quantity++
             }
             adapter.notifyItemChanged(position)
-            updateTotalPrice(order)
+            updateTotalPrice()
         }
         adapter.addToCartClick = { item, position ->
             allItems.removeAt(position)
@@ -100,14 +113,14 @@ class OrderOverviewFragment : Fragment() {
                 order.drink.remove(allItems[position].getDrinkItem())
             }
             adapter.notifyItemRemoved(position)
-            updateTotalPrice(order)
+            updateTotalPrice()
         }
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
-        updateTotalPrice(order)
+        updateTotalPrice()
     }
 
-    private fun updateTotalPrice(order: Order) {
+    private fun updateTotalPrice() {
         var totalPrice = 0f
         allItems.forEach {
             if (!it.isHeader()) {
@@ -118,7 +131,7 @@ class OrderOverviewFragment : Fragment() {
                 }
             }
         }
-        binding.totalPrice.text = totalPrice.toString()
+        binding.totalPrice.text = "%.2f".format(totalPrice * discountMultiplier)
     }
 
     override fun onPause() {
@@ -133,16 +146,16 @@ class OrderOverviewFragment : Fragment() {
         if (order.type == "restaurant") {
             Toast.makeText(
                 requireContext(),
-                "Your order has been placed. Thank You for using our application!",
+                getString(R.string.order_placed_message),
                 Toast.LENGTH_SHORT
             ).show()
-            val intent = Intent(requireContext(), Zahvala::class.java)
+            val intent = Intent(requireContext(), Payment::class.java)
             intent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             requireActivity().finish()
         } else if (order.type == "delivery") {
-            val intent = Intent(requireContext(), Payment::class.java)
+            val intent = Intent(requireContext(), Dostava::class.java)
             intent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

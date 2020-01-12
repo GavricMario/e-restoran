@@ -34,11 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="@string/nazad"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/odustani"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/cash"
         app:layout_constraintStart_toStartOf="@+id/cash"
-        app:layout_constraintTop_toBottomOf="@+id/cash"
-        app:layout_constraintVertical_bias="0.0"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toBottomOf="@+id/cash" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

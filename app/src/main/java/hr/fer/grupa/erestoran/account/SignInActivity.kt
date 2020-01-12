@@ -174,7 +174,7 @@ class SignInActivity : AppCompatActivity() {
                     val isVerified = it.result?.user?.isEmailVerified ?: false
                     if (isVerified) {
                         progressBar.visibility = View.GONE
-                        Toast.makeText(this, "Signed in successfully!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.sign_in_message), Toast.LENGTH_SHORT).show()
 
                         database.reference.child("Users")
                             .orderByChild("email")
@@ -187,6 +187,13 @@ class SignInActivity : AppCompatActivity() {
                                         Log.d("Test", "Test")
                                         if(order != null) {
                                             sessionUser.orderHistory.add(order)
+                                        }
+                                    }
+
+                                    for (valueRes in p0.children.first().child("address").children) {
+                                        val order = valueRes.getValue(AddressModel::class.java)
+                                        if(order != null) {
+                                            sessionUser.addresses.add(order)
                                         }
                                     }
 
@@ -204,11 +211,11 @@ class SignInActivity : AppCompatActivity() {
                         finish()
                     } else {
                         progressBar.visibility = View.GONE
-                        Toast.makeText(this, "Please verify your email first", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.verify_email_message), Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.authentication_failed), Toast.LENGTH_SHORT).show()
                 }
             }
 
