@@ -1,5 +1,6 @@
 package hr.fer.grupa.erestoran.drink
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.activity.NutritionActivity
 import hr.fer.grupa.erestoran.databinding.DrinkFragmentBinding
 import hr.fer.grupa.erestoran.food.HeaderModel
 import hr.fer.grupa.erestoran.food.ItemModel
@@ -118,6 +120,13 @@ class DrinkFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener 
                 drinkList[position].getDrinkItem().isInCart = false
                 adapter.notifyItemChanged(position)
             }
+        }
+        adapter.onNutritionClick = { section ->
+            val intent = Intent(requireContext(), NutritionActivity::class.java)
+            intent.putExtra("nutrition", section.getDrinkItem().nutririonValues)
+            intent.putExtra("name", section.getDrinkItem().title)
+            intent.putExtra("imageUrl", section.getDrinkItem().imageUrl)
+            startActivity(intent)
         }
         binding.recyclerView.adapter = adapter
         if (nonAlcoholic.isNotEmpty()) {

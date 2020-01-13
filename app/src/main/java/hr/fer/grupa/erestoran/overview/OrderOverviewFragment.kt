@@ -25,13 +25,6 @@ import hr.fer.grupa.erestoran.util.OrderItemCustomizationDialog
 import kotlin.math.roundToLong
 
 class OrderOverviewFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener {
-    override fun saveFood(food: Food, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun saveDrink(drink: Drink, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private lateinit var binding: OrderOverviewFragmentBinding
 
@@ -75,21 +68,25 @@ class OrderOverviewFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveL
     }
 
     private fun initRecycler(order: Order) {
-        val foodHeaderModel = HeaderModel(0)
-        foodHeaderModel.header = getString(R.string.food)
-        allItems.add(foodHeaderModel)
-        order.food.forEach { food ->
-            val foodItem = ItemModel(0)
-            foodItem.food = food
-            allItems.add(foodItem)
+        if (order.food.isNotEmpty()) {
+            val foodHeaderModel = HeaderModel(0)
+            foodHeaderModel.header = getString(R.string.food)
+            allItems.add(foodHeaderModel)
+            order.food.forEach { food ->
+                val foodItem = ItemModel(0)
+                foodItem.food = food
+                allItems.add(foodItem)
+            }
         }
-        val drinkHeaderModel = HeaderModel(order.food.size)
-        drinkHeaderModel.header = getString(R.string.drinks)
-        allItems.add(drinkHeaderModel)
-        order.drink.forEach { drink ->
-            val drinkItem = ItemModel(order.food.size)
-            drinkItem.drink = drink
-            allItems.add(drinkItem)
+        if (order.drink.isNotEmpty()) {
+            val drinkHeaderModel = HeaderModel(order.food.size)
+            drinkHeaderModel.header = getString(R.string.drinks)
+            allItems.add(drinkHeaderModel)
+            order.drink.forEach { drink ->
+                val drinkItem = ItemModel(order.food.size)
+                drinkItem.drink = drink
+                allItems.add(drinkItem)
+            }
         }
         adapter = OverviewAdapter(requireContext(), allItems)
         val decorator = StickyHeaderItemDecorator(adapter)
@@ -126,14 +123,30 @@ class OrderOverviewFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveL
             adapter.notifyItemRemoved(position)
             updateTotalPrice()
         }
-        adapter.onItemClick = { section ->
-//            val foodOptionsDialog = OrderItemCustomizationDialog()
-//            foodOptionsDialog.listener = this
-//            val bundle = Bundle()
-//            bundle.putInt("position", position)
-//            bundle.putSerializable("food", section.getItem())
-//            foodOptionsDialog.arguments = bundle
-//            foodOptionsDialog.show(requireActivity().supportFragmentManager, "ItemOptions")
+        adapter.onItemClick = { section, position ->
+            if (section.sectionPosition() == 0 && order.food.isNotEmpty()) {
+                if (section.getItem().title.toLowerCase().contains("odrezak") || section.getItem().extras.isNotEmpty()) {
+                    val foodOptionsDialog = OrderItemCustomizationDialog()
+                    foodOptionsDialog.listener = this
+                    val bundle = Bundle()
+                    bundle.putInt("position", position)
+                    bundle.putSerializable("food", section.getItem())
+                    foodOptionsDialog.arguments = bundle
+                    foodOptionsDialog.show(requireActivity().supportFragmentManager, "ItemOptions")
+                }
+            } else {
+                if (section.getDrinkItem().type == "bezalkoholno"
+                    || section.getDrinkItem().extras.isNotEmpty()
+                ) {
+                    val drinkOptionsDialog = OrderItemCustomizationDialog()
+                    drinkOptionsDialog.listener = this
+                    val bundle = Bundle()
+                    bundle.putInt("position", position)
+                    bundle.putSerializable("drink", section.getDrinkItem())
+                    drinkOptionsDialog.arguments = bundle
+                    drinkOptionsDialog.show(requireActivity().supportFragmentManager, "ItemOptions")
+                }
+            }
         }
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
@@ -144,7 +157,7 @@ class OrderOverviewFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveL
         var totalPrice = 0f
         allItems.forEach {
             if (!it.isHeader()) {
-                totalPrice += if (it.sectionPosition() == 0) {
+                totalPrice += if (it.sectionPosition() == 0 && order.food.isNotEmpty()) {
                     it.getItem().price * it.getItem().quantity
                 } else {
                     it.getDrinkItem().price * it.getDrinkItem().quantity
@@ -181,5 +194,13 @@ class OrderOverviewFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveL
             startActivity(intent)
             requireActivity().finish()
         }
+    }
+
+    override fun saveFood(food: Food, position: Int) {
+        adapter.notifyItemChanged(position)
+    }
+
+    override fun saveDrink(drink: Drink, position: Int) {
+        adapter.notifyItemChanged(position)
     }
 }

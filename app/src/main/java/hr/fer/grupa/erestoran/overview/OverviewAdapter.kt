@@ -27,13 +27,13 @@ import kotlinx.android.synthetic.main.item_food_header.view.*
 import kotlinx.android.synthetic.main.item_overview.view.*
 
 class OverviewAdapter(var context: Context, var sections: MutableList<Section>) :
-    StickyAdapter<RecyclerView.ViewHolder, RecyclerView.ViewHolder>()  {
+    StickyAdapter<RecyclerView.ViewHolder, RecyclerView.ViewHolder>() {
 
 
     private val LAYOUT_HEADER = 0
     private val LAYOUT_ITEM = 1
 
-    var onItemClick: ((Section) -> Unit)? = null
+    var onItemClick: ((Section, Int) -> Unit)? = null
     var addToCartClick: ((Section, Int) -> Unit)? = null
     var minusClick: ((Section, Int) -> Unit)? = null
     var plusClick: ((Section, Int) -> Unit)? = null
@@ -66,8 +66,13 @@ class OverviewAdapter(var context: Context, var sections: MutableList<Section>) 
         } else {
             val holder = p0 as FoodViewHolder
             if (sections[p1].sectionPosition() == 0) {
-                val food = sections[p1].getItem()
-                holder.bindFood(food)
+                try {
+                    val food = sections[p1].getItem()
+                    holder.bindFood(food)
+                } catch (e: UninitializedPropertyAccessException) {
+                    val drink = sections[p1].getDrinkItem()
+                    holder.bindDrink(drink)
+                }
             } else {
                 val drink = sections[p1].getDrinkItem()
                 holder.bindDrink(drink)
@@ -98,7 +103,7 @@ class OverviewAdapter(var context: Context, var sections: MutableList<Section>) 
 
         init {
             itemView.findViewById<LinearLayout>(R.id.root_item_view).setOnClickListener {
-                onItemClick?.invoke(sections[adapterPosition])
+                onItemClick?.invoke(sections[adapterPosition], adapterPosition)
             }
             itemView.findViewById<ImageView>(R.id.add_to_cart).setOnClickListener {
                 addToCartClick?.invoke(sections[adapterPosition], adapterPosition)
@@ -120,7 +125,12 @@ class OverviewAdapter(var context: Context, var sections: MutableList<Section>) 
             if (food.isInCart) {
                 addToCartView.setBackgroundColor(Color.RED)
             } else {
-                addToCartView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen))
+                addToCartView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorGreen
+                    )
+                )
             }
             if (food.imageUrl.isNotBlank()) Picasso.get().load(food.imageUrl).into(foodImage)
         }
@@ -133,7 +143,12 @@ class OverviewAdapter(var context: Context, var sections: MutableList<Section>) 
             if (drink.isInCart) {
                 addToCartView.setBackgroundColor(Color.RED)
             } else {
-                addToCartView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen))
+                addToCartView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorGreen
+                    )
+                )
             }
             if (drink.imageUrl.isNotBlank()) Picasso.get().load(drink.imageUrl).into(foodImage)
         }
