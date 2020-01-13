@@ -26,7 +26,7 @@ class Zahvala : AppCompatActivity() {
 
         val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
 
-        if (prefs.getBoolean("isGuest", false)) {
+        if (prefs.getBoolean("isGuest", true)) {
             ratingBar.visibility = View.INVISIBLE
             commentText.visibility = View.INVISIBLE
             ocjena.visibility = View.INVISIBLE
@@ -45,7 +45,7 @@ class Zahvala : AppCompatActivity() {
         }
 
         dostava_restoran.setOnClickListener {
-                if (prefs.getBoolean("isGuest", false)) {
+                if (prefs.getBoolean("isGuest", true)) {
                     val intent = Intent(this, UserTypeSelectActivity::class.java)
                     startActivity(intent)
                     finish()
