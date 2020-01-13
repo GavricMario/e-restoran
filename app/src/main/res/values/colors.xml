@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#0090FF</color>
+    <color name="colorNutririon">#90FF</color>
     <color name="colorPrimaryDark">#1B6497</color>
     <color name="colorAccent">#FD8B00</color>
     <color name="colorText">#a000</color>

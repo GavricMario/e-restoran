@@ -1,5 +1,6 @@
 package hr.fer.grupa.erestoran.food
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.shuhart.stickyheader.StickyHeaderItemDecorator
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.activity.NutritionActivity
 import hr.fer.grupa.erestoran.databinding.FragmentFoodBinding
 import hr.fer.grupa.erestoran.models.Drink
 import hr.fer.grupa.erestoran.models.Food
@@ -114,6 +116,13 @@ class FoodFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener {
                 foodList[position].getItem().isInCart = false
                 adapter.notifyItemChanged(position)
             }
+        }
+        adapter.onNutritionClick = { section ->
+            val intent = Intent(requireContext(), NutritionActivity::class.java)
+            intent.putExtra("nutrition", section.getItem().nutririonValues)
+            intent.putExtra("name", section.getItem().title)
+            intent.putExtra("imageUrl", section.getItem().imageUrl)
+            startActivity(intent)
         }
         binding.recyclerView.adapter = adapter
         if (starters.isNotEmpty()) {
