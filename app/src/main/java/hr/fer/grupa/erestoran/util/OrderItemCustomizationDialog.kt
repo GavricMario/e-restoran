@@ -90,16 +90,29 @@ class OrderItemCustomizationDialog : BottomSheetDialogFragment() {
 
     private fun setupDrink(drink: Drink) {
         binding.steakRareness.visibility = View.GONE
-        binding.foodExtras.visibility = View.GONE
-        when (drink.drinkSize) {
-            "Small 0.3L" -> binding.small.isChecked = true
-            "Medium 0.5L" -> binding.medium.isChecked = true
-            "Large 0.7L" -> binding.large.isChecked = true
+        if (drink.extras.isNotEmpty()) setupDrinkRecycler(drink)
+        else binding.foodExtras.visibility = View.GONE
+        if (drink.type == "bezalkoholno") {
+            when (drink.drinkSize) {
+                "Small 0.3L" -> binding.small.isChecked = true
+                "Medium 0.5L" -> binding.medium.isChecked = true
+                "Large 0.7L" -> binding.large.isChecked = true
+            }
+        } else {
+            binding.drinkSize.visibility = View.GONE
         }
     }
 
     private fun setupRecycler(food: Food) {
         val adapter = FoodExtrasAdapter(food.extras)
+        adapter.onItemClick = { selectedFood, checked ->
+            selectedFood.selected = checked
+        }
+        binding.foodExtras.adapter = adapter
+    }
+
+    private fun setupDrinkRecycler(drink: Drink) {
+        val adapter = FoodExtrasAdapter(drink.extras)
         adapter.onItemClick = { selectedFood, checked ->
             selectedFood.selected = checked
         }

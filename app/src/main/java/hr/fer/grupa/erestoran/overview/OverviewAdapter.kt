@@ -89,7 +89,7 @@ class OverviewAdapter(var context: Context, var sections: MutableList<Section>) 
 
 
     inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var foodImage = itemView.food_image
+        var foodImage = itemView.food_image!!
         var name = itemView.name!!
         private var description = itemView.description!!
         var price = itemView.price!!
