@@ -84,7 +84,9 @@ class DrinkFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener 
         val decorator = StickyHeaderItemDecorator(adapter)
         decorator.attachToRecyclerView(binding.recyclerView)
         adapter.onItemClick = { section, position ->
-            if (selectedDrinks.contains(section.getDrinkItem()) && section.getDrinkItem().type != "toplo") {
+            if (selectedDrinks.contains(section.getDrinkItem()) && ((section.getDrinkItem().type == "bezalkoholno")
+                || section.getDrinkItem().extras.isNotEmpty())
+            ) {
                 val drinkOptionsDialog = OrderItemCustomizationDialog()
                 drinkOptionsDialog.listener = this
                 val bundle = Bundle()
@@ -96,7 +98,9 @@ class DrinkFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener 
         }
         adapter.addToCartClick = { section, position ->
             if (!selectedDrinks.contains(section.getDrinkItem())) {
-                if (section.getDrinkItem().type != "toplo") {
+                if (section.getDrinkItem().type == "bezalkoholno"
+                    || section.getDrinkItem().extras.isNotEmpty()
+                ) {
                     val drinkOptionsDialog = OrderItemCustomizationDialog()
                     drinkOptionsDialog.listener = this
                     val bundle = Bundle()
