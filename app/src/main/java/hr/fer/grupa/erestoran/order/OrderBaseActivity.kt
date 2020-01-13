@@ -81,6 +81,10 @@ class OrderBaseActivity : AppCompatActivity() {
         })
     }
 
+    fun getOrder(): Order {
+        return order
+    }
+
     override fun onStart() {
         super.onStart()
         sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
