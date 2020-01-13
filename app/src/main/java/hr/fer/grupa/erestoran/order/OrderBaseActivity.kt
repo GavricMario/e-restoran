@@ -146,7 +146,7 @@ class OrderBaseActivity : AppCompatActivity() {
 
     fun homeClicked() {
         val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
-        if (prefs.getBoolean("isGuest", false)) {
+        if (prefs.getBoolean("isGuest", true)) {
             startActivity(Intent(this, UserTypeSelectActivity::class.java))
             finish()
         } else {
@@ -165,7 +165,7 @@ class OrderBaseActivity : AppCompatActivity() {
         }
         if (supportFragmentManager.fragments.size > 1) supportFragmentManager.popBackStack()
         else {
-            if (prefs.getBoolean("isGuest", false)) {
+            if (prefs.getBoolean("isGuest", true)) {
                 startActivity(Intent(this, UserTypeSelectActivity::class.java))
                 finish()
             } else {

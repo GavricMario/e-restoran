@@ -28,7 +28,7 @@ class MethodSelectActivity : AppCompatActivity() {
 
         prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
 
-        val isGuest: Boolean = prefs.getBoolean("isGuest", false)
+        val isGuest: Boolean = prefs.getBoolean("isGuest", true)
 
         if (isGuest) {
             order_view.visibility = GONE
