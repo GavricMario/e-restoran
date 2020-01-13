@@ -14,7 +14,7 @@ import hr.fer.grupa.erestoran.account.AddressAdapter
 import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.activity_dostava.*
 import androidx.recyclerview.widget.RecyclerView
-
+import hr.fer.grupa.erestoran.models.AddressModel
 
 
 class Dostava : AppCompatActivity() {
@@ -22,11 +22,13 @@ class Dostava : AppCompatActivity() {
     private var radioGroup: RadioGroup? = null
     private var radioButton: RadioButton? = null
 
-    private lateinit var adapter: AddressAdapter
+    private lateinit var address: ArrayList<AddressModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dostava)
+
+        address = sessionUser.addresses
 
         radioGroup = findViewById(R.id.radio_Group)
         val radioId = radioGroup!!.checkedRadioButtonId
@@ -34,7 +36,7 @@ class Dostava : AppCompatActivity() {
         radioButton = findViewById(radioId)
 
         potvrdi_id.setOnClickListener {
-            if (adapter.itemCount == 0) {
+            if (address.size == 0) {
                 Toast.makeText(this, getString(R.string.add_address_message), Toast.LENGTH_LONG).show()
             } else {
                 val intent = Intent(this, Zahvala::class.java)
@@ -49,38 +51,19 @@ class Dostava : AppCompatActivity() {
             finish()
         }
 
-        adapter = AddressAdapter(this, sessionUser.addresses)
-        val layoutManager = LinearLayoutManager(this)
-
-        addressRecyclerView.layoutManager = layoutManager
-        addressRecyclerView.adapter = adapter
-
-        val snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(addressRecyclerView)
-
-        addressRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val centerView = snapHelper.findSnapView(layoutManager)
-                    val pos = layoutManager.getPosition(centerView!!)
-                    (recyclerView.adapter as AddressAdapter).setSnappedPosition(pos)
-                }
-            }
-        })
-        if (adapter.itemCount > 0)
-        addressRecyclerView.scrollToPosition(adapter.itemCount / 2)
-
-        addAddressButton.setOnClickListener {
-            startActivity(Intent(this, AddAddressActivity::class.java))
+        val addresses: Array<String> = Array(size = address.size, init = {""})
+        for (i in 0 until address.size) {
+            val text = "${address[i].streetName} ${address[i].streetNumber}, ${address[i].city} ${address[i].postalCode}"
+            addresses[i] = text
         }
+
+        numberPicker.maxValue = addresses.size - 1
+        numberPicker.displayedValues = addresses
 
     }
 
     override fun onResume() {
         super.onResume()
-        adapter = AddressAdapter(this, sessionUser.addresses)
-        addressRecyclerView.adapter = adapter
+        address = sessionUser.addresses
     }
 }

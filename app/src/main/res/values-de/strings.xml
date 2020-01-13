@@ -114,4 +114,12 @@
     <string name="iskoristi">Verwenden</string>
     <string name="invalid_coupon">Ungültiger Gutschein</string>
     <string name="add_address_message">Bitte geben Sie zuerst eine Adresse ein</string>
+
+    <string name="protein">Protein:</string>
+    <string name="potassium">Kalium:</string>
+    <string name="sodium">Kalium:</string>
+    <string name="carbohydrates">Kohlenhydrate:</string>
+    <string name="fat">Fett:</string>
+    <string name="calories">Kalorien:</string>
+    <string name="nutrition">Ernährung</string>
 </resources>

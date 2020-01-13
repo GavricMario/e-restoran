@@ -20,10 +20,11 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/na_in_pla_anja"
-        app:layout_constraintStart_toStartOf="@+id/addressRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/addressRecyclerView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberPicker" />
 
 
     <RadioGroup
@@ -42,7 +43,7 @@
             android:id="@+id/pouzece"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pouze_e" />
+            android:text="@string/cash" />
 
         <RadioButton
             android:id="@+id/kartica"
@@ -73,14 +74,13 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/addressRecyclerView"
+    <NumberPicker
+        android:id="@+id/numberPicker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:maxHeight="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

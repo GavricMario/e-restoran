@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso
 import hr.fer.grupa.erestoran.R
 import hr.fer.grupa.erestoran.food.Section
 import hr.fer.grupa.erestoran.models.Drink
+import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.item_food.view.*
 import kotlinx.android.synthetic.main.item_food_header.view.*
 
@@ -92,8 +93,16 @@ class DrinkAdapter(var context: Context, var sections: MutableList<Section>) :
         }
 
         fun bind(drink: Drink) {
-            name.text = drink.title
-            description.text = drink.subtitle
+            if (sessionUser.language == "hr") {
+                name.text = drink.title
+                description.text = drink.subtitle
+            } else if (sessionUser.language == "de") {
+                name.text = drink.germanTitle
+                description.text = drink.germanSubtitle
+            } else {
+                name.text = drink.englishTitle
+                description.text = drink.englishSubtitle
+            }
             price.text = drink.price.toString()
             if (drink.isInCart) {
                 isInCartView.visibility = View.VISIBLE

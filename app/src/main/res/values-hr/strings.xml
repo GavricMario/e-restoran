@@ -114,4 +114,11 @@
     <string name="iskoristi">Iskoristi</string>
     <string name="invalid_coupon">Nevaljan kupon</string>
     <string name="add_address_message">Molim dodajte adresu prvo</string>
+    <string name="protein">Proteini:</string>
+    <string name="potassium">Kalij:</string>
+    <string name="sodium">Natrij:</string>
+    <string name="carbohydrates">Ugljikohidrati:</string>
+    <string name="fat">Masnoća:</string>
+    <string name="calories">Kalorije:</string>
+    <string name="nutrition">Prehrana </string>
 </resources>

@@ -15,6 +15,7 @@ import com.shuhart.stickyheader.StickyAdapter
 import com.squareup.picasso.Picasso
 import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.R
+import hr.fer.grupa.erestoran.util.sessionUser
 import kotlinx.android.synthetic.main.item_food.view.*
 import kotlinx.android.synthetic.main.item_food_header.view.*
 
@@ -91,8 +92,16 @@ class FoodAdapter(var context: Context, var sections: MutableList<Section>) :
         }
 
         fun bind(food: Food) {
-            name.text = food.title
-            description.text = food.subtitle
+            if (sessionUser.language == "hr") {
+                name.text = food.title
+                description.text = food.subtitle
+            } else if (sessionUser.language == "de") {
+                name.text = food.germanTitle
+                description.text = food.germanSubtitle
+            } else {
+                name.text = food.englishTitle
+                description.text = food.englishSubtitle
+            }
             price.text = food.price.toString()
             if (food.isInCart) {
                 isInCartView.visibility = View.VISIBLE

@@ -60,7 +60,14 @@ class Jezik : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, MethodSelectActivity::class.java))
+        val prefs = getSharedPreferences(resources.getString(R.string.app_name), MODE_PRIVATE)
+        if (prefs.getBoolean("isGuest", true)) {
+            startActivity(Intent(this, UserTypeSelectActivity::class.java))
+            finish()
+        } else {
+            startActivity(Intent(this, MethodSelectActivity::class.java))
+            finish()
+        }
     }
 
 }

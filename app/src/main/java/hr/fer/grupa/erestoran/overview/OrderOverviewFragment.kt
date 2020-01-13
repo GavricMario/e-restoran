@@ -2,6 +2,7 @@ package hr.fer.grupa.erestoran.overview
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +18,20 @@ import hr.fer.grupa.erestoran.datasource.FirebaseDataSourceManager
 import hr.fer.grupa.erestoran.food.HeaderModel
 import hr.fer.grupa.erestoran.food.ItemModel
 import hr.fer.grupa.erestoran.food.Section
+import hr.fer.grupa.erestoran.models.Drink
+import hr.fer.grupa.erestoran.models.Food
 import hr.fer.grupa.erestoran.models.Order
+import hr.fer.grupa.erestoran.util.OrderItemCustomizationDialog
 import kotlin.math.roundToLong
 
-class OrderOverviewFragment : Fragment() {
+class OrderOverviewFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveListener {
+    override fun saveFood(food: Food, position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun saveDrink(drink: Drink, position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private lateinit var binding: OrderOverviewFragmentBinding
 
@@ -114,6 +125,15 @@ class OrderOverviewFragment : Fragment() {
             }
             adapter.notifyItemRemoved(position)
             updateTotalPrice()
+        }
+        adapter.onItemClick = { section ->
+//            val foodOptionsDialog = OrderItemCustomizationDialog()
+//            foodOptionsDialog.listener = this
+//            val bundle = Bundle()
+//            bundle.putInt("position", position)
+//            bundle.putSerializable("food", section.getItem())
+//            foodOptionsDialog.arguments = bundle
+//            foodOptionsDialog.show(requireActivity().supportFragmentManager, "ItemOptions")
         }
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()

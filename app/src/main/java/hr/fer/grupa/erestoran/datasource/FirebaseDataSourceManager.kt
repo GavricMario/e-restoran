@@ -63,9 +63,9 @@ class FirebaseDataSourceManager{
     }
 
     fun saveAddress(address: AddressModel) {
-        val key = database.reference.child("Users").child(userUid).child("addresses").push().key
+        val key = database.reference.child("Users").child(userUid).child("address").push().key
         if (key != null ) {
-            database.reference.child("Users").child(userUid).child("addresses").child(key).setValue(address)
+            database.reference.child("Users").child(userUid).child("address").child(key).setValue(address)
         }
     }
 
