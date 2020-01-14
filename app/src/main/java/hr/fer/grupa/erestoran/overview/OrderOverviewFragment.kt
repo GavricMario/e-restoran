@@ -114,12 +114,12 @@ class OrderOverviewFragment : Fragment(), OrderItemCustomizationDialog.ItemSaveL
             updateTotalPrice()
         }
         adapter.addToCartClick = { item, position ->
-            allItems.removeAt(position)
             if (allItems[position].sectionPosition() == 0) {
                 order.food.remove(allItems[position].getItem())
             } else {
                 order.drink.remove(allItems[position].getDrinkItem())
             }
+            allItems.removeAt(position)
             adapter.notifyItemRemoved(position)
             updateTotalPrice()
         }
